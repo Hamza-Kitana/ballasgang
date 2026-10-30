@@ -3,10 +3,13 @@ import { Atmosphere } from "@/components/ballas/Atmosphere";
 import { LoadingScreen } from "@/components/ballas/LoadingScreen";
 import { EnterGate } from "@/components/ballas/EnterGate";
 import { Stage } from "@/components/ballas/Stage";
+import { useLanguage } from "@/i18n/LanguageProvider";
+import { speakLine } from "@/lib/speak";
 
 type Phase = "loading" | "gate" | "flash" | "ready";
 
 export function Experience() {
+  const { t, locale } = useLanguage();
   const [phase, setPhase] = useState<Phase>("loading");
   const [progress, setProgress] = useState(0);
 
@@ -17,10 +20,10 @@ export function Experience() {
     const duration = 1800;
 
     const tick = () => {
-      const t = Math.min(1, (performance.now() - start) / duration);
-      const eased = 1 - Math.pow(1 - t, 3);
+      const next = Math.min(1, (performance.now() - start) / duration);
+      const eased = 1 - Math.pow(1 - next, 3);
       setProgress(Math.round(eased * 100));
-      if (t < 1) {
+      if (next < 1) {
         timer = window.setTimeout(tick, 50);
       } else {
         frame = window.setTimeout(() => setPhase("gate"), 200);
@@ -35,20 +38,23 @@ export function Experience() {
   }, []);
 
   const enter = () => {
+    speakLine(t.siteVoice, locale);
     setPhase("flash");
-    window.setTimeout(() => setPhase("ready"), 280);
+    window.setTimeout(() => setPhase("ready"), 520);
   };
 
   return (
     <div className="relative h-dvh w-full overflow-hidden bg-[oklch(0.08_0.04_305)] text-foreground">
-      {phase !== "loading" ? <Atmosphere /> : (
+      {phase !== "loading" ? (
+        <Atmosphere />
+      ) : (
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_40%,oklch(0.35_0.18_305/0.45),oklch(0.08_0.04_305))]" />
       )}
 
       {phase === "loading" ? <LoadingScreen progress={progress} /> : null}
       {phase === "gate" || phase === "flash" ? <EnterGate onEnter={enter} /> : null}
       {phase === "flash" ? (
-        <div className="pointer-events-none absolute inset-0 z-[60] bg-primary/30 transition-opacity" />
+        <div className="ballas-enter-flash pointer-events-none absolute inset-0 z-[60]" />
       ) : null}
       {phase === "ready" ? <Stage /> : null}
     </div>

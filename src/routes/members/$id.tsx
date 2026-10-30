@@ -29,6 +29,7 @@ function MemberProfile() {
   const { member } = Route.useLoaderData();
   const { t, locale } = useLanguage();
   const others = members.filter((m) => m.id !== member.id).slice(0, 5);
+  const hero = member.liveImage ?? member.image;
 
   return (
     <div className="relative h-dvh w-full overflow-hidden bg-[oklch(0.08_0.04_305)] text-foreground">
@@ -38,6 +39,7 @@ function MemberProfile() {
         <div className="flex shrink-0 items-center justify-between gap-3">
           <Link
             to="/"
+            viewTransition
             className="inline-flex items-center gap-2 text-xs tracking-[0.16em] text-violet-soft transition hover:text-white"
           >
             <CrownMark className="h-5 w-5" />
@@ -49,11 +51,32 @@ function MemberProfile() {
           </div>
         </div>
 
-        <div className="panel-scroll mt-6 min-h-0 flex-1">
-          <div className="mx-auto grid max-w-5xl gap-8 lg:grid-cols-[auto_1fr] lg:items-end">
-            <MemberPortrait member={member} size="xl" />
+        <div className="panel-scroll panel-enter-next mt-5 min-h-0 flex-1">
+          <div className="relative mx-auto max-w-5xl overflow-hidden border border-white/10">
+            <div className="relative aspect-[21/9] min-h-[140px] overflow-hidden sm:min-h-[180px]">
+              <img
+                src={hero}
+                alt={member.name}
+                className="h-full w-full object-cover"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-[oklch(0.08_0.04_305)] via-black/40 to-black/20" />
+              <div
+                className="absolute inset-0 opacity-35 mix-blend-color"
+                style={{ background: member.accent }}
+              />
+              {member.status === "live" ? (
+                <div className="absolute start-4 top-4 inline-flex items-center gap-1.5 rounded-full bg-red-500 px-3 py-1 text-[10px] font-bold tracking-[0.18em] text-white shadow-[0_0_18px_rgba(239,68,68,0.5)]">
+                  <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-white" />
+                  LIVE
+                </div>
+              ) : null}
+            </div>
+          </div>
 
-            <div>
+          <div className="relative z-10 mx-auto -mt-12 grid max-w-5xl gap-8 px-1 sm:-mt-16 lg:grid-cols-[auto_1fr] lg:items-end">
+            <MemberPortrait member={member} size="xl" className="ring-2 ring-black/60" />
+
+            <div className="pb-1">
               <p className="text-xs tracking-[0.28em] text-violet-soft">{t.ranks[member.rank]}</p>
               <h1 className="mt-2 text-5xl font-bold tracking-[0.04em] text-glow sm:text-7xl">
                 {member.name}
@@ -101,15 +124,17 @@ function MemberProfile() {
 
           <div className="mx-auto mt-10 max-w-5xl pb-4">
             <p className="text-xs tracking-[0.22em] text-violet-soft">{t.profile.moreFamily}</p>
-            <div className="mt-3 flex flex-wrap gap-2">
+            <div className="mt-3 flex flex-wrap gap-3">
               {others.map((other) => (
                 <Link
                   key={other.id}
                   to="/members/$id"
                   params={{ id: other.id }}
-                  className="border border-white/10 bg-black/50 px-3.5 py-2 text-sm tracking-wide transition hover:border-primary/55 hover:bg-primary/10"
+                  viewTransition
+                  className="group flex items-center gap-2 border border-white/10 bg-black/50 pe-3.5 transition hover:border-primary/55 hover:bg-primary/10"
                 >
-                  {other.alias}
+                  <MemberPortrait member={other} size="sm" rounded="md" className="rounded-none" />
+                  <span className="text-sm tracking-wide">{other.alias}</span>
                 </Link>
               ))}
             </div>

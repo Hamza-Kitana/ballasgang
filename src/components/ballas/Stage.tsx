@@ -3,6 +3,7 @@ import { cn } from "@/lib/utils";
 import { HomePanel } from "@/components/ballas/panels/HomePanel";
 import { MembersPanel } from "@/components/ballas/panels/MembersPanel";
 import { LivePanel } from "@/components/ballas/panels/LivePanel";
+import { RulesPanel } from "@/components/ballas/panels/RulesPanel";
 import { AchievementsPanel } from "@/components/ballas/panels/AchievementsPanel";
 import { JoinPanel } from "@/components/ballas/panels/JoinPanel";
 import { getLiveMembers } from "@/data/gang";
@@ -11,30 +12,43 @@ import { LanguageToggle } from "@/components/ballas/LanguageToggle";
 import { GtaChrome } from "@/components/ballas/GtaChrome";
 import { useLanguage } from "@/i18n/LanguageProvider";
 
-const tabIds = ["home", "members", "live", "achievements", "join"] as const;
+const tabIds = ["home", "members", "live", "rules", "achievements", "join"] as const;
 type TabId = (typeof tabIds)[number];
 
 export function Stage() {
   const { t } = useLanguage();
   const [tab, setTab] = useState<TabId>("home");
+  const [direction, setDirection] = useState<"next" | "prev">("next");
   const liveCount = getLiveMembers().length;
 
   const tabs = [
     { id: "home" as const, label: t.nav.home },
     { id: "members" as const, label: t.nav.members },
     { id: "live" as const, label: t.nav.live },
+    { id: "rules" as const, label: t.nav.rules },
     { id: "achievements" as const, label: t.nav.achievements },
     { id: "join" as const, label: t.nav.join },
   ];
+
+  const goTo = (next: TabId) => {
+    const from = tabIds.indexOf(tab);
+    const to = tabIds.indexOf(next);
+    setDirection(to >= from ? "next" : "prev");
+    setTab(next);
+  };
 
   useEffect(() => {
     const onKey = (event: KeyboardEvent) => {
       const index = tabIds.findIndex((item) => item === tab);
       if (event.key === "ArrowRight") {
-        setTab(tabIds[(index + 1) % tabIds.length]!);
+        const next = tabIds[(index + 1) % tabIds.length]!;
+        setDirection("next");
+        setTab(next);
       }
       if (event.key === "ArrowLeft") {
-        setTab(tabIds[(index - 1 + tabIds.length) % tabIds.length]!);
+        const next = tabIds[(index - 1 + tabIds.length) % tabIds.length]!;
+        setDirection("prev");
+        setTab(next);
       }
     };
     window.addEventListener("keydown", onKey);
@@ -53,26 +67,26 @@ export function Stage() {
         </div>
 
         <div className="flex items-center gap-2">
-          <nav className="hidden items-center gap-1 md:flex">
+          <nav className="hidden items-center gap-0.5 lg:flex">
             {tabs.map((item) => (
               <button
                 key={item.id}
                 type="button"
-                onClick={() => setTab(item.id)}
+                onClick={() => goTo(item.id)}
                 className={cn(
-                  "relative px-3.5 py-2 text-[11px] tracking-[0.12em] transition duration-300",
+                  "relative px-2.5 py-2 text-[10px] tracking-[0.12em] transition duration-300 xl:px-3 xl:text-[11px]",
                   tab === item.id ? "text-white" : "text-muted-foreground hover:text-violet-soft",
                 )}
               >
                 {item.label}
                 {item.id === "live" && liveCount > 0 ? (
-                  <span className="ms-1.5 inline-flex h-4 min-w-4 items-center justify-center rounded-full bg-red-500 px-1 text-[9px] text-white shadow-[0_0_12px_rgba(239,68,68,0.7)]">
+                  <span className="ms-1.5 inline-flex h-4 min-w-4 items-center justify-center rounded-full bg-red-500 px-1 text-[9px] text-white">
                     {liveCount}
                   </span>
                 ) : null}
                 <span
                   className={cn(
-                    "absolute inset-x-3 bottom-0 h-px origin-center bg-gradient-to-r from-transparent via-primary to-transparent transition duration-300",
+                    "absolute inset-x-2 bottom-0 h-px origin-center bg-gradient-to-r from-transparent via-primary to-transparent transition duration-300",
                     tab === item.id ? "scale-x-100 opacity-100" : "scale-x-0 opacity-0",
                   )}
                 />
@@ -83,10 +97,18 @@ export function Stage() {
         </div>
       </header>
 
-      <GtaChrome />
+      {tab !== "home" ? <GtaChrome /> : null}
 
-      <main className="relative mt-4 min-h-0 flex-1 overflow-hidden" key={tab}>
-        {renderPanel(tab)}
+      <main className="relative mt-4 min-h-0 flex-1 overflow-hidden">
+        <div
+          key={tab}
+          className={cn(
+            "h-full",
+            direction === "next" ? "panel-enter-next" : "panel-enter-prev",
+          )}
+        >
+          {renderPanel(tab, goTo)}
+        </div>
       </main>
 
       <footer className="mt-3 hidden shrink-0 items-center justify-between border-t border-white/10 pt-3 text-[10px] tracking-[0.16em] text-muted-foreground md:flex">
@@ -94,12 +116,12 @@ export function Stage() {
         <span>{t.footerRight}</span>
       </footer>
 
-      <nav className="mt-3 flex shrink-0 gap-1 overflow-x-auto border-t border-white/10 pt-3 md:hidden">
+      <nav className="mt-3 flex shrink-0 gap-1 overflow-x-auto border-t border-white/10 pt-3 lg:hidden">
         {tabs.map((item) => (
           <button
             key={item.id}
             type="button"
-            onClick={() => setTab(item.id)}
+            onClick={() => goTo(item.id)}
             className={cn(
               "whitespace-nowrap px-3 py-2 text-[10px] tracking-[0.1em] transition",
               tab === item.id
@@ -116,14 +138,20 @@ export function Stage() {
   );
 }
 
-function renderPanel(tab: TabId) {
+function renderPanel(tab: TabId, goTo: (next: TabId) => void) {
   switch (tab) {
     case "home":
-      return <HomePanel />;
+      return (
+        <HomePanel
+          onNavigate={(next) => goTo(next)}
+        />
+      );
     case "members":
       return <MembersPanel />;
     case "live":
       return <LivePanel />;
+    case "rules":
+      return <RulesPanel />;
     case "achievements":
       return <AchievementsPanel />;
     case "join":
