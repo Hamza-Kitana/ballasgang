@@ -787,30 +787,35 @@ html[dir="rtl"] .ballas-arrow-nudge {
 }
 
 .ballas-member-card {
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  background: rgba(0, 0, 0, 0.45);
-  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.35);
+  border: 1.5px solid rgba(255, 255, 255, 0.28);
+  background: rgba(0, 0, 0, 0.62);
+  box-shadow:
+    0 0 0 1px rgba(0, 0, 0, 0.35),
+    0 18px 44px rgba(0, 0, 0, 0.5);
 }
 
 .ballas-member-card:hover {
-  border-color: color-mix(in oklch, var(--accent, var(--color-primary)) 65%, white 10%);
+  border-color: color-mix(in oklch, var(--accent, var(--color-primary)) 75%, white 15%);
   box-shadow:
-    0 20px 50px rgba(0, 0, 0, 0.45),
-    0 0 28px color-mix(in oklch, var(--accent, var(--color-primary)) 35%, transparent);
+    0 22px 52px rgba(0, 0, 0, 0.55),
+    0 0 32px color-mix(in oklch, var(--accent, var(--color-primary)) 42%, transparent);
 }
 
 .ballas-member-card-featured {
-  border-color: color-mix(in oklch, var(--accent, var(--color-primary)) 55%, transparent);
+  border-color: color-mix(in oklch, var(--accent, var(--color-primary)) 70%, white 10%);
   box-shadow:
-    0 20px 50px rgba(0, 0, 0, 0.4),
-    0 0 36px color-mix(in oklch, var(--accent, var(--color-primary)) 30%, transparent);
+    0 0 0 1px color-mix(in oklch, var(--accent, var(--color-primary)) 35%, transparent),
+    0 22px 56px rgba(0, 0, 0, 0.55),
+    0 0 40px color-mix(in oklch, var(--accent, var(--color-primary)) 38%, transparent);
 }
 
 .ballas-rule-card {
-  border: 1px solid rgba(255, 255, 255, 0.12);
+  border: 1.5px solid rgba(255, 255, 255, 0.26);
   background:
-    linear-gradient(145deg, oklch(0.28 0.1 305 / 0.28), oklch(0.1 0.05 305 / 0.72));
-  box-shadow: 0 14px 36px rgba(0, 0, 0, 0.3);
+    linear-gradient(145deg, oklch(0.32 0.12 305 / 0.55), oklch(0.12 0.06 305 / 0.88));
+  box-shadow:
+    0 0 0 1px rgba(0, 0, 0, 0.25),
+    0 16px 40px rgba(0, 0, 0, 0.42);
   transition:
     border-color 0.3s ease,
     transform 0.3s ease,
@@ -818,19 +823,21 @@ html[dir="rtl"] .ballas-arrow-nudge {
 }
 
 .ballas-rule-card:hover {
-  border-color: color-mix(in oklch, var(--color-primary) 50%, transparent);
+  border-color: color-mix(in oklch, var(--color-primary) 65%, white 10%);
   transform: translateY(-3px);
   box-shadow:
-    0 18px 44px rgba(0, 0, 0, 0.38),
-    0 0 28px oklch(0.64 0.28 305 / 0.18);
+    0 20px 48px rgba(0, 0, 0, 0.48),
+    0 0 30px oklch(0.64 0.28 305 / 0.28);
 }
 
 .ballas-mission-card {
-  border: 1px solid rgba(255, 255, 255, 0.12);
+  border: 1.5px solid rgba(255, 255, 255, 0.26);
   background:
-    radial-gradient(ellipse at 100% 0%, oklch(0.5 0.24 305 / 0.22), transparent 45%),
-    linear-gradient(165deg, oklch(0.26 0.1 305 / 0.35), oklch(0.09 0.05 305 / 0.78));
-  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.32);
+    radial-gradient(ellipse at 100% 0%, oklch(0.55 0.26 305 / 0.35), transparent 48%),
+    linear-gradient(165deg, oklch(0.3 0.12 305 / 0.58), oklch(0.1 0.06 305 / 0.9));
+  box-shadow:
+    0 0 0 1px rgba(0, 0, 0, 0.25),
+    0 18px 44px rgba(0, 0, 0, 0.45);
   transition:
     border-color 0.3s ease,
     transform 0.3s ease,
@@ -838,17 +845,19 @@ html[dir="rtl"] .ballas-arrow-nudge {
 }
 
 .ballas-mission-card:hover {
-  border-color: color-mix(in oklch, var(--color-violet-glow) 55%, transparent);
+  border-color: color-mix(in oklch, var(--color-violet-glow) 70%, white 10%);
   transform: translateY(-4px);
   box-shadow:
-    0 22px 52px rgba(0, 0, 0, 0.42),
-    0 0 36px oklch(0.64 0.28 305 / 0.22);
+    0 24px 56px rgba(0, 0, 0, 0.5),
+    0 0 40px oklch(0.64 0.28 305 / 0.3);
 }
 
 .ballas-join-step {
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  background: linear-gradient(160deg, oklch(0.26 0.1 305 / 0.32), oklch(0.1 0.05 305 / 0.72));
-  box-shadow: 0 14px 36px rgba(0, 0, 0, 0.28);
+  border: 1.5px solid rgba(255, 255, 255, 0.26);
+  background: linear-gradient(160deg, oklch(0.3 0.12 305 / 0.55), oklch(0.11 0.06 305 / 0.88));
+  box-shadow:
+    0 0 0 1px rgba(0, 0, 0, 0.25),
+    0 16px 40px rgba(0, 0, 0, 0.4);
   transition:
     border-color 0.3s ease,
     transform 0.3s ease,
@@ -856,11 +865,19 @@ html[dir="rtl"] .ballas-arrow-nudge {
 }
 
 .ballas-join-step:hover {
-  border-color: color-mix(in oklch, var(--color-primary) 50%, transparent);
+  border-color: color-mix(in oklch, var(--color-primary) 65%, white 10%);
   transform: translateY(-3px);
   box-shadow:
-    0 18px 44px rgba(0, 0, 0, 0.36),
-    0 0 26px oklch(0.64 0.28 305 / 0.16);
+    0 20px 48px rgba(0, 0, 0, 0.46),
+    0 0 28px oklch(0.64 0.28 305 / 0.25);
+}
+
+.ballas-live-card {
+  border: 1.5px solid rgba(255, 255, 255, 0.26);
+  background: rgba(0, 0, 0, 0.62);
+  box-shadow:
+    0 0 0 1px rgba(0, 0, 0, 0.3),
+    0 16px 40px rgba(0, 0, 0, 0.45);
 }
 
 .ballas-member-glow {

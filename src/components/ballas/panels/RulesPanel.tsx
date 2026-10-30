@@ -58,7 +58,7 @@ export function RulesPanel() {
                   </span>
                 </div>
 
-                <p className="text-sm leading-relaxed text-white/65">
+                <p className="text-sm leading-relaxed text-white/80">
                   {loc(rule.detail, locale)}
                 </p>
               </div>

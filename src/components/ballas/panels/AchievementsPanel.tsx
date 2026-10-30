@@ -35,7 +35,7 @@ export function AchievementsPanel() {
                 <h3 className="mt-4 text-2xl font-bold tracking-wide leading-snug">
                   {loc(item.title, locale)}
                 </h3>
-                <p className="mt-3 flex-1 text-sm leading-relaxed text-white/65">
+                <p className="mt-3 flex-1 text-sm leading-relaxed text-white/80">
                   {loc(item.detail, locale)}
                 </p>
 

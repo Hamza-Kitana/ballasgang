@@ -17,7 +17,7 @@ export function LiveCard({ member, featured = false, index = 0 }: LiveCardProps)
 
   if (featured) {
     return (
-      <div className="group relative mx-auto w-full max-w-3xl overflow-hidden rounded-[1.75rem] border border-red-400/40 bg-black/55 shadow-[0_20px_60px_rgba(0,0,0,0.45),0_0_40px_oklch(0.55_0.22_25/0.2)]">
+      <div className="group relative mx-auto w-full max-w-3xl overflow-hidden rounded-[1.75rem] border-[1.5px] border-red-400/55 bg-black/70 shadow-[0_20px_60px_rgba(0,0,0,0.55),0_0_40px_oklch(0.55_0.22_25/0.28)]">
         <div className="pointer-events-none absolute -inset-px rounded-[1.75rem] bg-[radial-gradient(ellipse_at_50%_0%,oklch(0.55_0.22_25/0.35),transparent_55%)] opacity-70" />
         <div className="relative h-[210px] overflow-hidden sm:h-[250px]">
           <img
@@ -85,9 +85,9 @@ export function LiveCard({ member, featured = false, index = 0 }: LiveCardProps)
   return (
     <div
       className={cn(
-        "group relative overflow-hidden rounded-[1.35rem] border border-white/12 bg-black/45",
-        "shadow-[0_14px_36px_rgba(0,0,0,0.35)] transition duration-300",
-        "hover:-translate-y-1.5 hover:border-red-400/45 hover:shadow-[0_20px_48px_rgba(0,0,0,0.45),0_0_24px_oklch(0.55_0.22_25/0.22)]",
+        "ballas-live-card group relative overflow-hidden rounded-[1.35rem]",
+        "transition duration-300 hover:-translate-y-1.5 hover:border-red-400/55",
+        "hover:shadow-[0_20px_48px_rgba(0,0,0,0.5),0_0_24px_oklch(0.55_0.22_25/0.28)]",
       )}
     >
       <div className="relative aspect-video overflow-hidden">
@@ -116,8 +116,8 @@ export function LiveCard({ member, featured = false, index = 0 }: LiveCardProps)
         <div className="flex items-center gap-3">
           <MemberPortrait member={member} size="sm" />
           <div>
-            <h3 className="font-display text-2xl tracking-[0.05em]">{member.alias}</h3>
-            <p className="text-xs text-muted-foreground">{loc(member.role, locale)}</p>
+            <h3 className="font-display text-2xl tracking-[0.05em] text-white">{member.alias}</h3>
+            <p className="text-xs text-white/75">{loc(member.role, locale)}</p>
           </div>
         </div>
         {member.streamUrl ? (

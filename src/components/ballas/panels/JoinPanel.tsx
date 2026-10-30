@@ -78,7 +78,7 @@ export function JoinPanel() {
                   </span>
                 </div>
                 <h4 className="mt-5 text-xl font-bold tracking-wide">{loc(step.title, locale)}</h4>
-                <p className="mt-2 text-sm leading-relaxed text-white/65">
+                <p className="mt-2 text-sm leading-relaxed text-white/80">
                   {loc(step.detail, locale)}
                 </p>
               </div>
@@ -102,7 +102,7 @@ export function JoinPanel() {
             {gangRules.map((rule, index) => (
               <article
                 key={rule.id}
-                className="ballas-rise relative overflow-hidden rounded-[1.25rem] border border-white/12 bg-black/40 p-4 backdrop-blur-sm"
+                className="ballas-rise relative overflow-hidden rounded-[1.25rem] border-[1.5px] border-white/25 bg-black/65 p-4 shadow-[0_14px_36px_rgba(0,0,0,0.4)] backdrop-blur-sm"
                 style={{ animationDelay: `${index * 35}ms` }}
               >
                 <div
@@ -133,7 +133,7 @@ export function JoinPanel() {
                         {t.rules.severity[rule.severity]}
                       </span>
                     </div>
-                    <p className="mt-1.5 text-sm leading-relaxed text-white/60">
+                    <p className="mt-1.5 text-sm leading-relaxed text-white/80">
                       {loc(rule.detail, locale)}
                     </p>
                   </div>

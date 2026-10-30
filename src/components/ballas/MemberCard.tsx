@@ -43,22 +43,22 @@ export function MemberCard({ member, index = 0, featured = false }: MemberCardPr
           loading="lazy"
         />
 
-        <div className="absolute inset-0 bg-gradient-to-t from-black via-black/55 to-black/10" />
-        <div className="ballas-member-glow absolute inset-x-0 bottom-0 h-1/2 opacity-50 transition duration-500 group-hover:opacity-80" />
+        <div className="absolute inset-0 bg-gradient-to-t from-black via-black/70 to-black/20" />
+        <div className="ballas-member-glow absolute inset-x-0 bottom-0 h-3/5 opacity-60 transition duration-500 group-hover:opacity-90" />
 
         <div className="absolute inset-x-0 top-0 z-10 flex items-start justify-between gap-2 p-3">
           <span
-            className="rounded-full px-3 py-1 text-[10px] font-bold tracking-[0.14em] text-white shadow-[0_0_16px_rgba(0,0,0,0.35)]"
+            className="rounded-full px-3 py-1 text-[10px] font-bold tracking-[0.14em] text-white ring-1 ring-white/25 shadow-[0_0_16px_rgba(0,0,0,0.45)]"
             style={{ background: member.accent }}
           >
             {t.ranks[member.rank]}
           </span>
           <span
             className={cn(
-              "inline-flex items-center gap-1.5 rounded-full px-2.5 py-1 text-[10px] font-semibold tracking-[0.12em] shadow-[0_0_16px_rgba(0,0,0,0.35)]",
+              "inline-flex items-center gap-1.5 rounded-full px-2.5 py-1 text-[10px] font-semibold tracking-[0.12em] ring-1 ring-white/20 shadow-[0_0_16px_rgba(0,0,0,0.45)]",
               member.status === "live" && "bg-red-500 text-white",
               member.status === "online" && "bg-emerald-500 text-white",
-              member.status === "offline" && "bg-black/75 text-white/75",
+              member.status === "offline" && "bg-black/85 text-white/90",
             )}
           >
             {member.status === "live" ? (
@@ -69,10 +69,12 @@ export function MemberCard({ member, index = 0, featured = false }: MemberCardPr
         </div>
 
         <div className="absolute inset-x-0 bottom-0 z-10 p-4">
-          <p className="text-[10px] tracking-[0.2em] text-white/70">{loc(member.role, locale)}</p>
+          <p className="text-[10px] font-semibold tracking-[0.2em] text-white/90">
+            {loc(member.role, locale)}
+          </p>
           <h3
             className={cn(
-              "font-display mt-1 leading-none tracking-[0.04em] text-white drop-shadow-[0_4px_18px_rgba(0,0,0,0.75)]",
+              "font-display mt-1 leading-none tracking-[0.04em] text-white drop-shadow-[0_4px_18px_rgba(0,0,0,0.9)]",
               featured
                 ? "text-[clamp(2.4rem,5vw,3.4rem)]"
                 : "text-[clamp(2rem,4vw,2.9rem)]",
@@ -80,21 +82,21 @@ export function MemberCard({ member, index = 0, featured = false }: MemberCardPr
           >
             {member.name}
           </h3>
-          <div className="mt-3 flex items-center justify-between gap-2 border-t border-white/15 pt-3">
-            <p className="text-sm text-white/85">“{member.alias}”</p>
-            <span className="inline-flex items-center gap-2 text-[10px] tracking-[0.14em] text-white/70">
-              <span className="text-violet-soft">{member.stats.respect}</span>
-              <span className="rounded-full bg-white/15 px-2.5 py-1 transition group-hover:bg-primary group-hover:text-white rtl:rotate-180">
+          <div className="mt-3 flex items-center justify-between gap-2 border-t border-white/30 pt-3">
+            <p className="text-sm font-medium text-white">“{member.alias}”</p>
+            <span className="inline-flex items-center gap-2 text-[10px] tracking-[0.14em] text-white/85">
+              <span className="font-bold text-violet-soft">{member.stats.respect}</span>
+              <span className="rounded-full bg-white/25 px-2.5 py-1 transition group-hover:bg-primary group-hover:text-white rtl:rotate-180">
                 →
               </span>
             </span>
           </div>
-          <div className="mt-2 h-1 overflow-hidden rounded-full bg-white/10">
+          <div className="mt-2 h-1.5 overflow-hidden rounded-full bg-white/20">
             <div
               className="h-full rounded-full transition-all duration-700"
               style={{
                 width: `${member.stats.respect}%`,
-                background: `linear-gradient(90deg, ${member.accent}, oklch(0.78 0.18 310))`,
+                background: `linear-gradient(90deg, ${member.accent}, oklch(0.85 0.14 310))`,
               }}
             />
           </div>
