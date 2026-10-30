@@ -1,4 +1,5 @@
 import { gangRules, loc } from "@/data/gang";
+import { PanelChrome } from "@/components/ballas/PanelChrome";
 import { useLanguage } from "@/i18n/LanguageProvider";
 import { cn } from "@/lib/utils";
 
@@ -7,47 +8,57 @@ export function RulesPanel() {
 
   return (
     <div className="flex h-full flex-col">
-      <div className="mb-5 shrink-0">
-        <p className="text-xs tracking-[0.28em] text-violet-soft">{t.rules.eyebrow}</p>
-        <h2 className="font-display mt-1 text-[clamp(2.6rem,8vw,5rem)] leading-none tracking-[0.06em]">
-          {t.rules.title}
-        </h2>
-        <p className="mt-2 max-w-2xl text-sm text-muted-foreground">{t.rules.subtitle}</p>
-        <div className="mt-3 h-px w-32 bg-gradient-to-r from-primary via-violet-glow to-transparent" />
-      </div>
+      <PanelChrome eyebrow={t.rules.eyebrow} title={t.rules.title} subtitle={t.rules.subtitle} />
 
-      <div className="panel-scroll min-h-0 flex-1">
-        <div className="grid gap-3 sm:grid-cols-2 xl:grid-cols-4">
+      <div className="panel-scroll min-h-0 flex-1 space-y-4 pb-2">
+        <div className="grid gap-3 lg:grid-cols-2">
           {gangRules.map((rule, index) => (
             <article
               key={rule.id}
-              className={cn(
-                "ballas-rule group relative flex min-h-[210px] flex-col overflow-hidden p-4 transition duration-300",
-                "hover:-translate-y-1",
-                rule.severity === "blood" && "ballas-rule-blood",
-                rule.severity === "law" && "ballas-rule-law",
-                rule.severity === "street" && "ballas-rule-street",
-              )}
-              style={{ animationDelay: `${index * 40}ms` }}
+              className="ballas-rise ballas-rule-card group relative overflow-hidden rounded-[1.35rem]"
+              style={{ animationDelay: `${index * 45}ms` }}
             >
-              <div className="pointer-events-none absolute -end-2 -top-6 font-display text-[6.5rem] leading-none text-white/[0.04] transition group-hover:text-primary/15">
-                {rule.code}
-              </div>
+              <div
+                className={cn(
+                  "absolute inset-y-0 start-0 w-1.5",
+                  rule.severity === "blood" && "bg-gradient-to-b from-red-400 to-red-600",
+                  rule.severity === "law" && "bg-gradient-to-b from-violet-soft to-primary",
+                  rule.severity === "street" && "bg-gradient-to-b from-white/70 to-white/25",
+                )}
+              />
 
-              <div className="relative z-10 flex items-start justify-between gap-2">
-                <span className="font-display text-4xl tracking-wider text-primary">
-                  {rule.code}
-                </span>
-                <span className="border border-white/15 bg-black/40 px-2 py-0.5 text-[9px] tracking-[0.18em] text-violet-soft uppercase">
-                  {t.rules.severity[rule.severity]}
-                </span>
-              </div>
+              <div className="relative flex h-full flex-col gap-4 p-4 ps-5 sm:p-5 sm:ps-6">
+                <div className="flex items-start justify-between gap-3">
+                  <div className="flex items-center gap-3">
+                    <span className="font-display flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl border border-primary/35 bg-primary/15 text-3xl leading-none text-primary shadow-[0_0_24px_oklch(0.64_0.28_305/0.25)]">
+                      {rule.code}
+                    </span>
+                    <div className="min-w-0">
+                      <p className="text-[10px] tracking-[0.22em] text-white/45 uppercase">
+                        {locale === "ar" ? "قانون" : "LAW"} {rule.code}
+                      </p>
+                      <h3 className="mt-1 text-xl font-bold tracking-wide sm:text-2xl">
+                        {loc(rule.title, locale)}
+                      </h3>
+                    </div>
+                  </div>
 
-              <div className="relative z-10 mt-auto pt-8">
-                <h3 className="text-xl font-bold tracking-wide sm:text-2xl">
-                  {loc(rule.title, locale)}
-                </h3>
-                <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
+                  <span
+                    className={cn(
+                      "shrink-0 rounded-full px-2.5 py-1 text-[9px] tracking-[0.16em] uppercase",
+                      rule.severity === "blood" &&
+                        "border border-red-400/30 bg-red-500/20 text-red-200",
+                      rule.severity === "law" &&
+                        "border border-primary/35 bg-primary/20 text-violet-soft",
+                      rule.severity === "street" &&
+                        "border border-white/15 bg-white/10 text-white/70",
+                    )}
+                  >
+                    {t.rules.severity[rule.severity]}
+                  </span>
+                </div>
+
+                <p className="text-sm leading-relaxed text-white/65">
                   {loc(rule.detail, locale)}
                 </p>
               </div>
@@ -55,7 +66,7 @@ export function RulesPanel() {
           ))}
         </div>
 
-        <p className="mt-5 border border-primary/30 bg-primary/10 px-4 py-3 text-xs tracking-[0.12em] text-violet-soft">
+        <p className="rounded-[1.25rem] border border-primary/35 bg-gradient-to-r from-primary/20 to-black/40 px-5 py-4 text-center text-xs tracking-[0.14em] text-violet-soft shadow-[0_0_28px_oklch(0.64_0.28_305/0.15)]">
           {t.rules.footer}
         </p>
       </div>

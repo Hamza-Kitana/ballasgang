@@ -72,7 +72,9 @@ export function BallasMusic({ active }: BallasMusicProps) {
   const hostRef = useRef<HTMLDivElement>(null);
   const playerRef = useRef<YtPlayer | null>(null);
   const [muted, setMuted] = useState(false);
+  const [volume, setVolume] = useState(45);
   const [ready, setReady] = useState(false);
+  const [open, setOpen] = useState(true);
 
   useEffect(() => {
     if (!active) return;
@@ -101,7 +103,7 @@ export function BallasMusic({ active }: BallasMusicProps) {
         },
         events: {
           onReady: (event) => {
-            event.target.setVolume(55);
+            event.target.setVolume(45);
             event.target.unMute();
             event.target.playVideo();
             setReady(true);
@@ -130,16 +132,20 @@ export function BallasMusic({ active }: BallasMusicProps) {
   useEffect(() => {
     const player = playerRef.current;
     if (!player || !ready) return;
-    if (active) {
-      if (muted) player.mute();
-      else {
-        player.unMute();
-        player.playVideo();
-      }
-    } else {
+
+    if (!active) {
       player.pauseVideo();
+      return;
     }
-  }, [active, muted, ready]);
+
+    player.setVolume(volume);
+    if (muted || volume === 0) {
+      player.mute();
+    } else {
+      player.unMute();
+      player.playVideo();
+    }
+  }, [active, muted, ready, volume]);
 
   if (!active) return null;
 
@@ -149,19 +155,66 @@ export function BallasMusic({ active }: BallasMusicProps) {
         <div ref={hostRef} />
       </div>
 
-      <button
-        type="button"
-        onClick={() => setMuted((value) => !value)}
-        className={cn(
-          "fixed bottom-4 end-4 z-[70] border px-3 py-2 text-[10px] tracking-[0.16em] transition",
-          muted
-            ? "border-white/20 bg-black/70 text-muted-foreground"
-            : "border-primary/50 bg-primary/25 text-white shadow-[0_0_20px_oklch(0.64_0.28_305/0.35)]",
+      <div className="fixed bottom-20 end-4 z-[70] sm:bottom-6 sm:end-6">
+        {!open ? (
+          <button
+            type="button"
+            onClick={() => setOpen(true)}
+            className="rounded-full border border-primary/45 bg-black/85 px-3.5 py-2 text-[10px] tracking-[0.16em] text-violet-soft shadow-[0_0_18px_oklch(0.64_0.28_305/0.25)]"
+          >
+            {t.music.label}
+          </button>
+        ) : (
+          <div className="w-[220px] rounded-2xl border border-primary/40 bg-black/90 p-3 shadow-[0_0_28px_oklch(0.64_0.28_305/0.3)] sm:w-[250px]">
+            <div className="mb-2 flex items-center justify-between gap-2">
+              <p className="text-[10px] tracking-[0.16em] text-violet-soft">{t.music.label}</p>
+              <button
+                type="button"
+                onClick={() => setOpen(false)}
+                className="text-[10px] tracking-[0.12em] text-muted-foreground hover:text-white"
+                aria-label="Close"
+              >
+                ✕
+              </button>
+            </div>
+
+            <div className="flex items-center gap-2">
+              <button
+                type="button"
+                onClick={() => setMuted((value) => !value)}
+                className={cn(
+                  "shrink-0 rounded-full border px-2.5 py-1.5 text-[10px] tracking-[0.14em] transition",
+                  muted || volume === 0
+                    ? "border-white/20 bg-white/5 text-muted-foreground"
+                    : "border-primary/50 bg-primary/30 text-white",
+                )}
+                aria-label={muted ? t.music.unmute : t.music.mute}
+              >
+                {muted || volume === 0 ? t.music.unmute : t.music.mute}
+              </button>
+
+              <div className="min-w-0 flex-1">
+                <label className="mb-1 block text-[9px] tracking-[0.14em] text-muted-foreground">
+                  {t.music.volume} · {muted ? 0 : volume}%
+                </label>
+                <input
+                  type="range"
+                  min={0}
+                  max={100}
+                  value={muted ? 0 : volume}
+                  onChange={(event) => {
+                    const next = Number(event.target.value);
+                    setVolume(next);
+                    if (next > 0) setMuted(false);
+                  }}
+                  className="ballas-volume w-full"
+                  aria-label={t.music.volume}
+                />
+              </div>
+            </div>
+          </div>
         )}
-        aria-label={muted ? t.music.unmute : t.music.mute}
-      >
-        {muted ? t.music.unmute : t.music.mute}
-      </button>
+      </div>
     </>
   );
 }

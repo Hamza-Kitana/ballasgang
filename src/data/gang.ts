@@ -167,7 +167,7 @@ export const members: GangMember[] = [
     status: "offline",
     accent: "#d8b4fe",
     image: "/members/lilac-mae.jpg",
-    bgVideo: "/videos/gta-5.mp4",
+    bgVideo: "/videos/gta-night.mp4",
     stats: { reps: 74, wars: 18, respect: 79 },
     badges: [
       { ar: "تجنيد", en: "Recruiter" },
@@ -209,7 +209,7 @@ export const members: GangMember[] = [
     status: "offline",
     accent: "#7c3aed",
     image: "/members/pulse-ty.jpg",
-    bgVideo: "/videos/gta-7.mp4",
+    bgVideo: "/videos/gta-4.mp4",
     stats: { reps: 52, wars: 6, respect: 61 },
     badges: [{ ar: "متدرّب", en: "Prospect" }],
   },
@@ -229,7 +229,7 @@ export const members: GangMember[] = [
     accent: "#f0abfc",
     image: "/members/venom-zoe.jpg",
     liveImage: "/live/venom-zoe.jpg",
-    bgVideo: "/videos/gta-8.mp4",
+    bgVideo: "/videos/gta-2.mp4",
     stats: { reps: 80, wars: 24, respect: 85 },
     badges: [
       { ar: "سمّ", en: "Venom" },
@@ -381,34 +381,34 @@ export const gangRules: GangRule[] = [
 export const joinSteps: JoinStep[] = [
   {
     step: 1,
-    title: { ar: "افهم الـ RP", en: "Learn the RP" },
+    title: { ar: "اقرأ القوانين", en: "Read the laws" },
     detail: {
-      ar: "شوف كيف العصابة تتحرك في المدينة. الألوان، الاحترام، والقوانين.",
-      en: "Watch how the set moves in the city. Colors, respect, and rules.",
+      ar: "اطّلع على قوانين العصابة تحت. التقديم يعني إنك موافق عليها كامل.",
+      en: "Read the gang laws below. Applying means you fully accept them.",
     },
   },
   {
     step: 2,
-    title: { ar: "تذكرة ديسكورد", en: "Discord ticket" },
+    title: { ar: "افتح تذكرة تقديم", en: "Open apply ticket" },
     detail: {
-      ar: "افتح تذكرة تجنيد واكتب اسم شخصية الـ RP وتجربتك بفايف إم.",
-      en: "Open a recruit ticket with your RP name and FiveM experience.",
+      ar: "ادخل ديسكورد Ballas وافتح تذكرة تقديم. اكتب اسم الـ RP وعمرك وتجربتك بفايف إم.",
+      en: "Join Ballas Discord and open an apply ticket. Add RP name, age, and FiveM experience.",
     },
   },
   {
     step: 3,
-    title: { ar: "مقابلة داخل المدينة", en: "In-city interview" },
+    title: { ar: "مراجعة القيادة", en: "Leadership review" },
     detail: {
-      ar: "نلتقي في لوس سانتوس. حضور جاد… مش صراخ بالمايك.",
-      en: "We meet in Los Santos. Presence over mic spam.",
+      ar: "البوس أو الكو بوس يراجعون طلبك. انتظر الرد على التذكرة بهدوء.",
+      en: "Boss or Co-Boss review your ticket. Wait calmly for a reply.",
     },
   },
   {
     step: 4,
-    title: { ar: "فترة المتدرّب", en: "Prospect period" },
+    title: { ar: "مقابلة ثم متدرّب", en: "Interview then prospect" },
     detail: {
-      ar: "مهمات، ولاء، وRP. تنجح = Ballas. تفشل = برا العصابة.",
-      en: "Jobs, loyalty, and RP. Pass = Ballas. Fail = off the set.",
+      ar: "مقابلة داخل المدينة، وبعدها فترة متدرّب. تنجح تصير Ballas رسمي.",
+      en: "In-city interview, then a prospect period. Pass and you’re officially Ballas.",
     },
   },
 ];
