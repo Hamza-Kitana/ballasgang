@@ -3,15 +3,14 @@ import { Atmosphere } from "@/components/ballas/Atmosphere";
 import { LoadingScreen } from "@/components/ballas/LoadingScreen";
 import { EnterGate } from "@/components/ballas/EnterGate";
 import { Stage } from "@/components/ballas/Stage";
-import { useLanguage } from "@/i18n/LanguageProvider";
-import { speakLine } from "@/lib/speak";
+import { BallasMusic } from "@/components/ballas/BallasMusic";
 
 type Phase = "loading" | "gate" | "flash" | "ready";
 
 export function Experience() {
-  const { t, locale } = useLanguage();
   const [phase, setPhase] = useState<Phase>("loading");
   const [progress, setProgress] = useState(0);
+  const [musicOn, setMusicOn] = useState(false);
 
   useEffect(() => {
     let frame = 0;
@@ -38,7 +37,11 @@ export function Experience() {
   }, []);
 
   const enter = () => {
-    speakLine(t.siteVoice, locale);
+    if (typeof window !== "undefined" && "speechSynthesis" in window) {
+      window.speechSynthesis.cancel();
+    }
+    // Start anthem from the enter click (browser autoplay policy)
+    setMusicOn(true);
     setPhase("flash");
     window.setTimeout(() => setPhase("ready"), 520);
   };
@@ -57,6 +60,7 @@ export function Experience() {
         <div className="ballas-enter-flash pointer-events-none absolute inset-0 z-[60]" />
       ) : null}
       {phase === "ready" ? <Stage /> : null}
+      <BallasMusic active={musicOn} />
     </div>
   );
 }

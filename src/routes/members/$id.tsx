@@ -1,5 +1,5 @@
 import { Link, createFileRoute, notFound } from "@tanstack/react-router";
-import { Atmosphere } from "@/components/ballas/Atmosphere";
+import { ProfileAtmosphere } from "@/components/ballas/ProfileAtmosphere";
 import { MemberPortrait } from "@/components/ballas/MemberPortrait";
 import { StatusBadge } from "@/components/ballas/StatusBadge";
 import { CrownMark } from "@/components/ballas/CrownMark";
@@ -29,11 +29,10 @@ function MemberProfile() {
   const { member } = Route.useLoaderData();
   const { t, locale } = useLanguage();
   const others = members.filter((m) => m.id !== member.id).slice(0, 5);
-  const hero = member.liveImage ?? member.image;
 
   return (
     <div className="relative h-dvh w-full overflow-hidden bg-[oklch(0.08_0.04_305)] text-foreground">
-      <Atmosphere />
+      <ProfileAtmosphere src={member.bgVideo} accent={member.accent} />
 
       <div className="relative z-10 flex h-full flex-col px-4 py-5 sm:px-8 sm:py-7">
         <div className="flex shrink-0 items-center justify-between gap-3">
@@ -52,24 +51,35 @@ function MemberProfile() {
         </div>
 
         <div className="panel-scroll panel-enter-next mt-5 min-h-0 flex-1">
-          <div className="relative mx-auto max-w-5xl overflow-hidden border border-white/10">
-            <div className="relative aspect-[21/9] min-h-[140px] overflow-hidden sm:min-h-[180px]">
-              <img
-                src={hero}
-                alt={member.name}
-                className="h-full w-full object-cover"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-[oklch(0.08_0.04_305)] via-black/40 to-black/20" />
+          <div className="relative mx-auto max-w-5xl overflow-hidden border border-white/10 bg-black/40">
+            <div className="relative aspect-[21/9] min-h-[150px] overflow-hidden sm:min-h-[190px]">
+              <video
+                key={member.bgVideo}
+                className="ballas-city-grade h-full w-full object-cover"
+                autoPlay
+                muted
+                loop
+                playsInline
+                preload="metadata"
+              >
+                <source src={member.bgVideo} type="video/mp4" />
+              </video>
+              <div className="absolute inset-0 bg-gradient-to-t from-[oklch(0.08_0.04_305)] via-black/35 to-black/15" />
               <div
-                className="absolute inset-0 opacity-35 mix-blend-color"
+                className="absolute inset-0 opacity-30 mix-blend-color"
                 style={{ background: member.accent }}
               />
-              {member.status === "live" ? (
-                <div className="absolute start-4 top-4 inline-flex items-center gap-1.5 rounded-full bg-red-500 px-3 py-1 text-[10px] font-bold tracking-[0.18em] text-white shadow-[0_0_18px_rgba(239,68,68,0.5)]">
-                  <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-white" />
-                  LIVE
-                </div>
-              ) : null}
+              <div className="absolute start-4 top-4 inline-flex items-center gap-2">
+                <span className="border border-white/20 bg-black/55 px-2.5 py-1 text-[10px] tracking-[0.16em] text-violet-soft">
+                  GTA V · FiveM
+                </span>
+                {member.status === "live" ? (
+                  <span className="inline-flex items-center gap-1.5 rounded-full bg-red-500 px-3 py-1 text-[10px] font-bold tracking-[0.18em] text-white shadow-[0_0_18px_rgba(239,68,68,0.5)]">
+                    <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-white" />
+                    LIVE
+                  </span>
+                ) : null}
+              </div>
             </div>
           </div>
 

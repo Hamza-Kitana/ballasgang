@@ -10,12 +10,16 @@ export const messages = {
     loadingLabel: "جاري دخول المدينة…",
     loadingSub: "GTA V · FiveM · Los Santos",
     gateLead: "أنت على أراضي الـ Ballas",
-    gateTitle: "ادخل المدينة",
-    gateHint: "اضغط للعب · الموقع راح يحكي لك",
+    gateTitle: "أهلًا وسهلًا بكم في الـ Ballas",
+    gateHint: "اضغط للدخول",
     gatePitch:
       "هذا موقع عصابة Ballas الخرافي — السلالة البنفسجية في لوس سانتوس. أعضاء، بث، قوانين، وتجنيد.",
     siteVoice:
       "أهلًا بك في عصابة الـ Ballas. هذا موقع العصابة الخرافي، السلالة البنفسجية في لوس سانتوس. بنفسجي أو ميت.",
+    music: {
+      mute: "كتم الأغنية",
+      unmute: "تشغيل الأغنية",
+    },
     serverBadge: "FiveM RP",
     turfLabel: "منطقة السيطرة",
     turfValue: "East / South LS",
@@ -128,12 +132,16 @@ export const messages = {
     loadingLabel: "Entering the city…",
     loadingSub: "GTA V · FiveM · Los Santos",
     gateLead: "You're on Ballas turf",
-    gateTitle: "Enter the city",
-    gateHint: "Press to play — the site will speak",
+    gateTitle: "Welcome to the Ballas",
+    gateHint: "Click to enter",
     gatePitch:
       "This is the legendary Ballas gang site — the Purple Dynasty of Los Santos. Crew, live, laws, and recruit.",
     siteVoice:
       "Welcome to the Ballas gang. This is the legendary gang site, the Purple Dynasty of Los Santos. Purple or dead.",
+    music: {
+      mute: "Mute track",
+      unmute: "Play track",
+    },
     serverBadge: "FiveM RP",
     turfLabel: "Controlled turf",
     turfValue: "East / South LS",

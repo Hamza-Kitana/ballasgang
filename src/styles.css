@@ -469,6 +469,15 @@
   will-change: transform;
 }
 
+.ballas-bg-slide {
+  transform: scale(1.04);
+  will-change: opacity, transform;
+}
+
+.ballas-bg-slide.is-active {
+  animation: ballas-kenburns 12s ease-in-out both;
+}
+
 .ballas-gate-ring {
   animation: ballas-gate-ring 2.4s ease-out infinite;
 }
@@ -567,6 +576,32 @@ html[dir="rtl"] .ballas-arrow-nudge {
   background-clip: text;
   color: transparent;
   animation: ballas-shimmer 3.2s linear infinite;
+  /* Keep Arabic descenders / dots from getting clipped by background-clip */
+  -webkit-box-decoration-break: clone;
+  box-decoration-break: clone;
+  padding-bottom: 0.12em;
+  line-height: 1.35;
+}
+
+.ballas-gate-title {
+  overflow: visible;
+  filter: none;
+}
+
+.ballas-gate-title.ballas-slam {
+  /* Softer slam so blur doesn't crop Arabic glyphs */
+  animation-name: ballas-gate-slam;
+}
+
+@keyframes ballas-gate-slam {
+  0% {
+    opacity: 0;
+    transform: translateY(24px) scale(0.96);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
 }
 
 .ballas-grain::before {

@@ -23,6 +23,8 @@ export type GangMember = {
   accent: string;
   image: string;
   liveImage?: string;
+  /** Night-city / GTA-style loop used on the member profile background */
+  bgVideo: string;
   stats: {
     reps: number;
     wars: number;
@@ -78,6 +80,7 @@ export const members: GangMember[] = [
     accent: "#c084fc",
     image: "/members/king-vio.jpg",
     liveImage: "/live/king-vio.jpg",
+    bgVideo: "/videos/gta-1.mp4",
     stats: { reps: 98, wars: 42, respect: 100 },
     badges: [
       { ar: "مؤسس السيرفر", en: "Set Founder" },
@@ -99,6 +102,7 @@ export const members: GangMember[] = [
     status: "online",
     accent: "#a78bfa",
     image: "/members/shadow-dre.jpg",
+    bgVideo: "/videos/gta-2.mp4",
     stats: { reps: 91, wars: 37, respect: 94 },
     badges: [
       { ar: "OG", en: "OG" },
@@ -121,6 +125,7 @@ export const members: GangMember[] = [
     accent: "#e879f9",
     image: "/members/nova-jay.jpg",
     liveImage: "/live/nova-jay.jpg",
+    bgVideo: "/videos/gta-3.mp4",
     stats: { reps: 86, wars: 29, respect: 88 },
     badges: [
       { ar: "استراتيجي", en: "Strategist" },
@@ -141,6 +146,7 @@ export const members: GangMember[] = [
     status: "online",
     accent: "#8b5cf6",
     image: "/members/riot-kane.jpg",
+    bgVideo: "/videos/gta-4.mp4",
     stats: { reps: 84, wars: 33, respect: 82 },
     badges: [
       { ar: "منفّذ", en: "Enforcer" },
@@ -161,6 +167,7 @@ export const members: GangMember[] = [
     status: "offline",
     accent: "#d8b4fe",
     image: "/members/lilac-mae.jpg",
+    bgVideo: "/videos/gta-5.mp4",
     stats: { reps: 74, wars: 18, respect: 79 },
     badges: [
       { ar: "تجنيد", en: "Recruiter" },
@@ -181,6 +188,7 @@ export const members: GangMember[] = [
     status: "online",
     accent: "#a855f7",
     image: "/members/hex-ron.jpg",
+    bgVideo: "/videos/gta-6.mp4",
     stats: { reps: 71, wars: 15, respect: 76 },
     badges: [
       { ar: "سائق", en: "Driver" },
@@ -201,6 +209,7 @@ export const members: GangMember[] = [
     status: "offline",
     accent: "#7c3aed",
     image: "/members/pulse-ty.jpg",
+    bgVideo: "/videos/gta-7.mp4",
     stats: { reps: 52, wars: 6, respect: 61 },
     badges: [{ ar: "متدرّب", en: "Prospect" }],
   },
@@ -220,6 +229,7 @@ export const members: GangMember[] = [
     accent: "#f0abfc",
     image: "/members/venom-zoe.jpg",
     liveImage: "/live/venom-zoe.jpg",
+    bgVideo: "/videos/gta-8.mp4",
     stats: { reps: 80, wars: 24, respect: 85 },
     badges: [
       { ar: "سمّ", en: "Venom" },

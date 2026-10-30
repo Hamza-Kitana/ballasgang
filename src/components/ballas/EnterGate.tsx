@@ -12,7 +12,7 @@ export function EnterGate({ onEnter }: EnterGateProps) {
     <button
       type="button"
       onClick={onEnter}
-      className="absolute inset-0 z-40 flex cursor-pointer flex-col items-center justify-center border-0 bg-[oklch(0.08_0.04_305/0.4)] text-inherit outline-none"
+      className="absolute inset-0 z-40 flex cursor-pointer flex-col items-center justify-center overflow-visible border-0 bg-[oklch(0.08_0.04_305/0.4)] px-4 text-inherit outline-none"
       aria-label={t.gateTitle}
     >
       <div className="ballas-gate-ring pointer-events-none absolute h-44 w-44 rounded-full border border-primary/40" />
@@ -31,15 +31,18 @@ export function EnterGate({ onEnter }: EnterGateProps) {
       >
         {t.gateLead}
       </p>
-      <h2
-        className="ballas-slam ballas-shimmer-text relative z-10 mt-4 text-5xl font-bold tracking-[0.12em] sm:text-7xl"
-        style={{ animationDelay: "200ms" }}
-      >
-        {t.gateTitle}
-      </h2>
+
+      <div className="relative z-10 mt-4 overflow-visible px-2 py-3">
+        <h2
+          className="ballas-slam ballas-gate-title relative text-center text-[clamp(1.75rem,6vw,3.75rem)] font-bold leading-[1.35] tracking-[0.04em]"
+          style={{ animationDelay: "200ms" }}
+        >
+          <span className="ballas-shimmer-text inline-block pb-1">{t.gateTitle}</span>
+        </h2>
+      </div>
 
       <p
-        className="ballas-rise relative z-10 mt-5 max-w-xl px-6 text-center text-sm leading-relaxed text-white/85 sm:text-base"
+        className="ballas-rise relative z-10 mt-4 max-w-xl px-6 text-center text-sm leading-relaxed text-white/85 sm:text-base"
         style={{ animationDelay: "300ms" }}
       >
         {t.gatePitch}
