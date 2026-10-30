@@ -18,9 +18,9 @@ export function HomePanel({ onNavigate }: HomePanelProps) {
         <div className="absolute start-1/2 top-[38%] h-32 w-32 -translate-x-1/2 -translate-y-1/2 rounded-full bg-primary/20 blur-3xl" />
       </div>
 
-      <div className="relative z-10 flex max-w-4xl flex-col items-center">
+      <div className="relative z-10 flex w-full max-w-5xl flex-col items-center px-2">
         <div className="ballas-rise ballas-logo-float">
-          <BallasLogo size="hero" className="flex-col gap-4 sm:gap-5" markClassName="mb-1" />
+          <BallasLogo size="hero" />
         </div>
 
         <p
@@ -38,13 +38,13 @@ export function HomePanel({ onNavigate }: HomePanelProps) {
         </p>
 
         <div
-          className="ballas-rise ballas-power-hero mt-8 w-full max-w-2xl"
+          className="ballas-rise ballas-power-hero mt-8"
           style={{ animationDelay: "220ms" }}
         >
-          <p className="ballas-shimmer-text font-display text-[clamp(1.8rem,6vw,3.4rem)] leading-[1.15] tracking-[0.08em]">
+          <p className="ballas-shimmer-text ballas-power-line font-display">
             {t.powerWord}
           </p>
-          <p className="mt-3 text-xs tracking-[0.24em] text-violet-soft/90 sm:text-sm">{t.motto}</p>
+          <p className="mt-2 text-xs tracking-[0.24em] text-violet-soft/90 sm:text-sm">{t.motto}</p>
         </div>
 
         <div

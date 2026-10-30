@@ -9,10 +9,13 @@ type BallasLogoProps = {
 };
 
 const sizes = {
-  sm: { mark: "h-9 w-9", word: "text-xl tracking-[0.2em]" },
-  md: { mark: "h-11 w-11", word: "text-2xl tracking-[0.22em]" },
-  lg: { mark: "h-14 w-14", word: "text-3xl tracking-[0.24em]" },
-  hero: { mark: "h-20 w-20 sm:h-24 sm:w-24", word: "text-[clamp(3.5rem,12vw,8rem)] tracking-[0.08em]" },
+  sm: { mark: "h-9 w-9", word: "text-xl tracking-[0.16em]" },
+  md: { mark: "h-11 w-11", word: "text-2xl tracking-[0.16em]" },
+  lg: { mark: "h-14 w-14", word: "text-3xl tracking-[0.14em]" },
+  hero: {
+    mark: "h-16 w-16 sm:h-20 sm:w-20",
+    word: "text-[clamp(2.6rem,9vw,5.8rem)] tracking-[0.1em]",
+  },
 };
 
 export function BallasLogo({
@@ -27,7 +30,7 @@ export function BallasLogo({
   const s = sizes[size];
 
   return (
-    <div className={cn("inline-flex items-center gap-3", className)}>
+    <div className={cn("inline-flex items-center gap-3 sm:gap-4", className)}>
       <svg
         viewBox="0 0 80 80"
         fill="none"
@@ -36,7 +39,14 @@ export function BallasLogo({
         aria-hidden
       >
         <circle cx="40" cy="40" r="36" stroke={`url(#${ringId})`} strokeWidth="2" />
-        <circle cx="40" cy="40" r="30" fill="oklch(0.12 0.06 305 / 0.85)" stroke="oklch(0.72 0.2 310 / 0.35)" strokeWidth="1" />
+        <circle
+          cx="40"
+          cy="40"
+          r="30"
+          fill="oklch(0.12 0.06 305 / 0.85)"
+          stroke="oklch(0.72 0.2 310 / 0.35)"
+          strokeWidth="1"
+        />
         <path
           d="M22 48 L26 28 L36 40 L40 20 L44 40 L54 28 L58 48 Z"
           fill={`url(#${fillId})`}
@@ -54,25 +64,55 @@ export function BallasLogo({
           textAnchor="middle"
           fill="oklch(0.86 0.12 310)"
           fontSize="9"
-          fontFamily="Bebas Neue, sans-serif"
+          fontFamily="Oswald, Bebas Neue, sans-serif"
           letterSpacing="1.5"
         >
           B
         </text>
         <defs>
           <linearGradient id={fillId} x1="22" y1="20" x2="58" y2="52" gradientUnits="userSpaceOnUse">
-            <stop stopColor="oklch(0.62 0.28 305)" />
-            <stop offset="1" stopColor="oklch(0.35 0.18 305)" />
+            <stop stopColor="oklch(0.62 0.28 305)">
+              <animate
+                attributeName="stop-color"
+                values="oklch(0.62 0.28 305);oklch(0.72 0.26 330);oklch(0.58 0.24 285);oklch(0.62 0.28 305)"
+                dur="6.5s"
+                repeatCount="indefinite"
+              />
+            </stop>
+            <stop offset="1" stopColor="oklch(0.35 0.18 305)">
+              <animate
+                attributeName="stop-color"
+                values="oklch(0.35 0.18 305);oklch(0.42 0.2 320);oklch(0.32 0.16 290);oklch(0.35 0.18 305)"
+                dur="6.5s"
+                repeatCount="indefinite"
+              />
+            </stop>
           </linearGradient>
           <linearGradient id={ringId} x1="8" y1="8" x2="72" y2="72" gradientUnits="userSpaceOnUse">
-            <stop stopColor="oklch(0.78 0.2 310)" />
-            <stop offset="1" stopColor="oklch(0.45 0.22 305)" />
+            <stop stopColor="oklch(0.78 0.2 310)">
+              <animate
+                attributeName="stop-color"
+                values="oklch(0.78 0.2 310);oklch(0.85 0.18 330);oklch(0.72 0.22 285);oklch(0.78 0.2 310)"
+                dur="6.5s"
+                repeatCount="indefinite"
+              />
+            </stop>
+            <stop offset="1" stopColor="oklch(0.45 0.22 305)">
+              <animate
+                attributeName="stop-color"
+                values="oklch(0.45 0.22 305);oklch(0.55 0.24 320);oklch(0.4 0.2 290);oklch(0.45 0.22 305)"
+                dur="6.5s"
+                repeatCount="indefinite"
+              />
+            </stop>
           </linearGradient>
         </defs>
       </svg>
 
       {showWordmark ? (
-        <span className={cn("font-display leading-none text-glow text-white", s.word)}>BALLAS</span>
+        <span className={cn("ballas-wordmark", s.word)} aria-label="Ballas">
+          BALLAS
+        </span>
       ) : null}
     </div>
   );
