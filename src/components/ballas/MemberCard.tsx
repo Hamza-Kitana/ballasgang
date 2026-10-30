@@ -33,7 +33,7 @@ export function MemberCard({ member, index = 0, featured = false }: MemberCardPr
       <div
         className={cn(
           "relative overflow-hidden",
-          featured ? "aspect-[3/4] sm:aspect-[4/5]" : "aspect-[4/5]",
+          featured ? "aspect-[16/11] sm:aspect-[5/4] lg:aspect-[16/10]" : "aspect-[4/5]",
         )}
       >
         <img

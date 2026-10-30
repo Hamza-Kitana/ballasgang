@@ -73,7 +73,12 @@ export function Stage() {
         <LanguageToggle />
       </header>
 
-      <main className="relative mt-3 min-h-0 flex-1 overflow-hidden pb-20 sm:pb-24">
+      <main
+        className={cn(
+          "relative mt-3 min-h-0 flex-1 overflow-hidden pb-20 sm:pb-24",
+          tab === "members" && "-mx-3 w-[calc(100%+1.5rem)] px-2 sm:-mx-6 sm:w-[calc(100%+3rem)] sm:px-3",
+        )}
+      >
         <div
           key={tab}
           className={cn(

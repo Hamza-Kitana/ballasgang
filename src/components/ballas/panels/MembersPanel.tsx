@@ -17,8 +17,9 @@ export function MembersPanel() {
   const { leaders, crew } = splitRoster(members);
 
   return (
-    <div className="flex h-full flex-col">
+    <div className="flex h-full w-full flex-col">
       <PanelChrome
+        className="w-full"
         eyebrow={t.members.eyebrow}
         title={t.members.title}
         end={
@@ -28,15 +29,15 @@ export function MembersPanel() {
         }
       />
 
-      <div className="panel-scroll min-h-0 flex-1 space-y-7 pb-2">
+      <div className="panel-scroll min-h-0 w-full flex-1 space-y-8 pb-2">
         {leaders.length > 0 ? (
-          <section>
-            <p className="mb-3 text-center text-[10px] tracking-[0.28em] text-violet-soft uppercase">
+          <section className="w-full">
+            <p className="mb-4 text-center text-[10px] tracking-[0.28em] text-violet-soft uppercase">
               {t.members.leadership}
             </p>
-            <div className="mx-auto flex w-full max-w-3xl flex-col items-stretch justify-center gap-4 sm:flex-row">
+            <div className="grid w-full gap-4 sm:grid-cols-2">
               {leaders.map((member, index) => (
-                <div key={member.id} className="w-full sm:max-w-[280px] sm:flex-1">
+                <div key={member.id} className="w-full min-w-0">
                   <MemberCard member={member} index={index} featured />
                 </div>
               ))}
@@ -45,13 +46,15 @@ export function MembersPanel() {
         ) : null}
 
         {crew.length > 0 ? (
-          <section>
-            <div className="mb-3 flex items-center gap-3">
-              <div className="h-px flex-1 bg-gradient-to-r from-transparent via-primary/40 to-transparent" />
-              <p className="text-[10px] tracking-[0.28em] text-white/50 uppercase">{t.members.crew}</p>
-              <div className="h-px flex-1 bg-gradient-to-r from-transparent via-primary/40 to-transparent" />
+          <section className="w-full">
+            <div className="mb-4 flex w-full items-center gap-3">
+              <div className="h-px flex-1 bg-gradient-to-r from-transparent via-primary/45 to-transparent" />
+              <p className="shrink-0 text-[10px] tracking-[0.28em] text-white/55 uppercase">
+                {t.members.crew}
+              </p>
+              <div className="h-px flex-1 bg-gradient-to-r from-transparent via-primary/45 to-transparent" />
             </div>
-            <div className="mx-auto grid max-w-6xl gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+            <div className="grid w-full gap-3 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6">
               {crew.map((member, index) => (
                 <MemberCard key={member.id} member={member} index={index + leaders.length} />
               ))}
