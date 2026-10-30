@@ -16,6 +16,9 @@ dist-ssr
 .nitro
 *.local
 
+# Keep background video in repo (under ~5MB)
+# public/ballas-bg.mp4
+
 # Wrangler / Cloudflare
 .wrangler/
 .dev.vars

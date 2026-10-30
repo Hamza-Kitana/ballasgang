@@ -3,7 +3,6 @@ import { Atmosphere } from "@/components/ballas/Atmosphere";
 import { LoadingScreen } from "@/components/ballas/LoadingScreen";
 import { EnterGate } from "@/components/ballas/EnterGate";
 import { Stage } from "@/components/ballas/Stage";
-import { CursorGlow } from "@/components/ballas/CursorGlow";
 
 type Phase = "loading" | "gate" | "flash" | "ready";
 
@@ -13,42 +12,43 @@ export function Experience() {
 
   useEffect(() => {
     let frame = 0;
-    let raf = 0;
+    let timer = 0;
     const start = performance.now();
-    const duration = 2800;
+    const duration = 1800;
 
-    const tick = (now: number) => {
-      const t = Math.min(1, (now - start) / duration);
+    const tick = () => {
+      const t = Math.min(1, (performance.now() - start) / duration);
       const eased = 1 - Math.pow(1 - t, 3);
-      setProgress(eased * 100);
+      setProgress(Math.round(eased * 100));
       if (t < 1) {
-        raf = requestAnimationFrame(tick);
+        timer = window.setTimeout(tick, 50);
       } else {
-        frame = window.setTimeout(() => setPhase("gate"), 320);
+        frame = window.setTimeout(() => setPhase("gate"), 200);
       }
     };
 
-    raf = requestAnimationFrame(tick);
+    timer = window.setTimeout(tick, 50);
     return () => {
-      cancelAnimationFrame(raf);
+      window.clearTimeout(timer);
       window.clearTimeout(frame);
     };
   }, []);
 
   const enter = () => {
     setPhase("flash");
-    window.setTimeout(() => setPhase("ready"), 420);
+    window.setTimeout(() => setPhase("ready"), 280);
   };
 
   return (
-    <div className="ballas-hide-native-cursor relative h-dvh w-full overflow-hidden bg-[oklch(0.08_0.04_305)] text-foreground">
-      <Atmosphere />
-      <CursorGlow />
+    <div className="relative h-dvh w-full overflow-hidden bg-[oklch(0.08_0.04_305)] text-foreground">
+      {phase !== "loading" ? <Atmosphere /> : (
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_40%,oklch(0.35_0.18_305/0.45),oklch(0.08_0.04_305))]" />
+      )}
 
       {phase === "loading" ? <LoadingScreen progress={progress} /> : null}
       {phase === "gate" || phase === "flash" ? <EnterGate onEnter={enter} /> : null}
       {phase === "flash" ? (
-        <div className="ballas-flash pointer-events-none absolute inset-0 z-[60] bg-[radial-gradient(circle,oklch(0.75_0.25_310),oklch(0.2_0.1_305)_70%)]" />
+        <div className="pointer-events-none absolute inset-0 z-[60] bg-primary/30 transition-opacity" />
       ) : null}
       {phase === "ready" ? <Stage /> : null}
     </div>

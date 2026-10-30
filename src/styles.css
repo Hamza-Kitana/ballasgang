@@ -12,8 +12,8 @@
   --radius-2xl: calc(var(--radius) + 8px);
   --radius-3xl: calc(var(--radius) + 12px);
   --radius-4xl: calc(var(--radius) + 16px);
-  --font-display: "Bebas Neue", sans-serif;
-  --font-sans: "Space Grotesk", sans-serif;
+  --font-display: "Bebas Neue", "Cairo", sans-serif;
+  --font-sans: "Cairo", "Space Grotesk", sans-serif;
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --color-card: var(--card);
@@ -108,6 +108,14 @@
     font-family: var(--font-sans);
   }
 
+  html[lang="en"] body {
+    font-family: "Space Grotesk", "Cairo", sans-serif;
+  }
+
+  html[lang="ar"] body {
+    font-family: "Cairo", "Space Grotesk", sans-serif;
+  }
+
   ::selection {
     background: color-mix(in oklch, var(--color-primary) 55%, transparent);
     color: white;
@@ -120,10 +128,7 @@
   }
 
   .text-glow {
-    text-shadow:
-      0 0 12px color-mix(in oklch, var(--color-violet-glow) 65%, transparent),
-      0 0 36px color-mix(in oklch, var(--color-primary) 40%, transparent),
-      0 0 72px color-mix(in oklch, var(--color-primary) 20%, transparent);
+    text-shadow: 0 0 18px color-mix(in oklch, var(--color-violet-glow) 45%, transparent);
   }
 
   .panel-scroll {
@@ -170,13 +175,11 @@
 @keyframes ballas-rise {
   from {
     opacity: 0;
-    transform: translateY(24px) scale(0.985);
-    filter: blur(4px);
+    transform: translateY(12px);
   }
   to {
     opacity: 1;
-    transform: translateY(0) scale(1);
-    filter: blur(0);
+    transform: translateY(0);
   }
 }
 
@@ -272,6 +275,20 @@
   to {
     transform: scaleX(1);
   }
+}
+
+@keyframes ballas-eq {
+  from {
+    transform: scaleY(0.35);
+  }
+  to {
+    transform: scaleY(1);
+  }
+}
+
+.ballas-eq-bar {
+  transform-origin: bottom center;
+  will-change: transform;
 }
 
 .ballas-pulse {
@@ -403,9 +420,33 @@
   border-right: 1px solid;
 }
 
-@media (pointer: fine) {
-  .ballas-hide-native-cursor,
-  .ballas-hide-native-cursor * {
-    cursor: none !important;
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation: none !important;
+    transition: none !important;
   }
+}
+
+.ballas-city-grade {
+  filter: saturate(1.15) contrast(1.12) brightness(0.78);
+}
+
+.gta-street-plate {
+  background: linear-gradient(180deg, oklch(0.28 0.08 305 / 0.95), oklch(0.16 0.06 305 / 0.95));
+  border: 1px solid color-mix(in oklch, var(--color-violet-soft) 45%, transparent);
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.06);
+  clip-path: polygon(0 0, calc(100% - 10px) 0, 100% 10px, 100% 100%, 10px 100%, 0 calc(100% - 10px));
+}
+
+.ballas-city-grade {
+  filter: saturate(1.15) contrast(1.12) brightness(0.78);
+}
+
+.gta-street-plate {
+  background: linear-gradient(180deg, oklch(0.28 0.08 305 / 0.95), oklch(0.16 0.06 305 / 0.95));
+  border: 1px solid color-mix(in oklch, var(--color-violet-soft) 45%, transparent);
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.06);
+  clip-path: polygon(0 0, calc(100% - 10px) 0, 100% 10px, 100% 100%, 10px 100%, 0 calc(100% - 10px));
 }

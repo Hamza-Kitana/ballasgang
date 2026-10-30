@@ -1,3 +1,5 @@
+import type { Locale } from "@/i18n/messages";
+
 export type MemberRank =
   | "Boss"
   | "OG"
@@ -6,13 +8,15 @@ export type MemberRank =
   | "Soldier"
   | "Prospect";
 
+type Localized = { ar: string; en: string };
+
 export type GangMember = {
   id: string;
   name: string;
   alias: string;
   rank: MemberRank;
-  role: string;
-  bio: string;
+  role: Localized;
+  bio: Localized;
   joined: string;
   status: "online" | "offline" | "live";
   streamUrl?: string;
@@ -22,28 +26,29 @@ export type GangMember = {
     wars: number;
     respect: number;
   };
-  badges: string[];
+  badges: Localized[];
 };
 
 export type Achievement = {
   id: string;
-  title: string;
-  detail: string;
+  title: Localized;
+  detail: Localized;
   year: string;
 };
 
 export type JoinStep = {
   step: number;
-  title: string;
-  detail: string;
+  title: Localized;
+  detail: Localized;
 };
 
 export const GANG = {
   name: "BALLAS",
   tagline: "PURPLE DYNASTY",
   city: "Los Santos",
-  motto: "Blood in. Loyalty forever.",
   discord: "discord.gg/ballas-dynasty",
+  game: "GTA V / FiveM",
+  turf: "Davis · Chamberlain · East LS",
 } as const;
 
 export const members: GangMember[] = [
@@ -52,145 +57,209 @@ export const members: GangMember[] = [
     name: "King Vio",
     alias: "Vio",
     rank: "Boss",
-    role: "Dynasty Leader",
-    bio: "Built the Purple Dynasty from the Grove up. Speaks once — the streets move.",
+    role: { ar: "زعيم عصابة Ballas", en: "Ballas Gang Boss" },
+    bio: {
+      ar: "يقود السلالة البنفسجية في لوس سانتوس. كل بلوك بنفسجي… بأمر واحد منه.",
+      en: "Runs the Purple Dynasty across Los Santos. One word from him and the block moves purple.",
+    },
     joined: "2019",
     status: "live",
     streamUrl: "https://twitch.tv",
     accent: "#c084fc",
     stats: { reps: 98, wars: 42, respect: 100 },
-    badges: ["Founder", "Warlord", "Crown"],
+    badges: [
+      { ar: "مؤسس السيرفر", en: "Set Founder" },
+      { ar: "قائد حرب", en: "War Boss" },
+      { ar: "التاج", en: "Crown" },
+    ],
   },
   {
     id: "shadow-dre",
     name: "Shadow Dre",
     alias: "Dre",
     rank: "OG",
-    role: "Street Commander",
-    bio: "Quiet knife in the dark. Runs the blocks after midnight.",
+    role: { ar: "قائد شوارع ساوث سايد", en: "South Side Street Commander" },
+    bio: {
+      ar: "يعرف كل زقاق في Davis. يشتغل بالليل… والشرطة توصل متأخرة.",
+      en: "Knows every alley in Davis. Works the night — LSPD always late.",
+    },
     joined: "2020",
     status: "online",
     accent: "#a78bfa",
     stats: { reps: 91, wars: 37, respect: 94 },
-    badges: ["OG", "Night Ops"],
+    badges: [
+      { ar: "OG", en: "OG" },
+      { ar: "عمليات ليلية", en: "Night Ops" },
+    ],
   },
   {
     id: "nova-jay",
     name: "Nova Jay",
     alias: "Nova",
     rank: "Shot Caller",
-    role: "Ops & Strategy",
-    bio: "Maps every move before the sirens start. Never misses a call.",
+    role: { ar: "منسّق السرقات والهروب", en: "Heists & Escape Caller" },
+    bio: {
+      ar: "يرسم الروت قبل الصافرات. بنك، شاحنة، أو حرب بلوكات — النداء إله.",
+      en: "Maps the route before the sirens. Bank, truck, or block war — he calls it.",
+    },
     joined: "2021",
     status: "live",
     streamUrl: "https://twitch.tv",
     accent: "#e879f9",
     stats: { reps: 86, wars: 29, respect: 88 },
-    badges: ["Strategist", "Live Legend"],
+    badges: [
+      { ar: "استراتيجي", en: "Strategist" },
+      { ar: "أسطورة لايف", en: "Live Legend" },
+    ],
   },
   {
     id: "riot-kane",
     name: "Riot Kane",
     alias: "Kane",
     rank: "Enforcer",
-    role: "Frontline Power",
-    bio: "First through the door. Last one standing. Purple never folds.",
+    role: { ar: "قوة الخط الأمامي بالحروب", en: "Frontline Gang War Power" },
+    bio: {
+      ar: "أول واحد ينزل من السيارة بوقت الحرب. البنفسجي ما بيتراجع.",
+      en: "First out the whip when war starts. Purple don't fold.",
+    },
     joined: "2021",
     status: "online",
     accent: "#8b5cf6",
     stats: { reps: 84, wars: 33, respect: 82 },
-    badges: ["Enforcer", "Iron Fist"],
+    badges: [
+      { ar: "منفّذ", en: "Enforcer" },
+      { ar: "قبضة حديد", en: "Iron Fist" },
+    ],
   },
   {
     id: "lilac-mae",
     name: "Lilac Mae",
     alias: "Mae",
     rank: "Soldier",
-    role: "Intel & Recruitment",
-    bio: "Eyes everywhere. If you're worthy, she'll find you before you find us.",
+    role: { ar: "تجنيد وRP داخل المدينة", en: "Recruitment & City RP" },
+    bio: {
+      ar: "تشوف اللاعب الجدّي من أول لقاء. إذا تستاهل — بتجيبك للعيلة.",
+      en: "Spots real RP talent on sight. If you belong, she'll pull you into the set.",
+    },
     joined: "2022",
     status: "offline",
     accent: "#d8b4fe",
     stats: { reps: 74, wars: 18, respect: 79 },
-    badges: ["Recruiter", "Ghost"],
+    badges: [
+      { ar: "تجنيد", en: "Recruiter" },
+      { ar: "شبح", en: "Ghost" },
+    ],
   },
   {
     id: "hex-ron",
     name: "Hex Ron",
     alias: "Hex",
     rank: "Soldier",
-    role: "Wheels & Escape",
-    bio: "Drives like the city owes him money. Gets the family out clean.",
+    role: { ar: "سائق هروب / Getaway", en: "Getaway Driver" },
+    bio: {
+      ar: "بسوق على شوارع LS كأن الخريطة محفوظة براسه. يطلع العصابة سالمة.",
+      en: "Drives LS like the map is burned in his head. Gets the crew out clean.",
+    },
     joined: "2023",
     status: "online",
     accent: "#a855f7",
     stats: { reps: 71, wars: 15, respect: 76 },
-    badges: ["Driver", "Escape Artist"],
+    badges: [
+      { ar: "سائق", en: "Driver" },
+      { ar: "هروب نظيف", en: "Clean Escape" },
+    ],
   },
   {
     id: "pulse-ty",
     name: "Pulse Ty",
     alias: "Ty",
     rank: "Prospect",
-    role: "Rising Blood",
-    bio: "Proving ground every night. Hungry for the purple crown.",
+    role: { ar: "متدرّب تحت الاختبار", en: "Prospect on trial" },
+    bio: {
+      ar: "لسا بيتعلم قوانين العصابة. كل ليلة إثبات على السيرفر.",
+      en: "Still learning set rules. Every night is a tryout on the server.",
+    },
     joined: "2025",
     status: "offline",
     accent: "#7c3aed",
     stats: { reps: 52, wars: 6, respect: 61 },
-    badges: ["Prospect"],
+    badges: [{ ar: "متدرّب", en: "Prospect" }],
   },
   {
     id: "venom-zoe",
     name: "Venom Zoe",
     alias: "Zoe",
     rank: "Enforcer",
-    role: "Close Combat",
-    bio: "Sweet smile, sharp edge. Don't test the violet.",
+    role: { ar: "قتال قريب واشتباكات", en: "Close combat & shootouts" },
+    bio: {
+      ar: "ما بتخاف من نجوم المطلوبية. الاشتباك ساحتها.",
+      en: "Doesn't flinch at wanted stars. Shootouts are her stage.",
+    },
     joined: "2022",
     status: "live",
     streamUrl: "https://twitch.tv",
     accent: "#f0abfc",
     stats: { reps: 80, wars: 24, respect: 85 },
-    badges: ["Venom", "Live"],
+    badges: [
+      { ar: "سمّ", en: "Venom" },
+      { ar: "بث", en: "Live" },
+    ],
   },
 ];
 
 export const achievements: Achievement[] = [
   {
     id: "a1",
-    title: "Grove Takeover",
-    detail: "Secured Eastside turf in a single night operation.",
+    title: { ar: "سقوط تشيمبرلين", en: "Chamberlain Takeover" },
+    detail: {
+      ar: "سيطرنا على بلوكات South LS بليلة حرب عصابات كاملة.",
+      en: "Took South LS blocks in one full gang-war night.",
+    },
     year: "2021",
   },
   {
     id: "a2",
-    title: "Purple Crown Wars",
-    detail: "Defended Dynasty HQ through a 72-hour siege.",
+    title: { ar: "حرب ضد الـ Families", en: "War on the Families" },
+    detail: {
+      ar: "دافعنا عن أراضينا البنفسجية ضد الأخضر ٧٢ ساعة.",
+      en: "Held purple turf against the green for 72 hours straight.",
+    },
     year: "2022",
   },
   {
     id: "a3",
-    title: "Blood Pact",
-    detail: "United three crews under one violet banner.",
+    title: { ar: "بنك المدينة", en: "City Bank Run" },
+    detail: {
+      ar: "سرقة منسّقة + هروب نظيف عبر الطرق السريعة.",
+      en: "Coordinated heist with a clean freeway getaway.",
+    },
     year: "2023",
   },
   {
     id: "a4",
-    title: "Night Empire",
-    detail: "Held city-wide control for 40 consecutive nights.",
+    title: { ar: "إمبراطورية الليل", en: "Night Empire" },
+    detail: {
+      ar: "٤٠ ليلة متتالية سيطرة على الراديو والشوارع.",
+      en: "40 nights straight owning the radio and the streets.",
+    },
     year: "2024",
   },
   {
     id: "a5",
-    title: "Dynasty Rising",
-    detail: "Recruit wave that filled every rank with loyal blood.",
+    title: { ar: "موجة تجنيد RP", en: "RP Recruit Wave" },
+    detail: {
+      ar: "عبّينا الرتب بلاعبين فاهمين رولبلاي… مش راندم كيل.",
+      en: "Filled the ranks with real roleplayers — not random killers.",
+    },
     year: "2025",
   },
   {
     id: "a6",
-    title: "Los Santos Echo",
-    detail: "Most feared name on the radio — server-wide.",
+    title: { ar: "اسم مرعب على السيرفر", en: "Server-Wide Fear" },
+    detail: {
+      ar: "Ballas صارت أخوف اسم على الراديو في السيرفر.",
+      en: "Ballas became the most feared name on the server radio.",
+    },
     year: "2026",
   },
 ];
@@ -198,25 +267,41 @@ export const achievements: Achievement[] = [
 export const joinSteps: JoinStep[] = [
   {
     step: 1,
-    title: "Watch. Don't beg.",
-    detail: "Study the Dynasty. Learn the colors. Respect comes before words.",
+    title: { ar: "افهم الـ RP", en: "Learn the RP" },
+    detail: {
+      ar: "شوف كيف العصابة تتحرك في المدينة. الألوان، الاحترام، والقوانين.",
+      en: "Watch how the set moves in the city. Colors, respect, and rules.",
+    },
   },
   {
     step: 2,
-    title: "Join the Discord",
-    detail: "Open a ticket in #recruitment. Use your RP name. No spam.",
+    title: { ar: "تذكرة ديسكورد", en: "Discord ticket" },
+    detail: {
+      ar: "افتح تذكرة تجنيد واكتب اسم شخصية الـ RP وتجربتك بفايف إم.",
+      en: "Open a recruit ticket with your RP name and FiveM experience.",
+    },
   },
   {
     step: 3,
-    title: "Meet the Shot Caller",
-    detail: "Interview in-city. Show presence, not attitude.",
+    title: { ar: "مقابلة داخل المدينة", en: "In-city interview" },
+    detail: {
+      ar: "نلتقي في لوس سانتوس. حضور جاد… مش صراخ بالمايك.",
+      en: "We meet in Los Santos. Presence over mic spam.",
+    },
   },
   {
     step: 4,
-    title: "Prospect Trial",
-    detail: "Prove loyalty on runs. Fail once — you're gone. Succeed — you're family.",
+    title: { ar: "فترة المتدرّب", en: "Prospect period" },
+    detail: {
+      ar: "مهمات، ولاء، وRP. تنجح = Ballas. تفشل = برا العصابة.",
+      en: "Jobs, loyalty, and RP. Pass = Ballas. Fail = off the set.",
+    },
   },
 ];
+
+export function loc(value: Localized, locale: Locale) {
+  return value[locale];
+}
 
 export function getMember(id: string) {
   return members.find((m) => m.id === id);

@@ -1,33 +1,35 @@
 import { CrownMark } from "@/components/ballas/CrownMark";
+import { useLanguage } from "@/i18n/LanguageProvider";
 
 type EnterGateProps = {
   onEnter: () => void;
 };
 
 export function EnterGate({ onEnter }: EnterGateProps) {
+  const { t } = useLanguage();
+
   return (
     <button
       type="button"
       onClick={onEnter}
-      className="ballas-fade group absolute inset-0 z-40 flex cursor-pointer flex-col items-center justify-center border-0 bg-[oklch(0.08_0.04_305/0.62)] text-inherit outline-none"
-      aria-label="Enter the dynasty"
+      className="absolute inset-0 z-40 flex cursor-pointer flex-col items-center justify-center border-0 bg-[oklch(0.08_0.04_305/0.4)] text-inherit outline-none"
+      aria-label={t.gateTitle}
     >
-      <div className="ballas-breathe pointer-events-none absolute h-40 w-40 rounded-full border border-primary/40" />
-      <div className="ballas-breathe pointer-events-none absolute h-64 w-64 rounded-full border border-primary/20 [animation-delay:0.45s]" />
-      <div className="ballas-breathe pointer-events-none absolute h-96 w-96 rounded-full border border-primary/10 [animation-delay:0.9s]" />
+      <div className="pointer-events-none absolute h-48 w-48 rounded-full border border-primary/30" />
+      <div className="pointer-events-none absolute h-72 w-72 rounded-full border border-primary/15" />
 
-      <CrownMark className="relative z-10 h-12 w-12 transition duration-500 group-hover:scale-110 group-hover:drop-shadow-[0_0_24px_oklch(0.72_0.28_310)]" />
+      <div className="gta-street-plate relative z-10 mb-6 px-4 py-2 text-[11px] font-semibold tracking-[0.2em] text-white uppercase">
+        {t.streetPlate}
+      </div>
 
-      <p className="font-display relative z-10 mt-8 text-sm tracking-[0.55em] text-violet-soft">
-        YOU MADE IT THIS FAR
-      </p>
-      <h2 className="font-display relative z-10 mt-4 text-6xl tracking-[0.22em] text-glow transition duration-500 group-hover:tracking-[0.3em] sm:text-7xl">
-        ENTER
+      <CrownMark className="relative z-10 h-12 w-12" />
+
+      <p className="relative z-10 mt-8 text-sm tracking-[0.2em] text-violet-soft">{t.gateLead}</p>
+      <h2 className="relative z-10 mt-4 text-5xl font-bold tracking-[0.12em] text-glow sm:text-7xl">
+        {t.gateTitle}
       </h2>
-      <div className="ballas-line-draw relative z-10 mt-6 h-px w-40 bg-gradient-to-r from-transparent via-primary to-transparent" />
-      <p className="relative z-10 mt-6 animate-pulse text-xs tracking-[0.35em] text-foreground/65 uppercase">
-        Click anywhere to begin
-      </p>
+      <div className="relative z-10 mt-6 h-px w-40 bg-gradient-to-r from-transparent via-primary to-transparent" />
+      <p className="relative z-10 mt-6 text-xs tracking-[0.18em] text-foreground/65">{t.gateHint}</p>
     </button>
   );
 }
