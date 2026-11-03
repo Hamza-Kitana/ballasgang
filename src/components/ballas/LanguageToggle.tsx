@@ -7,7 +7,7 @@ export function LanguageToggle() {
     <button
       type="button"
       onClick={toggleLocale}
-      className="rounded-full border border-white/15 bg-black/50 px-3.5 py-1.5 text-[11px] tracking-[0.18em] text-violet-soft uppercase transition hover:border-primary/50 hover:text-white"
+      className="rounded-full border border-white/20 bg-black/55 px-3 py-1.5 text-[10px] tracking-[0.16em] text-violet-soft uppercase transition hover:border-primary/50 hover:text-white sm:px-3.5 sm:text-[11px] sm:tracking-[0.18em]"
       aria-label={t.langSwitchLabel}
       title={t.langSwitchLabel}
     >

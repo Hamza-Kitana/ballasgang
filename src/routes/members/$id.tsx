@@ -47,7 +47,7 @@ function MemberProfile() {
             viewTransition
             className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-black/45 px-3 py-2 text-xs tracking-[0.14em] text-violet-soft backdrop-blur-md transition hover:border-primary/45 hover:text-white"
           >
-            <BallasLogo showWordmark={false} size="sm" markClassName="!h-6 !w-6" />
+            <BallasLogo showWordmark={false} size="sm" markClassName="!h-7 !w-auto" />
             {t.profile.back}
           </Link>
           <div className="flex items-center gap-2">

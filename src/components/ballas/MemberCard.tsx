@@ -74,20 +74,22 @@ export function MemberCard({ member, index = 0, featured = false }: MemberCardPr
           </span>
         </div>
 
-        <div className="ballas-member-body relative flex min-w-0 flex-1 flex-col justify-between gap-3 p-4 sm:p-5">
+        <div className="ballas-member-body relative flex min-w-0 flex-1 flex-col justify-between gap-2.5 p-3.5 sm:gap-3 sm:p-5">
           <div className="text-start">
-            <p className="text-[10px] font-semibold tracking-[0.2em] text-violet-soft uppercase">
+            <p className="text-[9px] font-semibold tracking-[0.18em] text-violet-soft uppercase sm:text-[10px] sm:tracking-[0.2em]">
               {loc(member.role, locale)}
             </p>
             <h3
               className={cn(
                 "font-display mt-1 leading-none tracking-[0.04em] text-white",
-                featured ? "text-[clamp(2.2rem,4vw,3.2rem)]" : "text-[clamp(1.8rem,3.5vw,2.4rem)]",
+                featured
+                  ? "text-[clamp(1.85rem,8vw,3.2rem)]"
+                  : "text-[clamp(1.55rem,7vw,2.4rem)]",
               )}
             >
               {member.name}
             </h3>
-            <p className="mt-2 text-sm text-white/85">“{member.alias}”</p>
+            <p className="mt-1.5 text-[13px] text-white/85 sm:mt-2 sm:text-sm">“{member.alias}”</p>
           </div>
 
           <div>

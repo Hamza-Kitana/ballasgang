@@ -55,56 +55,69 @@ export function Stage() {
     return () => window.removeEventListener("keydown", onKey);
   });
 
+  const navItems = (
+    <>
+      {tabs.map((item) => {
+        const active = tab === item.id;
+        return (
+          <button
+            key={item.id}
+            type="button"
+            onClick={() => goTo(item.id)}
+            className={cn(
+              "ballas-nav-item relative min-w-0 flex-1 whitespace-nowrap transition duration-300 md:flex-none",
+              "px-1.5 py-2.5 text-[11px] font-semibold tracking-[0.04em] md:px-5 md:py-3.5 md:text-[15px] md:tracking-[0.1em]",
+              active
+                ? "ballas-nav-item-active text-white"
+                : "text-white/55 hover:bg-white/5 hover:text-violet-soft",
+            )}
+          >
+            <span className="relative z-10 inline-flex max-w-full items-center justify-center gap-1 md:gap-2">
+              <span className="truncate">{item.label}</span>
+              {item.id === "live" && liveCount > 0 ? (
+                <span className="inline-flex h-4 min-w-4 shrink-0 items-center justify-center rounded-full bg-red-500 px-1 text-[9px] font-bold text-white md:h-5 md:min-w-5 md:px-1.5 md:text-[11px]">
+                  {liveCount}
+                </span>
+              ) : null}
+            </span>
+          </button>
+        );
+      })}
+    </>
+  );
+
   return (
-    <div className="relative z-10 flex h-full flex-col px-3 pt-4 pb-3 sm:px-6 sm:pt-5 sm:pb-4">
+    <div className="relative z-10 flex h-full flex-col px-3 pt-[max(0.75rem,env(safe-area-inset-top))] pb-[max(0.5rem,env(safe-area-inset-bottom))] sm:px-6 sm:pt-5 sm:pb-4">
+      {/* Mobile / desktop top bar — logo + lang only on phone */}
       <header className="relative z-30 flex shrink-0 items-center justify-between gap-3">
         <button
           type="button"
           onClick={() => goTo("home")}
           className={cn(
             "shrink-0 outline-none transition",
-            isHome ? "opacity-0 pointer-events-none" : "opacity-100 hover:opacity-90",
+            isHome ? "opacity-100" : "opacity-100 hover:opacity-90",
           )}
           aria-label="Ballas home"
         >
-          <BallasLogo size="sm" showWordmark={false} />
+          <BallasLogo
+            size="sm"
+            showWordmark={false}
+            className={cn(isHome && "md:opacity-0 md:pointer-events-none")}
+            markClassName="!h-8 md:!h-9"
+          />
         </button>
 
-        {/* Centered floating dock — not full bleed */}
-        <div className="pointer-events-none absolute inset-x-0 top-0 flex justify-center">
+        {/* Desktop centered top dock */}
+        <div className="pointer-events-none absolute inset-x-0 top-0 hidden justify-center md:flex">
           <nav
             className={cn(
-              "ballas-nav-dock pointer-events-auto flex max-w-[min(100%,56rem)] items-center gap-1 overflow-x-auto px-2 py-2 sm:gap-1.5 sm:px-3 sm:py-2.5",
+              "ballas-nav-dock pointer-events-auto flex max-w-[min(100%,56rem)] items-center gap-1.5 overflow-x-auto px-3 py-2.5",
               isHome && "ballas-nav-dock-home",
               "[scrollbar-width:none] [&::-webkit-scrollbar]:hidden",
             )}
             aria-label="Ballas navigation"
           >
-            {tabs.map((item) => {
-              const active = tab === item.id;
-              return (
-                <button
-                  key={item.id}
-                  type="button"
-                  onClick={() => goTo(item.id)}
-                  className={cn(
-                    "ballas-nav-item relative whitespace-nowrap px-3.5 py-3 text-[13px] font-semibold tracking-[0.1em] transition duration-300 sm:px-5 sm:py-3.5 sm:text-[15px]",
-                    active
-                      ? "ballas-nav-item-active text-white"
-                      : "text-white/60 hover:bg-white/5 hover:text-violet-soft",
-                  )}
-                >
-                  <span className="relative z-10 inline-flex items-center gap-2">
-                    {item.label}
-                    {item.id === "live" && liveCount > 0 ? (
-                      <span className="inline-flex h-5 min-w-5 items-center justify-center rounded-full bg-red-500 px-1.5 text-[11px] font-bold text-white">
-                        {liveCount}
-                      </span>
-                    ) : null}
-                  </span>
-                </button>
-              );
-            })}
+            {navItems}
           </nav>
         </div>
 
@@ -115,7 +128,9 @@ export function Stage() {
 
       <main
         className={cn(
-          "relative mt-4 min-h-0 flex-1 overflow-hidden pb-2",
+          "relative mt-3 min-h-0 flex-1 overflow-hidden pb-2 md:mt-4",
+          /* room for bottom mobile dock */
+          "mb-[4.75rem] md:mb-0",
           tab === "members" && "-mx-1 px-1 sm:-mx-2 sm:px-2",
         )}
       >
@@ -137,6 +152,19 @@ export function Stage() {
           {renderPanel(tab, goTo)}
         </div>
       </main>
+
+      {/* Mobile bottom glass dock */}
+      <div className="pointer-events-none absolute inset-x-0 bottom-0 z-40 flex justify-center px-3 pb-[max(0.55rem,env(safe-area-inset-bottom))] md:hidden">
+        <nav
+          className={cn(
+            "ballas-nav-dock ballas-nav-dock-mobile pointer-events-auto flex w-full max-w-lg items-stretch gap-0.5 px-1.5 py-1.5",
+            isHome && "ballas-nav-dock-home",
+          )}
+          aria-label="Ballas navigation"
+        >
+          {navItems}
+        </nav>
+      </div>
     </div>
   );
 }
