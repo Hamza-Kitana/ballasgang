@@ -13,9 +13,9 @@ const BACKGROUND_SLIDES = [
   "/backgrounds/bg-8.webp",
 ] as const;
 
-/** Hidden cinematic bed — starts at 0:09 */
-const BG_VIDEO_ID = "bni2CEjiZ9Y";
-const BG_VIDEO_START = 9;
+/** Cinematic bed — Ballas reel */
+const BG_VIDEO_ID = "-v1nh3KeKAM";
+const BG_VIDEO_START = 0;
 
 const SLIDE_MS = 8000;
 
@@ -82,7 +82,7 @@ export function Atmosphere() {
             alt=""
             className={cn(
               "ballas-bg-slide absolute inset-0 h-full w-full object-cover",
-              active ? "is-active opacity-[0.62]" : "opacity-0",
+              active ? "is-active opacity-[0.38]" : "opacity-0",
               active && `ballas-bg-pan-${pan}`,
             )}
             loading={active ? "eager" : "lazy"}

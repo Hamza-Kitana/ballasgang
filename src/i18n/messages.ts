@@ -51,6 +51,9 @@ export const messages = {
       ctaCrew: "ادخل على العصابة",
       ctaJoin: "قدّم الآن",
       cityStamp: "LOS SANTOS",
+      reelEyebrow: "مشهد العصابة",
+      reelTitle: "فيلم الشارع",
+      reelBody: "شوف أجواء Ballas — نفس الفيديو اللي يحرّك خلفية الموقع.",
     },
     members: {
       eyebrow: "طاقم العصابة",
@@ -225,6 +228,9 @@ export const messages = {
       ctaCrew: "Enter the set",
       ctaJoin: "Apply now",
       cityStamp: "LOS SANTOS",
+      reelEyebrow: "Set reel",
+      reelTitle: "Street cinema",
+      reelBody: "Watch the Ballas vibe — the same reel driving the site backdrop.",
     },
     members: {
       eyebrow: "The crew",

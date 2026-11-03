@@ -1571,6 +1571,15 @@ html[dir="rtl"] .ballas-page-sting-slash {
     0 12px 32px rgba(0, 0, 0, 0.28);
 }
 
+.ballas-home-reel-frame {
+  border: 1.5px solid color-mix(in oklch, var(--color-primary) 55%, white 10%);
+  background: linear-gradient(160deg, oklch(0.22 0.1 305), oklch(0.1 0.05 305));
+  box-shadow:
+    0 0 0 1px rgba(0, 0, 0, 0.4),
+    0 22px 56px rgba(0, 0, 0, 0.55),
+    0 0 48px oklch(0.64 0.28 305 / 0.28);
+}
+
 @keyframes ballas-brand-shift {
   0% {
     background-position: 0% 50%;
