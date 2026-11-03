@@ -147,16 +147,6 @@ export function RulesPanel() {
 
   const main = (
     <div className="order-1 min-w-0 flex-1 space-y-5 lg:order-none">
-      <header className="ballas-rise text-center">
-        <p className="text-[10px] tracking-[0.35em] text-violet-soft uppercase">{t.rules.centerBrand}</p>
-        <h2 className="font-display mt-2 text-[clamp(2.2rem,8vw,4.2rem)] leading-none tracking-[0.04em] text-white text-glow">
-          {t.rules.title}
-        </h2>
-        <p className="mx-auto mt-3 max-w-2xl text-sm leading-relaxed text-white/70 sm:text-[15px]">
-          {t.rules.subtitle}
-        </p>
-      </header>
-
       <div className="ballas-codex-search-row ballas-rise flex flex-col gap-3 sm:flex-row sm:items-center">
         {!searching ? (
           <div className="inline-flex shrink-0 items-center gap-2 self-center rounded-full border border-primary/40 bg-primary/15 px-3.5 py-2 text-[11px] tracking-[0.08em] text-violet-soft sm:self-auto">
@@ -215,9 +205,67 @@ export function RulesPanel() {
 
   return (
     <div className="ballas-codex relative flex h-full min-h-0 flex-col">
-      <div className="panel-scroll min-h-0 flex-1 pb-2">
+      <div className="panel-scroll min-h-0 flex-1 space-y-5 pb-2">
+        {/* Cinematic rules hero */}
+        <section className="ballas-rules-hero ballas-rise relative overflow-hidden rounded-[1.5rem]">
+          <img
+            src="/backgrounds/bg-3.webp"
+            alt=""
+            className="absolute inset-0 h-full w-full scale-105 object-cover"
+            draggable={false}
+          />
+          <div className="ballas-rules-hero-wash absolute inset-0" />
+          <div className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-violet-soft/70 to-transparent" />
+          <div className="pointer-events-none absolute -end-16 -top-20 h-56 w-56 rounded-full bg-primary/35 blur-3xl" />
+          <div className="pointer-events-none absolute -start-10 bottom-0 h-40 w-40 rounded-full bg-violet-glow/25 blur-3xl" />
+
+          <div className="relative z-10 flex flex-col items-center gap-4 px-5 py-8 text-center sm:px-8 sm:py-11 md:flex-row md:items-end md:justify-between md:text-start">
+            <div className="flex flex-col items-center gap-4 md:flex-row md:items-center md:gap-5">
+              <img
+                src="/ballas-logo.png"
+                alt=""
+                className="ballas-rules-hero-logo h-[4.8rem] w-auto object-contain sm:h-[6rem]"
+                draggable={false}
+              />
+              <div className="min-w-0">
+                <div className="flex flex-wrap items-center justify-center gap-2 md:justify-start">
+                  <span className="rounded-full border border-primary/45 bg-black/45 px-3 py-1 text-[10px] tracking-[0.2em] text-violet-soft">
+                    {t.rules.centerBrand}
+                  </span>
+                  <span className="rounded-full border border-red-400/40 bg-red-500/25 px-3 py-1 text-[10px] tracking-[0.16em] text-red-100">
+                    {t.rules.bannerBadge}
+                  </span>
+                </div>
+                <h2 className="font-display mt-3 text-[clamp(2.2rem,7vw,3.8rem)] leading-none tracking-[0.05em] text-white text-glow">
+                  {t.rules.title}
+                </h2>
+                <p className="mt-3 max-w-xl text-sm leading-relaxed text-white/85 sm:text-[15px]">
+                  {t.rules.subtitle}
+                </p>
+              </div>
+            </div>
+
+            <div className="flex shrink-0 flex-col items-center gap-2 md:items-end">
+              <p className="font-display text-4xl leading-none text-violet-soft sm:text-5xl">
+                {String(totalRules).padStart(2, "0")}
+              </p>
+              <p className="text-[10px] tracking-[0.22em] text-white/55 uppercase">
+                {t.rules.countLabel}
+              </p>
+              <div className="mt-1 h-1 w-24 overflow-hidden rounded-full bg-white/15">
+                <div
+                  className="h-full rounded-full bg-gradient-to-l from-violet-soft to-primary transition-[width] duration-500"
+                  style={{ width: `${progress}%` }}
+                />
+              </div>
+              <p className="text-[10px] tracking-[0.14em] text-white/45">
+                {totalRead}/{totalRules} · {progress}%
+              </p>
+            </div>
+          </div>
+        </section>
+
         <div className="mx-auto flex w-full max-w-7xl flex-col gap-5 lg:flex-row lg:items-start lg:gap-6">
-          {/* AR: sidebar first so it sits on the visual right under RTL */}
           {locale === "ar" ? (
             <>
               {sidebar}
@@ -259,41 +307,53 @@ function RuleCodexCard({
       type="button"
       onClick={onToggle}
       className={cn(
-        "ballas-codex-card ballas-rise group relative flex min-h-[11.5rem] flex-col overflow-hidden rounded-2xl border p-4 text-center outline-none transition duration-300",
+        "ballas-codex-card ballas-rise group relative flex min-h-[12.5rem] flex-col overflow-hidden rounded-[1.35rem] p-4 text-center outline-none transition duration-300 sm:p-5",
         "focus-visible:ring-2 focus-visible:ring-primary",
-        read
-          ? "border-primary/50 bg-[oklch(0.18_0.08_305)] shadow-[0_0_28px_oklch(0.64_0.28_305/0.22)]"
-          : "border-white/12 bg-[oklch(0.14_0.05_305)] hover:-translate-y-1 hover:border-primary/40",
+        read && "ballas-codex-card-read",
       )}
       style={{ animationDelay: `${Math.min(index, 8) * 40}ms` }}
     >
-      <div className="flex items-start justify-between gap-2">
+      <div
+        className={cn(
+          "absolute inset-y-0 start-0 w-1 rounded-s-[1.35rem]",
+          rule.severity === "blood" && "bg-gradient-to-b from-red-300 to-red-600",
+          rule.severity === "law" && "bg-gradient-to-b from-violet-soft to-primary",
+          rule.severity === "street" && "bg-gradient-to-b from-white/80 to-white/25",
+        )}
+      />
+      <div className="ballas-codex-card-sheen pointer-events-none absolute inset-0" />
+      <div className="pointer-events-none absolute -end-8 -top-10 h-28 w-28 rounded-full bg-primary/20 blur-3xl transition duration-500 group-hover:bg-primary/35" />
+
+      <div className="relative flex items-start justify-between gap-2">
         <span
           className={cn(
-            "flex h-6 w-6 items-center justify-center rounded-full border-2 transition",
+            "flex h-7 w-7 items-center justify-center rounded-full border-2 text-[12px] transition",
             read
-              ? "border-primary bg-primary text-[11px] text-white"
-              : "border-white/30 group-hover:border-primary/60",
+              ? "border-primary bg-primary text-white shadow-[0_0_16px_oklch(0.64_0.28_305/0.55)]"
+              : "border-white/35 bg-white/5 text-transparent group-hover:border-primary/70",
           )}
           aria-hidden
         >
-          {read ? "✓" : null}
+          {read ? "✓" : "·"}
         </span>
-        <span className="rounded-md bg-primary/90 px-2 py-0.5 text-[9px] font-bold tracking-[0.16em] text-white">
+        <span className="rounded-lg bg-primary px-2.5 py-1 text-[9px] font-bold tracking-[0.16em] text-white shadow-[0_0_18px_oklch(0.64_0.28_305/0.35)]">
           {ruleTag} {rule.code}
         </span>
       </div>
 
-      <div className="flex flex-1 flex-col items-center justify-center px-1 py-4">
-        <p className="text-[15px] font-bold leading-snug text-white sm:text-base">
+      <div className="relative flex flex-1 flex-col items-center justify-center gap-2 px-1 py-5">
+        <p className="text-[11px] font-semibold tracking-[0.2em] text-violet-soft uppercase">
+          {loc(rule.title, locale)}
+        </p>
+        <p className="max-w-[18rem] text-[15px] font-bold leading-relaxed text-white sm:text-[16px]">
           {loc(rule.detail, locale)}
         </p>
       </div>
 
       <p
         className={cn(
-          "text-[10px] tracking-[0.12em]",
-          read ? "text-violet-soft" : "text-white/40",
+          "relative text-[10px] tracking-[0.14em]",
+          read ? "font-semibold text-violet-soft" : "text-white/45",
         )}
       >
         {read ? confirmedLabel : confirmLabel}

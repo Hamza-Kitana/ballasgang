@@ -3,53 +3,52 @@ import { cn } from "@/lib/utils";
 type BallasLogoProps = {
   className?: string;
   markClassName?: string;
+  /** @deprecated Wordmark removed — logo graphic includes THE BALLAS */
   showWordmark?: boolean;
   size?: "sm" | "md" | "lg" | "hero";
+  glow?: boolean;
 };
 
 const sizes = {
-  sm: { mark: "h-9 w-auto", word: "text-xl tracking-[0.18em]" },
-  md: { mark: "h-11 w-auto", word: "text-2xl tracking-[0.18em]" },
-  lg: { mark: "h-14 w-auto", word: "text-3xl tracking-[0.16em]" },
-  hero: {
-    mark: "h-14 w-auto sm:h-20",
-    word: "text-[clamp(2.1rem,11vw,5.8rem)] tracking-[0.12em] sm:tracking-[0.14em]",
-  },
+  sm: "h-9 w-auto max-w-[7.5rem]",
+  md: "h-12 w-auto max-w-[10rem]",
+  lg: "h-16 w-auto max-w-[14rem] sm:h-20 sm:max-w-[16rem]",
+  hero: "h-[clamp(8.5rem,34vw,16rem)] w-auto max-w-[min(92vw,28rem)]",
 };
 
 export function BallasLogo({
   className,
   markClassName,
-  showWordmark = true,
   size = "md",
+  glow = size === "hero" || size === "lg",
 }: BallasLogoProps) {
-  const s = sizes[size];
-
   return (
     <div
       className={cn(
-        "inline-flex items-center justify-center gap-2.5 sm:gap-4",
-        size === "hero" && "flex-wrap",
+        "relative inline-flex items-center justify-center",
+        glow && "ballas-logo-glow-wrap",
         className,
       )}
+      aria-label="The Ballas"
     >
+      {glow ? (
+        <>
+          <span className="ballas-logo-aura ballas-logo-aura-a" aria-hidden />
+          <span className="ballas-logo-aura ballas-logo-aura-b" aria-hidden />
+          <span className="ballas-logo-aura ballas-logo-aura-c" aria-hidden />
+        </>
+      ) : null}
+
       <img
-        src="/ballas-b.png"
-        alt=""
-        aria-hidden
+        src="/ballas-logo.png"
+        alt="The Ballas"
         draggable={false}
         className={cn(
-          s.mark,
-          "ballas-logo-mark shrink-0 object-contain select-none",
+          sizes[size],
+          "ballas-logo-mark relative z-10 object-contain select-none",
           markClassName,
         )}
       />
-
-      {showWordmark ? (
-        <span className={cn("ballas-wordmark", s.word)} aria-label="Ballas">
-          BALLAS
-        </span>
-      ) : null}
     </div>
   );
 }

@@ -18,7 +18,7 @@ export function JoinPanel() {
             <div className="pointer-events-none absolute -end-10 top-1/3 h-40 w-40 rounded-full bg-violet-glow/20 blur-3xl" />
 
             <div className="relative z-10 flex flex-col items-center">
-              <BallasLogo showWordmark={false} size="lg" markClassName="!h-16 sm:!h-20" />
+              <BallasLogo size="lg" glow />
 
               <p className="mt-5 text-[10px] tracking-[0.32em] text-violet-soft uppercase sm:text-[11px]">
                 {t.join.eyebrow}

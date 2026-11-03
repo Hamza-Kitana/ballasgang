@@ -18,7 +18,7 @@ export function LoadingScreen({ progress }: LoadingScreenProps) {
           GTA V · FiveM
         </div>
 
-        <BallasLogo size="lg" className="ballas-rise flex-col gap-3" />
+        <BallasLogo size="lg" glow className="ballas-rise" />
 
         <p className="ballas-rise mt-5 text-xs tracking-[0.28em] text-violet-soft/85" style={{ animationDelay: "80ms" }}>
           {t.loadingSub}

@@ -1,158 +1,169 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { Link } from "@tanstack/react-router";
 import { loc, type GangMember } from "@/data/gang";
 import { MemberPortrait } from "@/components/ballas/MemberPortrait";
+import { getStreamEmbedUrl } from "@/lib/streamEmbed";
 import { useLanguage } from "@/i18n/LanguageProvider";
 import { cn } from "@/lib/utils";
 
 type LiveCardProps = {
   member: GangMember;
-  featured?: boolean;
   index?: number;
 };
 
-export function LiveCard({ member, featured = false, index = 0 }: LiveCardProps) {
+export function LiveCard({ member, index = 0 }: LiveCardProps) {
   const { t, locale } = useLanguage();
   const viewers = 120 + member.stats.respect * 7 + index * 41;
   const thumb = member.liveImage ?? member.image;
-  const hoverTimer = useRef<number | null>(null);
-  const opened = useRef(false);
+  const [preview, setPreview] = useState(false);
+  const [pinned, setPinned] = useState(false);
+  const closeTimer = useRef<number | null>(null);
+
+  const parentHost =
+    typeof window !== "undefined" ? window.location.hostname || "localhost" : "localhost";
+  const embedUrl = useMemo(
+    () => getStreamEmbedUrl(member.streamUrl, parentHost),
+    [member.streamUrl, parentHost],
+  );
 
   useEffect(() => {
     return () => {
-      if (hoverTimer.current) window.clearTimeout(hoverTimer.current);
+      if (closeTimer.current) window.clearTimeout(closeTimer.current);
     };
   }, []);
 
-  const openStream = () => {
-    if (!member.streamUrl || opened.current) return;
-    opened.current = true;
-    window.open(member.streamUrl, "_blank", "noopener,noreferrer");
-    window.setTimeout(() => {
-      opened.current = false;
-    }, 2500);
-  };
-
-  const onHoverStart = () => {
-    if (!member.streamUrl) return;
-    if (hoverTimer.current) window.clearTimeout(hoverTimer.current);
-    hoverTimer.current = window.setTimeout(() => {
-      openStream();
-    }, 650);
-  };
-
-  const onHoverEnd = () => {
-    if (hoverTimer.current) {
-      window.clearTimeout(hoverTimer.current);
-      hoverTimer.current = null;
+  const openPreview = () => {
+    if (closeTimer.current) {
+      window.clearTimeout(closeTimer.current);
+      closeTimer.current = null;
     }
+    setPreview(true);
+  };
+
+  const scheduleClose = () => {
+    if (pinned) return;
+    if (closeTimer.current) window.clearTimeout(closeTimer.current);
+    closeTimer.current = window.setTimeout(() => setPreview(false), 220);
+  };
+
+  const togglePin = () => {
+    setPinned((p) => {
+      const next = !p;
+      setPreview(true);
+      return next;
+    });
   };
 
   return (
     <article
       className={cn(
-        "ballas-live-card group relative overflow-hidden rounded-[1.45rem]",
-        "transition duration-300 hover:-translate-y-1.5 hover:border-red-400/60",
-        "hover:shadow-[0_22px_56px_rgba(0,0,0,0.55),0_0_32px_oklch(0.55_0.22_25/0.35)]",
-        featured && "ballas-live-card-featured w-full",
+        "ballas-live-card group relative overflow-hidden rounded-[1.2rem]",
+        "transition duration-300 hover:-translate-y-1 hover:border-red-400/55",
+        preview && "z-20 border-red-400/60 shadow-[0_18px_44px_rgba(0,0,0,0.5),0_0_28px_oklch(0.55_0.22_25/0.3)]",
       )}
-      onMouseEnter={onHoverStart}
-      onMouseLeave={onHoverEnd}
-      onFocus={onHoverStart}
-      onBlur={onHoverEnd}
+      onMouseEnter={openPreview}
+      onMouseLeave={scheduleClose}
     >
-      <button
-        type="button"
-        onClick={openStream}
-        className="absolute inset-0 z-10 cursor-pointer"
-        aria-label={`${t.live.watch} · ${member.name}`}
-      />
-
-      <div className={cn("relative overflow-hidden", featured ? "aspect-[21/9] min-h-[220px] sm:min-h-[280px]" : "aspect-video")}>
+      <div className="relative aspect-[16/10] overflow-hidden">
         <img
           src={thumb}
           alt={member.name}
-          className="h-full w-full object-cover transition duration-700 group-hover:scale-[1.06]"
-          loading={featured ? "eager" : "lazy"}
+          className={cn(
+            "h-full w-full object-cover transition duration-500",
+            preview ? "scale-105 blur-[1px]" : "group-hover:scale-[1.04]",
+          )}
+          loading="lazy"
         />
-        <div className="absolute inset-0 bg-gradient-to-t from-black via-black/55 to-black/15" />
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_35%,oklch(0.05_0.04_305/0.5)_100%)]" />
+        <div className="absolute inset-0 bg-gradient-to-t from-black via-black/50 to-black/10" />
 
-        <div className="absolute start-3 top-3 z-20 flex flex-wrap items-center gap-2">
-          <span className="inline-flex items-center gap-1.5 rounded-full bg-red-500 px-3 py-1 text-[10px] font-black tracking-[0.16em] text-white shadow-[0_0_18px_oklch(0.6_0.24_25/0.55)]">
+        <div className="absolute start-2.5 top-2.5 z-10 flex flex-wrap items-center gap-1.5">
+          <span className="inline-flex items-center gap-1 rounded-full bg-red-500 px-2 py-0.5 text-[9px] font-black tracking-[0.14em] text-white">
             <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-white" />
             LIVE
           </span>
-          <span className="rounded-full border border-white/20 bg-black/70 px-2.5 py-1 text-[10px] tracking-[0.12em] text-white backdrop-blur-sm">
-            {viewers.toLocaleString()} {locale === "ar" ? "مشاهد" : "viewers"}
+          <span className="rounded-full border border-white/20 bg-black/65 px-2 py-0.5 text-[9px] tracking-[0.1em] text-white backdrop-blur-sm">
+            {viewers.toLocaleString()}
           </span>
         </div>
 
-        <div className="pointer-events-none absolute inset-0 z-20 flex items-center justify-center">
-          <div className="flex h-14 w-14 items-center justify-center rounded-full border border-white/30 bg-red-500 text-xl text-white opacity-90 shadow-[0_0_28px_oklch(0.55_0.22_25/0.55)] transition duration-300 group-hover:scale-125 group-hover:opacity-100 sm:h-16 sm:w-16 sm:text-2xl">
-            ▶
-          </div>
-        </div>
-
-        {/* Hover hint */}
-        <div className="pointer-events-none absolute inset-x-0 top-1/2 z-20 -translate-y-[4.5rem] text-center opacity-0 transition duration-300 group-hover:opacity-100">
-          <span className="rounded-full border border-white/25 bg-black/70 px-3 py-1 text-[10px] tracking-[0.16em] text-white backdrop-blur-sm">
-            {t.live.hoverOpen}
-          </span>
-        </div>
-
-        <div className="absolute inset-x-0 bottom-0 z-20 p-4 sm:p-5">
-          <div className="flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
-            <div className="flex items-end gap-3">
-              <MemberPortrait
-                member={member}
-                size={featured ? "md" : "sm"}
-                className="ring-2 ring-white/25"
-              />
-              <div className="min-w-0 text-start">
-                <p className="text-[10px] font-semibold tracking-[0.18em] text-red-200 uppercase">
-                  {t.ranks[member.rank]} · ON AIR
-                </p>
-                <h3
-                  className={cn(
-                    "font-display leading-none tracking-[0.04em] text-white drop-shadow-[0_4px_16px_rgba(0,0,0,0.75)]",
-                    featured ? "text-3xl sm:text-5xl" : "text-2xl sm:text-3xl",
-                  )}
-                >
-                  {member.name}
-                </h3>
-                <p className="mt-1 truncate text-sm text-white/85">
-                  “{member.alias}” · {loc(member.role, locale)}
-                </p>
-              </div>
+        {!preview ? (
+          <div className="pointer-events-none absolute inset-0 z-10 flex items-center justify-center">
+            <div className="flex h-11 w-11 items-center justify-center rounded-full border border-white/30 bg-red-500/90 text-base text-white shadow-[0_0_20px_oklch(0.55_0.22_25/0.45)] transition group-hover:scale-110">
+              ▶
             </div>
+          </div>
+        ) : null}
 
-            <div className="relative z-30 flex flex-wrap gap-2">
-              <Link
-                to="/members/$id"
-                params={{ id: member.id }}
-                viewTransition
-                onClick={(e) => e.stopPropagation()}
-                onMouseEnter={onHoverEnd}
-                className="rounded-full border border-white/35 bg-black/65 px-3.5 py-2 text-[10px] tracking-[0.12em] text-white backdrop-blur-sm transition hover:border-primary"
+        {/* In-card stream window (hover) */}
+        {preview ? (
+          <div
+            className="ballas-live-preview absolute inset-2 z-20 overflow-hidden rounded-xl border border-white/20 bg-black/90 shadow-[0_12px_40px_rgba(0,0,0,0.55)]"
+            onMouseEnter={openPreview}
+            onMouseLeave={scheduleClose}
+          >
+            {embedUrl ? (
+              <iframe
+                title={`${member.name} live`}
+                src={embedUrl}
+                className="h-full w-full border-0"
+                allow="autoplay; fullscreen; picture-in-picture"
+                allowFullScreen
+              />
+            ) : (
+              <div className="relative flex h-full flex-col items-center justify-center gap-2 bg-[oklch(0.12_0.05_305)] p-3 text-center">
+                <img src={thumb} alt="" className="absolute inset-0 h-full w-full object-cover opacity-35" />
+                <div className="relative z-10">
+                  <p className="text-[10px] tracking-[0.2em] text-red-200 uppercase">{t.live.previewTitle}</p>
+                  <p className="mt-1 text-sm font-bold text-white">{member.name}</p>
+                  <p className="mt-1 max-w-[14rem] text-[11px] text-white/65">{t.live.previewBody}</p>
+                </div>
+              </div>
+            )}
+
+            <div className="absolute inset-x-0 bottom-0 z-10 flex items-center justify-between gap-2 bg-gradient-to-t from-black/90 to-transparent px-2.5 py-2">
+              <button
+                type="button"
+                onClick={togglePin}
+                className="rounded-full border border-white/25 bg-black/55 px-2.5 py-1 text-[9px] tracking-[0.12em] text-white backdrop-blur-sm"
               >
-                {t.live.profile}
-              </Link>
+                {pinned ? t.live.unpin : t.live.pin}
+              </button>
               {member.streamUrl ? (
                 <a
                   href={member.streamUrl}
                   target="_blank"
                   rel="noreferrer"
-                  onClick={(e) => e.stopPropagation()}
-                  onMouseEnter={onHoverEnd}
-                  className="rounded-full bg-red-500 px-4 py-2 text-[10px] font-black tracking-[0.14em] text-white shadow-[0_0_20px_oklch(0.55_0.22_25/0.45)] transition hover:bg-red-400"
+                  className="rounded-full bg-red-500 px-2.5 py-1 text-[9px] font-bold tracking-[0.12em] text-white"
                 >
                   {t.live.watch}
                 </a>
               ) : null}
             </div>
           </div>
+        ) : null}
+      </div>
+
+      <div className="ballas-live-body relative flex items-center gap-2.5 p-3">
+        <MemberPortrait member={member} size="sm" className="ring-1 ring-white/20" />
+        <div className="min-w-0 flex-1 text-start">
+          <p className="text-[9px] font-semibold tracking-[0.16em] text-red-200/90 uppercase">
+            {t.ranks[member.rank]}
+          </p>
+          <h3 className="font-display truncate text-xl leading-none tracking-[0.04em] text-white">
+            {member.name}
+          </h3>
+          <p className="mt-0.5 truncate text-[11px] text-white/65">
+            “{member.alias}” · {loc(member.role, locale)}
+          </p>
         </div>
+        <Link
+          to="/members/$id"
+          params={{ id: member.id }}
+          viewTransition
+          className="shrink-0 rounded-full border border-white/20 bg-white/5 px-2.5 py-1.5 text-[9px] tracking-[0.12em] text-white/80 transition hover:border-primary hover:text-violet-soft"
+        >
+          {t.live.profile}
+        </Link>
       </div>
     </article>
   );
