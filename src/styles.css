@@ -1195,11 +1195,20 @@ html[dir="rtl"] .ballas-page-sting-slash {
 }
 
 .ballas-member-card-featured {
-  border-color: color-mix(in oklch, var(--accent, var(--color-primary)) 65%, white 8%);
+  border-width: 2px;
+  border-color: color-mix(in oklch, var(--accent, var(--color-primary)) 70%, white 10%);
   box-shadow:
-    0 0 0 1px color-mix(in oklch, var(--accent, var(--color-primary)) 35%, transparent),
-    0 20px 52px rgba(0, 0, 0, 0.58),
-    0 0 36px color-mix(in oklch, var(--accent, var(--color-primary)) 28%, transparent);
+    0 0 0 1px color-mix(in oklch, var(--accent, var(--color-primary)) 40%, transparent),
+    0 24px 60px rgba(0, 0, 0, 0.58),
+    0 0 42px color-mix(in oklch, var(--accent, var(--color-primary)) 32%, transparent);
+}
+
+.ballas-member-card-compact {
+  border-width: 1px;
+  border-color: rgba(255, 255, 255, 0.2);
+  box-shadow:
+    0 0 0 1px rgba(0, 0, 0, 0.35),
+    0 10px 24px rgba(0, 0, 0, 0.42);
 }
 
 .ballas-member-body {
