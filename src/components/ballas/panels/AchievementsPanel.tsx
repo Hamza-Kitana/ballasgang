@@ -41,7 +41,7 @@ export function AchievementsPanel() {
                 {t.achievements.bannerBody}
               </p>
             </div>
-            <div className="shrink-0 rounded-2xl border border-white/15 bg-black/45 px-4 py-3 text-start backdrop-blur-sm">
+            <div className="shrink-0 rounded-2xl border border-white/20 bg-[oklch(0.14_0.06_305)] px-4 py-3 text-start">
               <p className="text-[9px] tracking-[0.2em] text-white/45 uppercase">Los Santos</p>
               <p className="font-display mt-1 text-3xl tracking-[0.06em] text-primary">
                 {achievements[0]?.year}–{achievements.at(-1)?.year}
@@ -101,7 +101,7 @@ export function AchievementsPanel() {
                     </p>
 
                     <div className="mt-4 flex flex-wrap gap-2 border-t border-white/15 pt-4">
-                      <div className="rounded-xl border border-white/15 bg-black/40 px-3 py-2">
+                      <div className="rounded-xl border border-white/20 bg-[oklch(0.16_0.06_305)] px-3 py-2">
                         <p className="text-[9px] tracking-[0.16em] text-white/45 uppercase">
                           {t.achievements.zone}
                         </p>
@@ -109,7 +109,7 @@ export function AchievementsPanel() {
                           {loc(item.zone, locale)}
                         </p>
                       </div>
-                      <div className="rounded-xl border border-emerald-400/25 bg-emerald-500/10 px-3 py-2">
+                      <div className="rounded-xl border border-emerald-400/35 bg-[oklch(0.2_0.06_155)] px-3 py-2">
                         <p className="text-[9px] tracking-[0.16em] text-emerald-200/70 uppercase">
                           {t.achievements.outcome}
                         </p>
@@ -117,7 +117,7 @@ export function AchievementsPanel() {
                           {loc(item.outcome, locale)}
                         </p>
                       </div>
-                      <div className="rounded-xl border border-primary/30 bg-primary/10 px-3 py-2">
+                      <div className="rounded-xl border border-primary/40 bg-[oklch(0.2_0.09_305)] px-3 py-2">
                         <p className="text-[9px] tracking-[0.16em] text-violet-soft/70 uppercase">
                           Ballas
                         </p>

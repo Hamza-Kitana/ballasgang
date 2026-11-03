@@ -192,7 +192,7 @@ function MemberProfile() {
 
 function Stat({ label, value, accent }: { label: string; value: number; accent: string }) {
   return (
-    <div className="ballas-profile-stat rounded-2xl border border-white/12 bg-black/40 px-5 py-5 backdrop-blur-md">
+    <div className="ballas-profile-stat rounded-2xl border border-white/25 bg-[oklch(0.16_0.07_305)] px-5 py-5">
       <div className="flex items-end justify-between gap-3">
         <p className="font-display text-5xl leading-none tracking-wider text-white sm:text-6xl">
           {value}
@@ -220,8 +220,8 @@ function CrewChip({ member, index }: { member: GangMember; index: number }) {
       params={{ id: member.id }}
       viewTransition
       className={cn(
-        "ballas-rise group flex min-w-[220px] flex-1 items-center gap-3 rounded-2xl border border-white/12 bg-black/45 p-2.5 pe-4",
-        "backdrop-blur-md transition duration-300 hover:-translate-y-1 hover:border-primary/50 hover:bg-primary/10",
+        "ballas-rise group flex min-w-[220px] flex-1 items-center gap-3 rounded-2xl border border-white/25 bg-[oklch(0.16_0.07_305)] p-2.5 pe-4",
+        "transition duration-300 hover:-translate-y-1 hover:border-primary/50 hover:bg-[oklch(0.2_0.09_305)]",
       )}
       style={{ animationDelay: `${180 + index * 40}ms` }}
     >

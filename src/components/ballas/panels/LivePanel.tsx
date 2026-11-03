@@ -44,7 +44,7 @@ export function LivePanel() {
         </section>
 
         {live.length === 0 ? (
-          <p className="rounded-2xl border border-white/15 bg-black/50 p-8 text-sm text-white/70">
+          <p className="rounded-2xl border border-white/20 bg-[oklch(0.14_0.05_305)] p-8 text-sm text-white/80">
             {t.live.empty}
           </p>
         ) : (

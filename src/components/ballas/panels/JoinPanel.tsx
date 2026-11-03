@@ -14,7 +14,7 @@ export function JoinPanel() {
 
       <div className="panel-scroll min-h-0 flex-1 space-y-7 pb-2">
         {/* Apply CTA */}
-        <div className="relative overflow-hidden rounded-[1.5rem] border border-primary/45 bg-gradient-to-br from-primary/25 via-black/50 to-black/70 p-5 sm:p-7">
+        <div className="relative overflow-hidden rounded-[1.5rem] border border-primary/50 bg-[oklch(0.16_0.08_305)] p-5 sm:p-7">
           <div className="pointer-events-none absolute -end-10 top-0 h-44 w-44 rounded-full bg-primary/30 blur-3xl" />
           <div className="relative z-10 flex flex-col gap-5 lg:flex-row lg:items-center lg:justify-between">
             <div className="flex items-start gap-4">
@@ -102,7 +102,7 @@ export function JoinPanel() {
             {gangRules.map((rule, index) => (
               <article
                 key={rule.id}
-                className="ballas-rise relative overflow-hidden rounded-[1.25rem] border-[1.5px] border-white/25 bg-black/65 p-4 shadow-[0_14px_36px_rgba(0,0,0,0.4)] backdrop-blur-sm"
+                className="ballas-rise relative overflow-hidden rounded-[1.25rem] border-[1.5px] border-white/25 bg-[oklch(0.16_0.07_305)] p-4 shadow-[0_14px_36px_rgba(0,0,0,0.5)]"
                 style={{ animationDelay: `${index * 35}ms` }}
               >
                 <div
@@ -148,7 +148,7 @@ export function JoinPanel() {
           href={discordUrl}
           target="_blank"
           rel="noreferrer"
-          className="group flex items-center justify-between gap-4 rounded-[1.35rem] border border-primary/50 bg-gradient-to-r from-primary/20 to-black/50 px-5 py-5 transition hover:border-violet-glow hover:from-primary/30"
+          className="group flex items-center justify-between gap-4 rounded-[1.35rem] border border-primary/50 bg-[oklch(0.18_0.09_305)] px-5 py-5 transition hover:border-violet-glow hover:bg-[oklch(0.22_0.1_305)]"
         >
           <div>
             <p className="text-xs tracking-[0.18em] text-violet-soft">{GANG.discord}</p>

@@ -125,7 +125,7 @@ export function RulesPanel() {
           ))}
         </div>
 
-        <p className="rounded-[1.25rem] border border-primary/40 bg-gradient-to-r from-primary/25 to-black/55 px-5 py-4 text-center text-xs tracking-[0.14em] text-violet-soft shadow-[0_0_28px_oklch(0.64_0.28_305/0.2)]">
+        <p className="rounded-[1.25rem] border border-primary/45 bg-[oklch(0.18_0.09_305)] px-5 py-4 text-center text-xs tracking-[0.14em] text-violet-soft shadow-[0_14px_36px_rgba(0,0,0,0.45)]">
           {t.rules.footer}
         </p>
       </div>

@@ -35,11 +35,9 @@ export function MembersPanel() {
             <p className="mb-4 text-center text-[10px] tracking-[0.28em] text-violet-soft uppercase">
               {t.members.leadership}
             </p>
-            <div className="grid w-full gap-4 sm:grid-cols-2">
+            <div className="mx-auto grid w-full max-w-5xl gap-4 sm:grid-cols-2">
               {leaders.map((member, index) => (
-                <div key={member.id} className="w-full min-w-0">
-                  <MemberCard member={member} index={index} featured />
-                </div>
+                <MemberCard key={member.id} member={member} index={index} featured />
               ))}
             </div>
           </section>
@@ -54,7 +52,7 @@ export function MembersPanel() {
               </p>
               <div className="h-px flex-1 bg-gradient-to-r from-transparent via-primary/45 to-transparent" />
             </div>
-            <div className="grid w-full gap-3 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6">
+            <div className="grid w-full gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
               {crew.map((member, index) => (
                 <MemberCard key={member.id} member={member} index={index + leaders.length} />
               ))}
