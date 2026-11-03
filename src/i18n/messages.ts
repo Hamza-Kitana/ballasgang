@@ -87,6 +87,10 @@ export const messages = {
       bannerBody: "هالكود يحمي السلالة البنفسجية. احفظه، طبّقه، ولا تلعب فيه.",
       bannerBadge: "إلزامي على الكل",
       countLabel: "قوانين",
+      search: "ابحث في القوانين…",
+      all: "الكل",
+      results: "{count} نتيجة",
+      emptySearch: "ما في قانون مطابق لبحثك.",
       footer: "كل عضو في Ballas لازم يحفظ هالقوانين قبل ما يلبس البنفسجي.",
       severity: {
         law: "قانون",
@@ -232,6 +236,10 @@ export const messages = {
       bannerBody: "This code protects the Purple Dynasty. Learn it, live it, don't play with it.",
       bannerBadge: "Mandatory for all",
       countLabel: "laws",
+      search: "Search the laws…",
+      all: "All",
+      results: "{count} results",
+      emptySearch: "No law matches your search.",
       footer: "Every Ballas member learns these laws before they wear the purple.",
       severity: {
         law: "LAW",

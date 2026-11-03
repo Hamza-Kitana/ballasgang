@@ -25,9 +25,8 @@ export function BallasLogo({
   size = "md",
 }: BallasLogoProps) {
   const id = useId();
-  const fillId = `ballas-logo-${id}`;
+  const strokeId = `ballas-stroke-${id}`;
   const ringId = `ballas-ring-${id}`;
-  const glowId = `ballas-glow-${id}`;
   const s = sizes[size];
 
   return (
@@ -39,43 +38,53 @@ export function BallasLogo({
         className={cn(s.mark, "ballas-logo-mark shrink-0", markClassName)}
         aria-hidden
       >
-        {/* Soft purple aura only — no solid white/light plate behind */}
-        <circle cx="40" cy="40" r="28" fill={`url(#${glowId})`} opacity="0.55" />
+        {/* Hollow mark only — fully cut out, no plate behind */}
         <circle
           cx="40"
           cy="40"
           r="34"
           stroke={`url(#${ringId})`}
-          strokeWidth="2.2"
+          strokeWidth="2.4"
           fill="none"
         />
         <circle
           cx="40"
           cy="40"
-          r="29"
-          stroke="oklch(0.55 0.24 305 / 0.45)"
-          strokeWidth="1"
+          r="28.5"
+          stroke="oklch(0.62 0.24 305 / 0.55)"
+          strokeWidth="1.1"
           fill="none"
-          strokeDasharray="2 3"
+          strokeDasharray="3 4"
         />
 
+        {/* Crown outline — hollow / cut out */}
         <path
           d="M22 48 L26 28 L36 40 L40 18 L44 40 L54 28 L58 48 Z"
-          fill={`url(#${fillId})`}
-          stroke="oklch(0.72 0.22 310)"
-          strokeWidth="1.4"
+          fill="none"
+          stroke={`url(#${strokeId})`}
+          strokeWidth="2.2"
           strokeLinejoin="round"
+          strokeLinecap="round"
         />
-        <path d="M24 52 H56" stroke="oklch(0.68 0.24 305)" strokeWidth="2.2" strokeLinecap="round" />
-        <circle cx="26" cy="26" r="2" fill="oklch(0.78 0.2 320)" />
-        <circle cx="40" cy="16" r="2.2" fill="oklch(0.82 0.18 310)" />
-        <circle cx="54" cy="26" r="2" fill="oklch(0.78 0.2 320)" />
+        <path
+          d="M24 52 H56"
+          stroke={`url(#${strokeId})`}
+          strokeWidth="2.4"
+          strokeLinecap="round"
+          fill="none"
+        />
+        <circle cx="26" cy="26" r="2.1" fill="none" stroke={`url(#${strokeId})`} strokeWidth="1.6" />
+        <circle cx="40" cy="16" r="2.3" fill="none" stroke={`url(#${strokeId})`} strokeWidth="1.6" />
+        <circle cx="54" cy="26" r="2.1" fill="none" stroke={`url(#${strokeId})`} strokeWidth="1.6" />
+
         <text
           x="40"
           y="66"
           textAnchor="middle"
-          fill="oklch(0.78 0.18 310)"
-          fontSize="10"
+          fill="none"
+          stroke={`url(#${strokeId})`}
+          strokeWidth="1.1"
+          fontSize="11"
           fontFamily="Black Ops One, Bebas Neue, sans-serif"
           letterSpacing="2"
         >
@@ -83,39 +92,34 @@ export function BallasLogo({
         </text>
 
         <defs>
-          <radialGradient id={glowId} cx="40" cy="40" r="28" gradientUnits="userSpaceOnUse">
-            <stop stopColor="oklch(0.5 0.26 305 / 0.55)" />
-            <stop offset="0.55" stopColor="oklch(0.35 0.2 305 / 0.2)" />
-            <stop offset="1" stopColor="oklch(0.2 0.1 305 / 0)" />
-          </radialGradient>
-          <linearGradient id={fillId} x1="22" y1="18" x2="58" y2="52" gradientUnits="userSpaceOnUse">
-            <stop stopColor="oklch(0.7 0.28 310)">
+          <linearGradient id={strokeId} x1="20" y1="16" x2="60" y2="56" gradientUnits="userSpaceOnUse">
+            <stop stopColor="oklch(0.82 0.2 315)">
               <animate
                 attributeName="stop-color"
-                values="oklch(0.7 0.28 310);oklch(0.62 0.26 330);oklch(0.58 0.24 290);oklch(0.7 0.28 310)"
-                dur="6s"
+                values="oklch(0.82 0.2 315);oklch(0.72 0.28 330);oklch(0.78 0.22 290);oklch(0.82 0.2 315)"
+                dur="5.5s"
                 repeatCount="indefinite"
               />
             </stop>
-            <stop offset="1" stopColor="oklch(0.32 0.18 305)">
+            <stop offset="1" stopColor="oklch(0.55 0.26 305)">
               <animate
                 attributeName="stop-color"
-                values="oklch(0.32 0.18 305);oklch(0.38 0.2 318);oklch(0.28 0.16 295);oklch(0.32 0.18 305)"
-                dur="6s"
+                values="oklch(0.55 0.26 305);oklch(0.48 0.24 320);oklch(0.58 0.22 295);oklch(0.55 0.26 305)"
+                dur="5.5s"
                 repeatCount="indefinite"
               />
             </stop>
           </linearGradient>
           <linearGradient id={ringId} x1="8" y1="8" x2="72" y2="72" gradientUnits="userSpaceOnUse">
-            <stop stopColor="oklch(0.82 0.2 315)">
+            <stop stopColor="oklch(0.85 0.16 310)">
               <animate
                 attributeName="stop-color"
-                values="oklch(0.82 0.2 315);oklch(0.7 0.26 330);oklch(0.75 0.22 290);oklch(0.82 0.2 315)"
-                dur="6s"
+                values="oklch(0.85 0.16 310);oklch(0.7 0.26 330);oklch(0.78 0.2 290);oklch(0.85 0.16 310)"
+                dur="5.5s"
                 repeatCount="indefinite"
               />
             </stop>
-            <stop offset="1" stopColor="oklch(0.42 0.22 305)" />
+            <stop offset="1" stopColor="oklch(0.48 0.24 305)" />
           </linearGradient>
         </defs>
       </svg>
