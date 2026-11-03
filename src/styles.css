@@ -1104,80 +1104,108 @@ html[dir="rtl"] .ballas-page-sting-slash {
   }
 }
 
-.ballas-nav-dock {
+.ballas-nav-rail {
   position: relative;
-  border: 1px solid color-mix(in oklch, var(--color-primary) 48%, white 8%);
-  border-radius: 1.35rem;
+  border: 1px solid color-mix(in oklch, var(--color-primary) 40%, white 10%);
+  border-radius: 999px;
   background:
-    linear-gradient(180deg, oklch(0.38 0.14 305 / 0.55), oklch(0.12 0.06 305 / 0.72)),
-    oklch(0.1 0.05 305 / 0.65);
+    linear-gradient(180deg, oklch(0.28 0.1 305 / 0.55), oklch(0.1 0.05 305 / 0.72)),
+    oklch(0.08 0.04 305 / 0.55);
   box-shadow:
-    0 0 0 1px rgba(255, 255, 255, 0.08),
-    inset 0 1px 0 rgba(255, 255, 255, 0.16),
-    0 16px 48px rgba(0, 0, 0, 0.4),
-    0 0 42px oklch(0.64 0.28 305 / 0.28);
-  backdrop-filter: blur(24px) saturate(1.4);
-  -webkit-backdrop-filter: blur(24px) saturate(1.4);
+    0 0 0 1px rgba(255, 255, 255, 0.06),
+    inset 0 1px 0 rgba(255, 255, 255, 0.14),
+    0 14px 40px rgba(0, 0, 0, 0.4),
+    0 0 36px oklch(0.64 0.28 305 / 0.22);
+  backdrop-filter: blur(22px) saturate(1.35);
+  -webkit-backdrop-filter: blur(22px) saturate(1.35);
 }
 
-.ballas-nav-dock-epic::before {
+.ballas-nav-rail::before {
   content: "";
   pointer-events: none;
   position: absolute;
-  inset-inline: 12%;
+  inset-inline: 18%;
   top: 0;
   height: 1px;
   background: linear-gradient(
     90deg,
     transparent,
-    oklch(0.85 0.14 310 / 0.85),
-    oklch(0.7 0.28 305 / 0.95),
-    oklch(0.85 0.14 310 / 0.85),
+    oklch(0.88 0.12 310 / 0.75),
+    oklch(0.7 0.28 305),
+    oklch(0.88 0.12 310 / 0.75),
     transparent
   );
 }
 
-.ballas-nav-dock-mobile {
-  border-radius: 1.25rem;
-  box-shadow:
-    0 0 0 1px rgba(255, 255, 255, 0.1),
-    inset 0 1px 0 rgba(255, 255, 255, 0.14),
-    0 -8px 40px rgba(0, 0, 0, 0.35),
-    0 16px 48px rgba(0, 0, 0, 0.45),
-    0 0 40px oklch(0.64 0.28 305 / 0.28);
-}
-
-.ballas-nav-dock-home {
-  border-color: color-mix(in oklch, var(--color-violet-glow) 60%, white 8%);
+.ballas-nav-rail-home {
+  border-color: color-mix(in oklch, var(--color-violet-glow) 55%, white 8%);
   background:
-    radial-gradient(ellipse at 18% 50%, oklch(0.65 0.28 310 / 0.28), transparent 45%),
-    radial-gradient(ellipse at 50% 0%, oklch(0.6 0.24 305 / 0.22), transparent 55%),
-    linear-gradient(180deg, oklch(0.4 0.14 305 / 0.55), oklch(0.14 0.07 305 / 0.65));
+    radial-gradient(ellipse at 12% 50%, oklch(0.62 0.28 310 / 0.28), transparent 42%),
+    linear-gradient(180deg, oklch(0.32 0.12 305 / 0.58), oklch(0.1 0.05 305 / 0.7));
   box-shadow:
-    0 0 0 1px rgba(255, 255, 255, 0.1),
-    inset 0 1px 0 rgba(255, 255, 255, 0.18),
-    0 16px 52px rgba(0, 0, 0, 0.4),
-    0 0 56px oklch(0.72 0.28 310 / 0.35);
+    0 0 0 1px rgba(255, 255, 255, 0.08),
+    inset 0 1px 0 rgba(255, 255, 255, 0.16),
+    0 16px 48px rgba(0, 0, 0, 0.42),
+    0 0 48px oklch(0.7 0.28 310 / 0.3);
 }
 
-.ballas-nav-divider {
+.ballas-nav-rail-mobile {
+  border-radius: 1.25rem;
+}
+
+.ballas-nav-rail-line {
   background: linear-gradient(
     180deg,
     transparent,
-    oklch(0.75 0.2 310 / 0.55),
+    oklch(0.78 0.18 310 / 0.45),
     transparent
   );
 }
 
 .ballas-nav-brand-glow {
-  background: radial-gradient(circle, oklch(0.64 0.28 305 / 0.35), transparent 70%);
-  opacity: 0.65;
-  filter: blur(8px);
+  background: radial-gradient(circle, oklch(0.64 0.28 305 / 0.4), transparent 68%);
+  opacity: 0.55;
+  filter: blur(10px);
   transition: opacity 0.3s ease;
 }
 
 .ballas-nav-brand:hover .ballas-nav-brand-glow {
   opacity: 1;
+}
+
+.ballas-nav-link {
+  position: relative;
+  border-radius: 999px;
+}
+
+.ballas-nav-link-active {
+  color: white;
+  text-shadow: 0 0 18px oklch(0.72 0.28 310 / 0.55);
+}
+
+.ballas-nav-link-active::after {
+  content: "";
+  position: absolute;
+  inset-inline: 22%;
+  bottom: 0.15rem;
+  height: 2px;
+  border-radius: 999px;
+  background: linear-gradient(90deg, transparent, oklch(0.78 0.24 310), transparent);
+  box-shadow: 0 0 12px oklch(0.64 0.28 305 / 0.7);
+}
+
+.ballas-nav-link-glow {
+  pointer-events: none;
+  position: absolute;
+  inset: 15% 10%;
+  border-radius: 999px;
+  background: radial-gradient(ellipse at 50% 80%, oklch(0.6 0.28 305 / 0.35), transparent 70%);
+  filter: blur(6px);
+}
+
+/* legacy class hooks kept for safety */
+.ballas-nav-dock {
+  border-radius: 999px;
 }
 
 .ballas-nav-item {
@@ -1187,14 +1215,12 @@ html[dir="rtl"] .ballas-page-sting-slash {
 
 .ballas-nav-item-active {
   background: linear-gradient(180deg, oklch(0.64 0.28 305 / 0.85), oklch(0.4 0.22 305 / 0.6));
-  box-shadow:
-    inset 0 0 0 1px oklch(0.92 0.08 310 / 0.4),
-    0 0 22px oklch(0.64 0.28 305 / 0.5);
 }
 
 @media (max-width: 767px) {
-  .ballas-nav-item-active {
-    border-radius: 1rem;
+  .ballas-nav-link-active::after {
+    inset-inline: 18%;
+    bottom: 0.1rem;
   }
 
   .ballas-home-welcome {

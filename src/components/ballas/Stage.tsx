@@ -95,61 +95,64 @@ export function Stage() {
           onClick={() => goTo(item.id)}
           disabled={Boolean(transition)}
           className={cn(
-            "ballas-nav-item relative min-w-0 whitespace-nowrap transition duration-300",
+            "ballas-nav-link relative min-w-0 whitespace-nowrap transition duration-300",
             compact
-              ? "flex-1 px-1 py-2.5 text-[10px] font-semibold tracking-[0.02em]"
-              : "px-4 py-2.5 text-[13px] font-semibold tracking-[0.08em] lg:px-5 lg:text-[14px]",
+              ? "flex-1 px-1 py-2 text-[10px] font-semibold tracking-[0.04em]"
+              : "px-3.5 py-2 text-[13px] font-semibold tracking-[0.12em] lg:px-4 lg:text-[14px]",
             active || pending
-              ? "ballas-nav-item-active text-white"
-              : "text-white/55 hover:bg-white/5 hover:text-violet-soft",
-            transition && "opacity-80",
+              ? "ballas-nav-link-active text-white"
+              : "text-white/50 hover:text-violet-soft",
+            transition && "opacity-75",
           )}
         >
           <span className="relative z-10 inline-flex max-w-full items-center justify-center gap-1.5">
             <span className="truncate">{item.label}</span>
             {item.id === "live" && liveCount > 0 ? (
-              <span className="inline-flex h-4 min-w-4 shrink-0 items-center justify-center rounded-full bg-red-500 px-1 text-[9px] font-bold text-white">
+              <span className="inline-flex h-4 min-w-4 shrink-0 items-center justify-center rounded-full bg-red-500 px-1 text-[9px] font-bold text-white shadow-[0_0_12px_oklch(0.6_0.22_25/0.55)]">
                 {liveCount}
               </span>
             ) : null}
           </span>
+          {(active || pending) && !compact ? <span className="ballas-nav-link-glow" aria-hidden /> : null}
         </button>
       );
     });
 
   return (
     <div className="relative z-10 flex h-full flex-col px-3 pt-[max(0.65rem,env(safe-area-inset-top))] pb-[max(0.5rem,env(safe-area-inset-bottom))] sm:px-5 sm:pt-4 sm:pb-4">
-      {/* Desktop / tablet epic top bar */}
+      {/* Desktop top bar — floating cinema rail */}
       <header className="relative z-30 hidden shrink-0 md:block">
-        <div className="flex items-center justify-center gap-3">
+        <div
+          className={cn(
+            "ballas-nav-rail mx-auto flex max-w-6xl items-center gap-3 px-3 py-2.5 lg:gap-4 lg:px-4",
+            isHome && "ballas-nav-rail-home",
+          )}
+        >
+          <button
+            type="button"
+            onClick={() => goTo("home")}
+            disabled={Boolean(transition)}
+            className="ballas-nav-brand group relative flex shrink-0 items-center outline-none"
+            aria-label="Ballas home"
+          >
+            <span className="ballas-nav-brand-glow pointer-events-none absolute inset-[-20%] rounded-full" />
+            <BallasLogo
+              size="sm"
+              glow={false}
+              markClassName="!h-12 !max-w-[6.8rem] lg:!h-14 lg:!max-w-[7.8rem] relative z-10 drop-shadow-[0_0_18px_oklch(0.64_0.28_305/0.45)]"
+            />
+          </button>
+
+          <div className="ballas-nav-rail-line hidden h-8 w-px shrink-0 lg:block" />
+
           <nav
-            className={cn(
-              "ballas-nav-dock ballas-nav-dock-epic pointer-events-auto flex max-w-[min(100%,64rem)] flex-1 items-center gap-1 overflow-hidden px-2 py-2 lg:gap-1.5 lg:px-2.5",
-              isHome && "ballas-nav-dock-home",
-            )}
+            className="flex min-w-0 flex-1 items-center justify-center gap-0.5 overflow-x-auto lg:gap-1 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
             aria-label="Ballas navigation"
           >
-            <button
-              type="button"
-              onClick={() => goTo("home")}
-              disabled={Boolean(transition)}
-              className="ballas-nav-brand group relative ms-1 me-1 flex shrink-0 items-center justify-center rounded-2xl px-2 py-1 outline-none transition hover:bg-white/5"
-              aria-label="Ballas home"
-            >
-              <span className="ballas-nav-brand-glow pointer-events-none absolute inset-0 rounded-2xl" />
-              <BallasLogo
-                size="sm"
-                glow={false}
-                markClassName="!h-11 !max-w-[5.8rem] lg:!h-12 lg:!max-w-[6.5rem] relative z-10"
-              />
-            </button>
-
-            <span className="ballas-nav-divider mx-1 hidden h-8 w-px shrink-0 sm:block" />
-
-            <div className="flex min-w-0 flex-1 items-center justify-center gap-0.5 overflow-x-auto lg:gap-1 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
-              {renderNavItems(false)}
-            </div>
+            {renderNavItems(false)}
           </nav>
+
+          <div className="ballas-nav-rail-line hidden h-8 w-px shrink-0 lg:block" />
 
           <div className="shrink-0">
             <LanguageToggle />
@@ -157,7 +160,7 @@ export function Stage() {
         </div>
       </header>
 
-      {/* Mobile top: logo + lang */}
+      {/* Mobile top */}
       <header className="relative z-30 flex shrink-0 items-center justify-between gap-3 md:hidden">
         <button
           type="button"
@@ -166,7 +169,7 @@ export function Stage() {
           className="shrink-0 outline-none"
           aria-label="Ballas home"
         >
-          <BallasLogo size="sm" glow={false} markClassName="!h-11 !max-w-[6.2rem]" />
+          <BallasLogo size="sm" glow={false} markClassName="!h-12 !max-w-[6.5rem]" />
         </button>
         <LanguageToggle />
       </header>
@@ -189,24 +192,15 @@ export function Stage() {
         </div>
       </main>
 
-      {/* Mobile bottom dock with logo */}
+      {/* Mobile bottom rail */}
       <div className="pointer-events-none absolute inset-x-0 bottom-0 z-40 flex justify-center px-2.5 pb-[max(0.55rem,env(safe-area-inset-bottom))] md:hidden">
         <nav
           className={cn(
-            "ballas-nav-dock ballas-nav-dock-mobile ballas-nav-dock-epic pointer-events-auto flex w-full max-w-lg items-stretch gap-0.5 px-1 py-1.5",
-            isHome && "ballas-nav-dock-home",
+            "ballas-nav-rail ballas-nav-rail-mobile pointer-events-auto flex w-full max-w-lg items-stretch gap-0.5 px-1.5 py-1.5",
+            isHome && "ballas-nav-rail-home",
           )}
           aria-label="Ballas navigation"
         >
-          <button
-            type="button"
-            onClick={() => goTo("home")}
-            disabled={Boolean(transition)}
-            className="ballas-nav-brand flex shrink-0 items-center justify-center rounded-xl px-1.5"
-            aria-label="Ballas home"
-          >
-            <BallasLogo size="sm" glow={false} markClassName="!h-8 !max-w-[2.8rem]" />
-          </button>
           {renderNavItems(true)}
         </nav>
       </div>
