@@ -8,8 +8,8 @@ import {
   type ShopProduct,
 } from "@/data/shop";
 import { PanelChrome } from "@/components/ballas/PanelChrome";
+import { fill, useLanguage } from "@/i18n/LanguageProvider";
 import { messages, type Locale } from "@/i18n/messages";
-import { useLanguage } from "@/i18n/LanguageProvider";
 import { cn } from "@/lib/utils";
 
 type ShopMessages = (typeof messages)["ar"]["shop"];
@@ -100,14 +100,31 @@ function ProductCard({
 export function ShopPanel() {
   const { t, locale } = useLanguage();
   const [category, setCategory] = useState<ShopCategory | "all">("all");
+  const [query, setQuery] = useState("");
   const discordUrl = GANG.discordUrl;
 
   const filtered = useMemo(() => {
-    if (category === "all") return shopProducts;
-    return shopProducts.filter((item) => item.category === category);
-  }, [category]);
+    const q = query.trim().toLowerCase();
+    return shopProducts.filter((item) => {
+      if (category !== "all" && item.category !== category) return false;
+      if (!q) return true;
+      const haystack = [
+        loc(item.name, locale),
+        loc(item.blurb, locale),
+        loc(item.meta, locale),
+        item.price,
+        t.shop.categories[item.category],
+        item.badge ? t.shop.badges[item.badge] : "",
+      ]
+        .join(" ")
+        .toLowerCase();
+      return haystack.includes(q);
+    });
+  }, [category, query, locale, t.shop.badges, t.shop.categories]);
 
-  const featured = shopProducts.find((item) => item.id === "clubhouse-mlo") ?? shopProducts[0]!;
+  const featured =
+    shopProducts.find((item) => item.id === "sultan-dynasty") ?? shopProducts[0]!;
+  const searching = query.trim().length > 0;
 
   return (
     <div className="flex h-full flex-col">
@@ -122,8 +139,8 @@ export function ShopPanel() {
         }
       />
 
-      <div className="panel-scroll min-h-0 flex-1 space-y-5 pb-2">
-        <section className="ballas-shop-hero relative overflow-hidden rounded-[1.6rem]">
+      <div className="panel-scroll min-h-0 flex-1 pb-2">
+        <section className="ballas-shop-hero relative mb-5 overflow-hidden rounded-[1.6rem]">
           <img
             src={featured.image}
             alt=""
@@ -159,51 +176,92 @@ export function ShopPanel() {
           </div>
         </section>
 
-        <div className="flex flex-wrap gap-2">
-          <button
-            type="button"
-            onClick={() => setCategory("all")}
-            className={cn(
-              "ballas-shop-chip rounded-full border px-4 py-2 text-[11px] tracking-[0.16em] transition",
-              category === "all"
-                ? "border-primary/60 bg-primary/30 text-white"
-                : "border-white/20 bg-black/30 text-white/70 hover:border-primary/40 hover:text-white",
-            )}
-          >
-            {t.shop.all}
-          </button>
-          {shopCategories.map((id) => (
-            <button
-              key={id}
-              type="button"
-              onClick={() => setCategory(id)}
-              className={cn(
-                "ballas-shop-chip rounded-full border px-4 py-2 text-[11px] tracking-[0.16em] transition",
-                category === id
-                  ? "border-primary/60 bg-primary/30 text-white"
-                  : "border-white/20 bg-black/30 text-white/70 hover:border-primary/40 hover:text-white",
+        <div className="ballas-shop-toolbar sticky top-0 z-30 mb-5">
+          <div className="ballas-shop-toolbar-inner mx-auto flex w-full max-w-3xl flex-col items-center gap-3 px-1 py-3">
+            <div className="relative w-full max-w-xl">
+              <input
+                type="search"
+                value={query}
+                onChange={(e) => setQuery(e.target.value)}
+                placeholder={t.shop.search}
+                className="ballas-shop-search w-full rounded-full border border-white/15 bg-black/55 py-3 pe-11 ps-5 text-center text-sm text-white outline-none backdrop-blur-xl transition placeholder:text-white/40 focus:border-primary/55 focus:ring-2 focus:ring-primary/25"
+                aria-label={t.shop.search}
+              />
+              {query ? (
+                <button
+                  type="button"
+                  onClick={() => setQuery("")}
+                  className="absolute end-3 top-1/2 -translate-y-1/2 rounded-full border border-white/20 bg-white/10 px-2 py-0.5 text-[10px] tracking-[0.12em] text-white/80"
+                >
+                  {t.shop.clear}
+                </button>
+              ) : (
+                <span className="pointer-events-none absolute end-4 top-1/2 -translate-y-1/2 text-sm text-white/35">
+                  ⌕
+                </span>
               )}
-            >
-              {t.shop.categories[id]}
-            </button>
-          ))}
+            </div>
+
+            <div className="flex flex-wrap items-center justify-center gap-2">
+              <button
+                type="button"
+                onClick={() => setCategory("all")}
+                className={cn(
+                  "ballas-shop-chip rounded-full border px-4 py-2 text-[11px] tracking-[0.16em] transition",
+                  category === "all"
+                    ? "border-primary/60 bg-primary/30 text-white"
+                    : "border-white/20 bg-black/35 text-white/70 hover:border-primary/40 hover:text-white",
+                )}
+              >
+                {t.shop.all}
+              </button>
+              {shopCategories.map((id) => (
+                <button
+                  key={id}
+                  type="button"
+                  onClick={() => setCategory(id)}
+                  className={cn(
+                    "ballas-shop-chip rounded-full border px-4 py-2 text-[11px] tracking-[0.16em] transition",
+                    category === id
+                      ? "border-primary/60 bg-primary/30 text-white"
+                      : "border-white/20 bg-black/35 text-white/70 hover:border-primary/40 hover:text-white",
+                  )}
+                >
+                  {t.shop.categories[id]}
+                </button>
+              ))}
+            </div>
+
+            {searching ? (
+              <p className="text-[10px] tracking-[0.14em] text-violet-soft">
+                {fill(t.shop.results, { count: String(filtered.length) })}
+              </p>
+            ) : null}
+          </div>
         </div>
 
-        <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
-          {filtered.map((product, index) => (
-            <ProductCard
-              key={product.id}
-              product={product}
-              index={index}
-              locale={locale}
-              orderLabel={t.shop.order}
-              discordUrl={discordUrl}
-              shop={t.shop}
-            />
-          ))}
-        </div>
+        {filtered.length === 0 ? (
+          <div className="mx-auto max-w-md rounded-[1.35rem] border border-white/15 bg-black/35 px-6 py-10 text-center">
+            <p className="text-lg font-bold text-white">{t.shop.emptySearch}</p>
+            <p className="mt-2 text-sm text-white/60">{t.shop.emptyHint}</p>
+          </div>
+        ) : (
+          <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
+            {filtered.map((product, index) => (
+              <ProductCard
+                key={product.id}
+                product={product}
+                index={index}
+                locale={locale}
+                orderLabel={t.shop.order}
+                discordUrl={discordUrl}
+                shop={t.shop}
+              />
+            ))}
+          </div>
+        )}
 
-        <p className="pb-2 text-center text-[11px] tracking-[0.14em] text-white/45">
+        <p className="mt-5 pb-2 text-center text-[11px] tracking-[0.14em] text-white/45">
           {t.shop.footer}
         </p>
       </div>

@@ -1,4 +1,4 @@
-export type ShopCategory = "cars" | "clothes" | "maps";
+export type ShopCategory = "cars" | "clothes";
 
 export type ShopBadge = "hot" | "new" | "limited";
 
@@ -14,7 +14,7 @@ export type ShopProduct = {
   meta: { ar: string; en: string };
 };
 
-export const shopCategories: ShopCategory[] = ["cars", "clothes", "maps"];
+export const shopCategories: ShopCategory[] = ["cars", "clothes"];
 
 export const shopProducts: ShopProduct[] = [
   {
@@ -95,45 +95,5 @@ export const shopProducts: ShopProduct[] = [
     price: "$28",
     image: "/shop/shop-outfit.jpg",
     meta: { ar: "Full Outfit", en: "Full Outfit" },
-  },
-  {
-    id: "clubhouse-mlo",
-    category: "maps",
-    badge: "hot",
-    featured: true,
-    name: { ar: "Ballas Clubhouse MLO", en: "Ballas Clubhouse MLO" },
-    blurb: {
-      ar: "نادي داخلي بإضاءة بنفسجية، جلسات، وطاولة بلياردو — مقر العصابة.",
-      en: "Purple-lit clubhouse with lounges and pool table — the set HQ.",
-    },
-    price: "$60",
-    image: "/shop/shop-clubhouse.jpg",
-    meta: { ar: "Interior MLO", en: "Interior MLO" },
-  },
-  {
-    id: "trap-davis",
-    category: "maps",
-    badge: "new",
-    name: { ar: "Davis Trap House", en: "Davis Trap House" },
-    blurb: {
-      ar: "مبنى خارجي ليلي في ديفيس مع جرافيتي وسياج — جو شارع حقيقي.",
-      en: "Night exterior in Davis with graffiti and fence — real street energy.",
-    },
-    price: "$48",
-    image: "/shop/shop-traphouse.jpg",
-    meta: { ar: "Exterior · Shell", en: "Exterior · Shell" },
-  },
-  {
-    id: "garage-chamberlain",
-    category: "maps",
-    badge: "limited",
-    name: { ar: "Chamberlain Garage", en: "Chamberlain Garage" },
-    blurb: {
-      ar: "كراج تحت الأرض بإضاءة LED بنفسجية ورافعات — لتخزين الأسطول.",
-      en: "Underground garage with violet LEDs and lifts — stash the fleet.",
-    },
-    price: "$55",
-    image: "/shop/shop-garage.jpg",
-    meta: { ar: "Garage MLO", en: "Garage MLO" },
   },
 ];
