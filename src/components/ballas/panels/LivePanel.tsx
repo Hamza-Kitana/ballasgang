@@ -1,4 +1,4 @@
-import { getLiveMembers, getOnlineMembers } from "@/data/gang";
+import { GANG, getLiveMembers, getOnlineMembers } from "@/data/gang";
 import { LiveCard } from "@/components/ballas/LiveCard";
 import { PanelChrome } from "@/components/ballas/PanelChrome";
 import { fill, useLanguage } from "@/i18n/LanguageProvider";
@@ -7,6 +7,7 @@ export function LivePanel() {
   const { t } = useLanguage();
   const live = getLiveMembers();
   const online = getOnlineMembers();
+  const discordUrl = GANG.discordUrl;
 
   return (
     <div className="flex h-full w-full flex-col">
@@ -52,6 +53,28 @@ export function LivePanel() {
             ))}
           </div>
         )}
+
+        <section className="ballas-live-apply relative overflow-hidden rounded-[1.25rem] border border-primary/35 bg-[linear-gradient(145deg,oklch(0.22_0.1_305),oklch(0.13_0.06_305))] p-5 sm:p-6">
+          <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_80%_0%,oklch(0.55_0.28_305/0.35),transparent_55%)]" />
+          <div className="relative flex flex-col gap-4 text-center sm:flex-row sm:items-center sm:justify-between sm:text-start">
+            <div className="min-w-0">
+              <p className="text-[10px] tracking-[0.22em] text-violet-soft uppercase">{t.live.eyebrow}</p>
+              <h3 className="font-display mt-1 text-[clamp(1.6rem,4vw,2.4rem)] leading-none tracking-[0.04em] text-white">
+                {t.live.applyTitle}
+              </h3>
+              <p className="mt-2 max-w-xl text-sm leading-relaxed text-white/75">{t.live.applyBody}</p>
+            </div>
+            <a
+              href={discordUrl}
+              target="_blank"
+              rel="noreferrer"
+              className="inline-flex shrink-0 items-center justify-center gap-2 rounded-full bg-primary px-6 py-3 text-sm font-bold tracking-[0.14em] text-white transition hover:scale-[1.03] hover:bg-violet-glow active:scale-[0.98]"
+            >
+              {t.live.applyCta}
+              <span className="rtl:rotate-180">→</span>
+            </a>
+          </div>
+        </section>
       </div>
     </div>
   );

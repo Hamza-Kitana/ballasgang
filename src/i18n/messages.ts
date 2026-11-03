@@ -80,6 +80,9 @@ export const messages = {
       pin: "ثبّت",
       unpin: "إلغاء التثبيت",
       verified: "ستيرمر موثّق",
+      applyTitle: "بدك تصير ستيرمر؟",
+      applyBody: "إذا بدك تحط بثك مع العصابة، تواصل معنا على الديسكورد ونرتّب معك.",
+      applyCta: "تواصل على الديسكورد",
       platforms: {
         youtube: "YouTube",
         kick: "Kick",
@@ -281,6 +284,9 @@ export const messages = {
       pin: "Pin",
       unpin: "Unpin",
       verified: "Verified streamer",
+      applyTitle: "Want to become a streamer?",
+      applyBody: "If you want your stream with the set, hit us up on Discord and we'll sort it.",
+      applyCta: "Contact on Discord",
       platforms: {
         youtube: "YouTube",
         kick: "Kick",
