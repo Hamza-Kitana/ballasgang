@@ -153,16 +153,12 @@ export function LiveCard({ member, index = 0 }: LiveCardProps) {
         ) : null}
       </div>
 
-      <div className="ballas-live-body relative flex items-center gap-2.5 p-3">
+      <div className="ballas-live-body relative flex items-center gap-3 p-3">
         <MemberPortrait member={member} size="sm" className="ring-1 ring-white/20" />
         <div className="min-w-0 flex-1 text-start">
-          <div className="flex flex-wrap items-center gap-1.5">
-            <p className="text-[9px] font-semibold tracking-[0.16em] text-red-200/90 uppercase">
-              {t.ranks[member.rank]}
-            </p>
-            <span className="text-white/25">·</span>
-            <StreamPlatformBadge platform={platform} label={platformLabel} className="scale-[0.92] origin-start" />
-          </div>
+          <p className="text-[9px] font-semibold tracking-[0.16em] text-red-200/90 uppercase">
+            {t.ranks[member.rank]}
+          </p>
           <h3 className="font-display mt-1 truncate text-xl leading-none tracking-[0.04em] text-white">
             {member.name}
           </h3>
@@ -170,6 +166,7 @@ export function LiveCard({ member, index = 0 }: LiveCardProps) {
             “{member.alias}” · {loc(member.role, locale)}
           </p>
         </div>
+        <StreamPlatformBadge platform={platform} label={platformLabel} size="lg" className="shrink-0" />
       </div>
     </article>
   );
