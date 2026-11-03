@@ -6,7 +6,6 @@ import { LivePanel } from "@/components/ballas/panels/LivePanel";
 import { RulesPanel } from "@/components/ballas/panels/RulesPanel";
 import { ShopPanel } from "@/components/ballas/panels/ShopPanel";
 import { JoinPanel } from "@/components/ballas/panels/JoinPanel";
-import { getLiveMembers } from "@/data/gang";
 import { BallasLogo } from "@/components/ballas/BallasLogo";
 import { LanguageToggle } from "@/components/ballas/LanguageToggle";
 import { useLanguage } from "@/i18n/LanguageProvider";
@@ -26,7 +25,6 @@ export function Stage() {
   const [direction, setDirection] = useState<"next" | "prev">("next");
   const [transition, setTransition] = useState<TransitionState | null>(null);
   const [flash, setFlash] = useState(0);
-  const liveCount = getLiveMembers().length;
   const isHome = tab === "home";
   const timers = useRef<number[]>([]);
 
@@ -105,14 +103,7 @@ export function Stage() {
             transition && "opacity-75",
           )}
         >
-          <span className="relative z-10 inline-flex max-w-full items-center justify-center gap-1.5">
-            <span className="truncate">{item.label}</span>
-            {item.id === "live" && liveCount > 0 ? (
-              <span className="inline-flex h-4 min-w-4 shrink-0 items-center justify-center rounded-full bg-red-500 px-1 text-[9px] font-bold text-white shadow-[0_0_12px_oklch(0.6_0.22_25/0.55)]">
-                {liveCount}
-              </span>
-            ) : null}
-          </span>
+          <span className="relative z-10 truncate">{item.label}</span>
           {(active || pending) && !compact ? <span className="ballas-nav-link-glow" aria-hidden /> : null}
         </button>
       );
