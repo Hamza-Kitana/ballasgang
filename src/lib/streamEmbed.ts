@@ -1,3 +1,29 @@
+export type StreamPlatform = "youtube" | "kick" | "tiktok" | "twitch" | "unknown";
+
+/** Detect which streaming platform a URL belongs to. */
+export function detectStreamPlatform(streamUrl: string | undefined): StreamPlatform {
+  if (!streamUrl) return "unknown";
+  try {
+    const host = new URL(streamUrl).hostname.replace(/^www\./, "").toLowerCase();
+
+    if (host === "youtu.be" || host === "youtube.com" || host.endsWith(".youtube.com")) {
+      return "youtube";
+    }
+    if (host === "kick.com" || host.endsWith(".kick.com")) {
+      return "kick";
+    }
+    if (host === "tiktok.com" || host.endsWith(".tiktok.com") || host === "vm.tiktok.com") {
+      return "tiktok";
+    }
+    if (host === "twitch.tv" || host.endsWith(".twitch.tv")) {
+      return "twitch";
+    }
+    return "unknown";
+  } catch {
+    return "unknown";
+  }
+}
+
 /** Build an in-page embed URL for known stream hosts. */
 export function getStreamEmbedUrl(streamUrl: string | undefined, parentHost: string): string | null {
   if (!streamUrl) return null;
@@ -19,6 +45,8 @@ export function getStreamEmbedUrl(streamUrl: string | undefined, parentHost: str
       if (!id && url.searchParams.get("v")) id = url.searchParams.get("v");
       if (!id && parts[0] === "live" && parts[1]) id = parts[1];
       if (!id && parts[0] === "embed" && parts[1]) id = parts[1];
+      if (!id && parts[0] === "channel") return null;
+      if (!id && parts[0]?.startsWith("@")) return null;
       if (!id) return null;
       return `https://www.youtube.com/embed/${encodeURIComponent(id)}?autoplay=1&mute=1`;
     }
@@ -29,6 +57,7 @@ export function getStreamEmbedUrl(streamUrl: string | undefined, parentHost: str
       return `https://player.kick.com/${encodeURIComponent(channel)}`;
     }
 
+    // TikTok live rarely allows iframe embeds — open externally via badge/link.
     return null;
   } catch {
     return null;

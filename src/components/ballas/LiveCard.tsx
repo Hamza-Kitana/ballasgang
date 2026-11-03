@@ -1,7 +1,8 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { loc, type GangMember } from "@/data/gang";
 import { MemberPortrait } from "@/components/ballas/MemberPortrait";
-import { getStreamEmbedUrl } from "@/lib/streamEmbed";
+import { StreamPlatformBadge } from "@/components/ballas/StreamPlatformBadge";
+import { detectStreamPlatform, getStreamEmbedUrl } from "@/lib/streamEmbed";
 import { useLanguage } from "@/i18n/LanguageProvider";
 import { cn } from "@/lib/utils";
 
@@ -20,6 +21,8 @@ export function LiveCard({ member, index = 0 }: LiveCardProps) {
 
   const parentHost =
     typeof window !== "undefined" ? window.location.hostname || "localhost" : "localhost";
+  const platform = useMemo(() => detectStreamPlatform(member.streamUrl), [member.streamUrl]);
+  const platformLabel = t.live.platforms[platform];
   const embedUrl = useMemo(
     () => getStreamEmbedUrl(member.streamUrl, parentHost),
     [member.streamUrl, parentHost],
@@ -76,10 +79,11 @@ export function LiveCard({ member, index = 0 }: LiveCardProps) {
         <div className="absolute inset-0 bg-gradient-to-t from-black via-black/50 to-black/10" />
 
         <div className="absolute start-2.5 top-2.5 z-10 flex flex-wrap items-center gap-1.5">
-          <span className="inline-flex items-center gap-1 rounded-full bg-red-500 px-2 py-0.5 text-[9px] font-black tracking-[0.14em] text-white">
+          <span className="inline-flex items-center gap-1 rounded-full bg-red-500 px-2 py-0.5 text-[9px] font-black tracking-[0.14em] text-white shadow-[0_0_14px_oklch(0.55_0.22_25/0.45)]">
             <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-white" />
             LIVE
           </span>
+          <StreamPlatformBadge platform={platform} label={platformLabel} />
           <span className="rounded-full border border-white/20 bg-black/65 px-2 py-0.5 text-[9px] tracking-[0.1em] text-white backdrop-blur-sm">
             {viewers.toLocaleString()}
           </span>
@@ -132,9 +136,16 @@ export function LiveCard({ member, index = 0 }: LiveCardProps) {
                   href={member.streamUrl}
                   target="_blank"
                   rel="noreferrer"
-                  className="rounded-full bg-red-500 px-2.5 py-1 text-[9px] font-bold tracking-[0.12em] text-white"
+                  className={cn(
+                    "inline-flex items-center gap-1 rounded-full px-2.5 py-1 text-[9px] font-bold tracking-[0.12em]",
+                    platform === "youtube" && "bg-[#ff0033] text-white",
+                    platform === "kick" && "bg-[#53fc18] text-[#052e16]",
+                    platform === "tiktok" && "bg-gradient-to-r from-[#25f4ee]/90 to-[#fe2c55] text-white",
+                    platform === "twitch" && "bg-[#9146ff] text-white",
+                    platform === "unknown" && "bg-red-500 text-white",
+                  )}
                 >
-                  {t.live.watch}
+                  {platformLabel}
                 </a>
               ) : null}
             </div>
@@ -145,10 +156,14 @@ export function LiveCard({ member, index = 0 }: LiveCardProps) {
       <div className="ballas-live-body relative flex items-center gap-2.5 p-3">
         <MemberPortrait member={member} size="sm" className="ring-1 ring-white/20" />
         <div className="min-w-0 flex-1 text-start">
-          <p className="text-[9px] font-semibold tracking-[0.16em] text-red-200/90 uppercase">
-            {t.ranks[member.rank]}
-          </p>
-          <h3 className="font-display truncate text-xl leading-none tracking-[0.04em] text-white">
+          <div className="flex flex-wrap items-center gap-1.5">
+            <p className="text-[9px] font-semibold tracking-[0.16em] text-red-200/90 uppercase">
+              {t.ranks[member.rank]}
+            </p>
+            <span className="text-white/25">·</span>
+            <StreamPlatformBadge platform={platform} label={platformLabel} className="scale-[0.92] origin-start" />
+          </div>
+          <h3 className="font-display mt-1 truncate text-xl leading-none tracking-[0.04em] text-white">
             {member.name}
           </h3>
           <p className="mt-0.5 truncate text-[11px] text-white/65">

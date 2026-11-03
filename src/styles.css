@@ -1570,6 +1570,46 @@ html[dir="rtl"] .ballas-page-sting-slash {
   animation: ballas-live-preview-in 0.22s ease-out both;
 }
 
+.ballas-platform-badge {
+  backdrop-filter: blur(10px);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.35);
+}
+
+.ballas-platform-youtube {
+  color: #fff;
+  border-color: color-mix(in oklch, #ff0033 55%, white 10%);
+  background: linear-gradient(135deg, #ff0033, #b00020);
+}
+
+.ballas-platform-kick {
+  color: #052e16;
+  border-color: color-mix(in oklch, #53fc18 50%, white 8%);
+  background: linear-gradient(135deg, #53fc18, #2db80d);
+}
+
+.ballas-platform-tiktok {
+  color: #fff;
+  border-color: rgba(255, 255, 255, 0.28);
+  background:
+    linear-gradient(135deg, rgba(37, 244, 238, 0.28), rgba(254, 44, 85, 0.35)),
+    linear-gradient(160deg, #111 0%, #1a1a1a 100%);
+  box-shadow:
+    0 0 0 1px rgba(37, 244, 238, 0.2),
+    0 6px 18px rgba(254, 44, 85, 0.25);
+}
+
+.ballas-platform-twitch {
+  color: #fff;
+  border-color: color-mix(in oklch, #9146ff 55%, white 10%);
+  background: linear-gradient(135deg, #9146ff, #6441a5);
+}
+
+.ballas-platform-unknown {
+  color: #fff;
+  border-color: rgba(255, 255, 255, 0.25);
+  background: rgba(0, 0, 0, 0.65);
+}
+
 @keyframes ballas-live-preview-in {
   from {
     opacity: 0;

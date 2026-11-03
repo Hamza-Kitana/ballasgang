@@ -79,6 +79,13 @@ export const messages = {
       previewBody: "حط رابط القناة كامل عشان يشتغل المشغّل داخل الموقع.",
       pin: "ثبّت",
       unpin: "إلغاء التثبيت",
+      platforms: {
+        youtube: "YouTube",
+        kick: "Kick",
+        tiktok: "TikTok",
+        twitch: "Twitch",
+        unknown: "بث",
+      },
     },
     shop: {
       eyebrow: "متجر FiveM",
@@ -268,6 +275,13 @@ export const messages = {
       previewBody: "Use a full channel URL so the in-site player can load.",
       pin: "Pin",
       unpin: "Unpin",
+      platforms: {
+        youtube: "YouTube",
+        kick: "Kick",
+        tiktok: "TikTok",
+        twitch: "Twitch",
+        unknown: "Live",
+      },
     },
     shop: {
       eyebrow: "FiveM Store",
