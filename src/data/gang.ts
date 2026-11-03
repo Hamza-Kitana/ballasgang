@@ -48,19 +48,36 @@ export type JoinStep = {
   detail: Localized;
 };
 
+export type RuleCategory =
+  | "leadership"
+  | "discipline"
+  | "security"
+  | "field"
+  | "reputation";
+
 export type GangRule = {
   id: string;
   code: string;
   title: Localized;
   detail: Localized;
   severity: "law" | "blood" | "street";
+  category: RuleCategory;
 };
+
+export const ruleCategories: RuleCategory[] = [
+  "leadership",
+  "discipline",
+  "security",
+  "field",
+  "reputation",
+];
 
 export const GANG = {
   name: "BALLAS",
   tagline: "PURPLE DYNASTY",
   city: "Los Santos",
-  discord: "discord.gg/ballas-dynasty",
+  discord: "discord.gg/WMRrN4sKPn",
+  discordUrl: "https://discord.gg/WMRrN4sKPn",
   game: "GTA V / FiveM",
   turf: "Davis · Chamberlain · East LS",
 } as const;
@@ -313,32 +330,35 @@ export const gangRules: GangRule[] = [
   {
     id: "r1",
     code: "01",
-    title: { ar: "البنفسجي أولًا", en: "Purple first" },
+    title: { ar: "أوامر القيادة قانون", en: "Leadership is law" },
     detail: {
-      ar: "ألوان العصابة فوق أي شيء. تمشي بنفسجي… أو ما تمشي معنا.",
-      en: "Set colors above everything. You ride purple — or you don't ride with us.",
+      ar: "البوس والكو بوس وقائد الشارع كلامهم أمر. ما في جدال وسط العملية.",
+      en: "Boss, Co-Boss, and shot callers give orders. No arguing mid-op.",
     },
     severity: "law",
+    category: "leadership",
   },
   {
     id: "r2",
     code: "02",
-    title: { ar: "ولاء بلا خيانة", en: "No snitching" },
+    title: { ar: "لا تتجاوز رتبتك", en: "Stay in your rank" },
     detail: {
-      ar: "ما في كلام للشرطة ولا للعصابات الثانية عن شغل العصابة. الخيانة = خروج نهائي.",
-      en: "No talking to cops or rival sets about Ballas business. Betrayal means permanent exile.",
+      ar: "كل واحد يعرف مكانه. ما في أوامر من جندي على قائد، ولا تمثيل رتبة أعلى.",
+      en: "Know your place. No soldier giving boss orders, no fake higher rank.",
     },
-    severity: "blood",
+    severity: "law",
+    category: "leadership",
   },
   {
     id: "r3",
     code: "03",
-    title: { ar: "أوامر القيادة", en: "Chain of command" },
+    title: { ar: "الشغل الكبير بإذن", en: "Big ops need approval" },
     detail: {
-      ar: "الزعيم والـ OG وقائد الشارع كلامهم أمر. ما في جدال وسط العملية.",
-      en: "Boss, OGs, and shot callers give orders. No arguing mid-op.",
+      ar: "سرقات كبيرة وحروب بلوكات تمرّ من القيادة. الشغل الفردي يوقع الكل.",
+      en: "Big heists and block wars go through leadership. Solo glory risks the set.",
     },
     severity: "law",
+    category: "leadership",
   },
   {
     id: "r4",
@@ -349,46 +369,139 @@ export const gangRules: GangRule[] = [
       en: "No insults, mic spam, or random fire on set members. Family is protected.",
     },
     severity: "street",
+    category: "discipline",
   },
   {
     id: "r5",
     code: "05",
-    title: { ar: "RP جاد فقط", en: "Serious RP only" },
-    detail: {
-      ar: "فايف إم رولبلاي. ادخل الشخصية، احترم القوانين، واترك الراندم كيل برا.",
-      en: "This is FiveM roleplay. Stay in character, respect lore, leave random deathmatch outside.",
-    },
-    severity: "street",
-  },
-  {
-    id: "r6",
-    code: "06",
-    title: { ar: "الدفاع عن الأرض", en: "Defend the turf" },
-    detail: {
-      ar: "Davis وChamberlain وأراضي East LS ملكنا. أي تهديد = رد بنفسجي.",
-      en: "Davis, Chamberlain, East LS are ours. Any threat gets a purple answer.",
-    },
-    severity: "blood",
-  },
-  {
-    id: "r7",
-    code: "07",
-    title: { ar: "لا شغل فردي بدون إذن", en: "No solo ops" },
-    detail: {
-      ar: "سرقات كبيرة وحروب بلوكات تمرّ من القيادة. الشغل الفردي يوقع الكل.",
-      en: "Big heists and block wars go through leadership. Solo glory puts the whole set at risk.",
-    },
-    severity: "law",
-  },
-  {
-    id: "r8",
-    code: "08",
     title: { ar: "صمت الراديو عند اللزوم", en: "Radio discipline" },
     detail: {
       ar: "وقت الحرب أو الهروب: كلام قصير وواضح. الصراخ يقتل العملية.",
       en: "During war or escape: short, clear radio. Screaming kills the run.",
     },
     severity: "street",
+    category: "discipline",
+  },
+  {
+    id: "r6",
+    code: "06",
+    title: { ar: "التأخير له ثمن", en: "Lateness costs respect" },
+    detail: {
+      ar: "اجتماع أو عملية: تأخّر بدون سبب = نقص احترام. الوقت جزء من الانضباط.",
+      en: "Meetings and ops: late without reason means lost respect. Time is discipline.",
+    },
+    severity: "street",
+    category: "discipline",
+  },
+  {
+    id: "r7",
+    code: "07",
+    title: { ar: "ولاء بلا خيانة", en: "No snitching" },
+    detail: {
+      ar: "ما في كلام للشرطة ولا للعصابات الثانية عن شغل العصابة. الخيانة = خروج نهائي.",
+      en: "No talking to cops or rival sets about Ballas business. Betrayal means exile.",
+    },
+    severity: "blood",
+    category: "security",
+  },
+  {
+    id: "r8",
+    code: "08",
+    title: { ar: "أسرار العصابة داخلها", en: "Keep set secrets inside" },
+    detail: {
+      ar: "مواقع، خطط، وأسماء حساسة ما تطلع برا الديسكورد الخاص أو الراديو المؤمن.",
+      en: "Spots, plans, and sensitive names stay off public chat and unsecured radio.",
+    },
+    severity: "blood",
+    category: "security",
+  },
+  {
+    id: "r9",
+    code: "09",
+    title: { ar: "ما تصوّر شغل العصابة", en: "No leaking ops footage" },
+    detail: {
+      ar: "تصوير أو نشر شغل العصابة بدون إذن القيادة ممنوع — حتى لو كان كليب حلو.",
+      en: "Filming or posting set ops without leadership OK is banned — even if it clips well.",
+    },
+    severity: "blood",
+    category: "security",
+  },
+  {
+    id: "r10",
+    code: "10",
+    title: { ar: "RP جاد فقط", en: "Serious RP only" },
+    detail: {
+      ar: "فايف إم رولبلاي. ادخل الشخصية، احترم القوانين، واترك الراندم كيل برا.",
+      en: "This is FiveM roleplay. Stay in character, respect lore, leave RDM outside.",
+    },
+    severity: "street",
+    category: "field",
+  },
+  {
+    id: "r11",
+    code: "11",
+    title: { ar: "الدفاع عن الأرض", en: "Defend the turf" },
+    detail: {
+      ar: "Davis وChamberlain وأراضي East LS ملكنا. أي تهديد = رد بنفسجي.",
+      en: "Davis, Chamberlain, East LS are ours. Any threat gets a purple answer.",
+    },
+    severity: "blood",
+    category: "field",
+  },
+  {
+    id: "r12",
+    code: "12",
+    title: { ar: "لا تترك رفيقك وحده", en: "Never leave a brother" },
+    detail: {
+      ar: "بالميدان: ما نترك جريح أو مطارد لحاله. نسحب بعض ونكمّل بعدين.",
+      en: "In the field: never leave a wounded or chased member alone. Extract first.",
+    },
+    severity: "law",
+    category: "field",
+  },
+  {
+    id: "r13",
+    code: "13",
+    title: { ar: "قيمة الـ NL / NLR", en: "Honor NL / NLR" },
+    detail: {
+      ar: "بعد الموت أو الهروب الرسمي: التزم قوانين السيرفر. الـ meta يهدم اسم العصابة.",
+      en: "After death or official escape: follow server NL/NLR. Meta kills the set’s name.",
+    },
+    severity: "street",
+    category: "field",
+  },
+  {
+    id: "r14",
+    code: "14",
+    title: { ar: "البنفسجي أولًا", en: "Purple first" },
+    detail: {
+      ar: "ألوان العصابة فوق أي شيء. تمشي بنفسجي… أو ما تمشي معنا.",
+      en: "Set colors above everything. You ride purple — or you don't ride with us.",
+    },
+    severity: "law",
+    category: "reputation",
+  },
+  {
+    id: "r15",
+    code: "15",
+    title: { ar: "اسم Ballas ما يتوسّخ", en: "Protect the Ballas name" },
+    detail: {
+      ar: "تصرفك برا وفي السيرفر يمثل العصابة. العبث والفضائح تضرب السمعة.",
+      en: "Your behavior offline and on server represents the set. Chaos stains the name.",
+    },
+    severity: "law",
+    category: "reputation",
+  },
+  {
+    id: "r16",
+    code: "16",
+    title: { ar: "الولاء للأبد", en: "Loyalty forever" },
+    detail: {
+      ar: "دخلت بنفسجي تطلع بنفسجي. الانتقال لعصابة ثانية بدون إذن = خيانة.",
+      en: "You come in purple, you leave purple. Jumping sets without leave is betrayal.",
+    },
+    severity: "blood",
+    category: "reputation",
   },
 ];
 
