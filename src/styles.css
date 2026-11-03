@@ -898,46 +898,43 @@ html[dir="rtl"] .ballas-arrow-nudge {
   box-shadow: 0 0 24px oklch(0.72 0.28 310 / 0.65);
 }
 
-.ballas-top-nav {
-  border-bottom: 1px solid color-mix(in oklch, var(--color-primary) 40%, transparent);
+.ballas-nav-dock {
+  border: 1px solid color-mix(in oklch, var(--color-primary) 42%, transparent);
+  border-radius: 999px;
   background:
-    linear-gradient(180deg, oklch(0.18 0.08 305 / 0.94), oklch(0.1 0.05 305 / 0.88));
+    linear-gradient(180deg, oklch(0.35 0.12 305 / 0.28), oklch(0.12 0.06 305 / 0.22)),
+    oklch(0.1 0.05 305 / 0.28);
   box-shadow:
-    0 12px 36px rgba(0, 0, 0, 0.35),
-    0 0 40px oklch(0.64 0.28 305 / 0.16);
-  backdrop-filter: blur(16px);
+    0 0 0 1px rgba(255, 255, 255, 0.08),
+    inset 0 1px 0 rgba(255, 255, 255, 0.12),
+    0 12px 40px rgba(0, 0, 0, 0.28),
+    0 0 36px oklch(0.64 0.28 305 / 0.22);
+  backdrop-filter: blur(18px) saturate(1.25);
+  -webkit-backdrop-filter: blur(18px) saturate(1.25);
 }
 
-.ballas-top-nav-home {
-  border-bottom-color: color-mix(in oklch, var(--color-violet-glow) 55%, transparent);
+.ballas-nav-dock-home {
+  border-color: color-mix(in oklch, var(--color-violet-glow) 55%, transparent);
   background:
-    radial-gradient(ellipse at 50% 0%, oklch(0.5 0.24 305 / 0.28), transparent 55%),
-    linear-gradient(180deg, oklch(0.22 0.1 305 / 0.92), oklch(0.1 0.05 305 / 0.82));
+    radial-gradient(ellipse at 50% 0%, oklch(0.65 0.26 310 / 0.22), transparent 60%),
+    linear-gradient(180deg, oklch(0.4 0.14 305 / 0.3), oklch(0.14 0.07 305 / 0.2));
   box-shadow:
-    0 16px 44px rgba(0, 0, 0, 0.4),
-    0 0 52px oklch(0.72 0.28 310 / 0.28);
+    0 0 0 1px rgba(255, 255, 255, 0.1),
+    inset 0 1px 0 rgba(255, 255, 255, 0.16),
+    0 14px 48px rgba(0, 0, 0, 0.3),
+    0 0 52px oklch(0.72 0.28 310 / 0.32);
 }
 
 .ballas-nav-item {
   position: relative;
-  border-radius: 0.85rem;
+  border-radius: 999px;
 }
 
 .ballas-nav-item-active {
-  background: linear-gradient(180deg, oklch(0.58 0.26 305 / 0.78), oklch(0.4 0.22 305 / 0.58));
+  background: linear-gradient(180deg, oklch(0.62 0.26 305 / 0.72), oklch(0.42 0.22 305 / 0.48));
   box-shadow:
-    inset 0 0 0 1px oklch(0.85 0.1 310 / 0.28),
-    0 0 20px oklch(0.64 0.28 305 / 0.35);
-}
-
-.ballas-nav-item-active::after {
-  content: "";
-  position: absolute;
-  inset-inline: 18%;
-  bottom: 0.2rem;
-  height: 2px;
-  border-radius: 999px;
-  background: linear-gradient(90deg, transparent, oklch(0.9 0.1 310), transparent);
+    inset 0 0 0 1px oklch(0.9 0.1 310 / 0.35),
+    0 0 22px oklch(0.64 0.28 305 / 0.4);
 }
 
 .ballas-member-card {
@@ -1064,12 +1061,30 @@ html[dir="rtl"] .ballas-arrow-nudge {
     0 0 28px oklch(0.64 0.28 305 / 0.25);
 }
 
-.ballas-live-card {
-  border: 1.5px solid rgba(255, 255, 255, 0.26);
-  background: rgba(0, 0, 0, 0.62);
+.ballas-live-banner {
+  border: 1.5px solid color-mix(in oklch, oklch(0.65 0.22 25) 55%, white 8%);
+  background:
+    radial-gradient(ellipse at 80% 0%, oklch(0.5 0.2 25 / 0.28), transparent 50%),
+    linear-gradient(135deg, oklch(0.28 0.1 25 / 0.55), oklch(0.1 0.05 305 / 0.92));
   box-shadow:
     0 0 0 1px rgba(0, 0, 0, 0.3),
-    0 16px 40px rgba(0, 0, 0, 0.45);
+    0 16px 44px rgba(0, 0, 0, 0.42);
+}
+
+.ballas-live-card {
+  border: 1.5px solid rgba(255, 255, 255, 0.3);
+  background: rgba(0, 0, 0, 0.72);
+  box-shadow:
+    0 0 0 1px rgba(0, 0, 0, 0.35),
+    0 18px 44px rgba(0, 0, 0, 0.5);
+}
+
+.ballas-live-card-featured {
+  border-color: color-mix(in oklch, oklch(0.65 0.22 25) 65%, white 10%);
+  box-shadow:
+    0 0 0 1px oklch(0.55 0.22 25 / 0.25),
+    0 22px 60px rgba(0, 0, 0, 0.55),
+    0 0 40px oklch(0.55 0.22 25 / 0.28);
 }
 
 .ballas-member-glow {

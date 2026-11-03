@@ -56,28 +56,28 @@ export function Stage() {
   });
 
   return (
-    <div className="relative z-10 flex h-full flex-col">
-      {/* Full-bleed top nav — edge to edge */}
-      <header
-        className={cn(
-          "ballas-top-nav relative z-30 w-full shrink-0",
-          isHome && "ballas-top-nav-home",
-        )}
-      >
-        <div className="pointer-events-none absolute inset-x-0 bottom-0 h-px bg-gradient-to-r from-transparent via-violet-soft/50 to-transparent" />
+    <div className="relative z-10 flex h-full flex-col px-3 pt-4 pb-3 sm:px-6 sm:pt-5 sm:pb-4">
+      <header className="relative z-30 flex shrink-0 items-center justify-between gap-3">
+        <button
+          type="button"
+          onClick={() => goTo("home")}
+          className={cn(
+            "shrink-0 outline-none transition",
+            isHome ? "opacity-0 pointer-events-none" : "opacity-100 hover:opacity-90",
+          )}
+          aria-label="Ballas home"
+        >
+          <BallasLogo size="sm" showWordmark={false} />
+        </button>
 
-        <div className="relative flex w-full items-center gap-2 px-2 py-2.5 sm:gap-3 sm:px-4 sm:py-3">
-          <button
-            type="button"
-            onClick={() => goTo("home")}
-            className="shrink-0 outline-none transition hover:opacity-90"
-            aria-label="Ballas home"
-          >
-            <BallasLogo size="sm" showWordmark={false} />
-          </button>
-
+        {/* Centered floating dock — not full bleed */}
+        <div className="pointer-events-none absolute inset-x-0 top-0 flex justify-center">
           <nav
-            className="flex min-w-0 flex-1 items-stretch justify-between gap-0.5 overflow-x-auto sm:gap-1 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+            className={cn(
+              "ballas-nav-dock pointer-events-auto flex max-w-[min(100%,42rem)] items-center gap-0.5 overflow-x-auto px-1.5 py-1.5 sm:gap-1 sm:px-2",
+              isHome && "ballas-nav-dock-home",
+              "[scrollbar-width:none] [&::-webkit-scrollbar]:hidden",
+            )}
             aria-label="Ballas navigation"
           >
             {tabs.map((item) => {
@@ -88,16 +88,16 @@ export function Stage() {
                   type="button"
                   onClick={() => goTo(item.id)}
                   className={cn(
-                    "ballas-nav-item relative flex min-w-0 flex-1 items-center justify-center px-1.5 py-2.5 text-[9px] tracking-[0.1em] transition duration-300 sm:px-3 sm:text-[11px] sm:tracking-[0.14em]",
+                    "ballas-nav-item relative whitespace-nowrap px-3 py-2.5 text-[10px] tracking-[0.12em] transition duration-300 sm:px-4 sm:text-[11px]",
                     active
                       ? "ballas-nav-item-active text-white"
-                      : "text-white/60 hover:bg-white/5 hover:text-violet-soft",
+                      : "text-white/55 hover:bg-white/5 hover:text-violet-soft",
                   )}
                 >
-                  <span className="relative z-10 inline-flex max-w-full items-center justify-center gap-1 truncate">
-                    <span className="truncate">{item.label}</span>
+                  <span className="relative z-10 inline-flex items-center gap-1.5">
+                    {item.label}
                     {item.id === "live" && liveCount > 0 ? (
-                      <span className="inline-flex h-4 min-w-4 shrink-0 items-center justify-center rounded-full bg-red-500 px-1 text-[9px] font-bold text-white">
+                      <span className="inline-flex h-4 min-w-4 items-center justify-center rounded-full bg-red-500 px-1 text-[9px] font-bold text-white">
                         {liveCount}
                       </span>
                     ) : null}
@@ -106,17 +106,17 @@ export function Stage() {
               );
             })}
           </nav>
+        </div>
 
-          <div className="shrink-0">
-            <LanguageToggle />
-          </div>
+        <div className="relative z-10 shrink-0">
+          <LanguageToggle />
         </div>
       </header>
 
       <main
         className={cn(
-          "relative min-h-0 flex-1 overflow-hidden px-3 pt-3 pb-4 sm:px-6 sm:pt-4 sm:pb-5",
-          tab === "members" && "px-2 sm:px-3",
+          "relative mt-4 min-h-0 flex-1 overflow-hidden pb-2",
+          tab === "members" && "-mx-1 px-1 sm:-mx-2 sm:px-2",
         )}
       >
         {flash > 0 ? (

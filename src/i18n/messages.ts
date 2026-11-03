@@ -57,10 +57,15 @@ export const messages = {
     live: {
       eyebrow: "بث مباشر من الشارع",
       title: "على الهواء",
+      subtitle: "شوف مين من العصابة برا الآن، واضغط أو مرّر عشان تدخل البث.",
       summary: "{live} لايف · {online} داخل السيرفر",
       empty: "ما في أحد برا الآن. الشارع فاضي… لسا.",
       profile: "ملف العضو",
       watch: "ادخل البث",
+      bannerTitle: "بثوث العصابة الآن",
+      bannerBody: "كل كرت فيه صاحب البث واضح — مرّر عليه ويفتح البث تلقائي.",
+      hoverHint: "Hover = فتح البث",
+      hoverOpen: "جاري فتح البث…",
     },
     achievements: {
       eyebrow: "سجل المهمات",
@@ -197,10 +202,15 @@ export const messages = {
     live: {
       eyebrow: "Live from the streets",
       title: "On air",
+      subtitle: "See who’s live from the set — hover or click to jump into the stream.",
       summary: "{live} live · {online} in the server",
       empty: "Nobody's out right now. Streets are quiet — for now.",
       profile: "Member file",
       watch: "Join stream",
+      bannerTitle: "Crew streams live now",
+      bannerBody: "Every card shows the streamer clearly — hover and the stream opens.",
+      hoverHint: "Hover = open stream",
+      hoverOpen: "Opening stream…",
     },
     achievements: {
       eyebrow: "Mission log",
