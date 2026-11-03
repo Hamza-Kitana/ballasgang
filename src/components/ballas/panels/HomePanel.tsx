@@ -12,27 +12,23 @@ export function HomePanel({ onNavigate }: HomePanelProps) {
   return (
     <div className="relative flex h-full min-h-0 flex-col items-center justify-center overflow-hidden px-3 text-center">
       <div className="pointer-events-none absolute inset-0">
-        <div className="ballas-home-stage-glow absolute start-1/2 top-[42%] h-[min(90vw,520px)] w-[min(90vw,520px)] -translate-x-1/2 -translate-y-1/2 rounded-full" />
-        <div className="ballas-home-ring absolute start-1/2 top-[42%] h-[min(58vw,380px)] w-[min(58vw,380px)] -translate-x-1/2 -translate-y-1/2 rounded-full border border-primary/25" />
-        <div className="ballas-home-ring-slow absolute start-1/2 top-[42%] h-[min(78vw,520px)] w-[min(78vw,520px)] -translate-x-1/2 -translate-y-1/2 rounded-full border border-violet-soft/12" />
-        <div className="ballas-home-beam absolute start-1/2 top-[18%] h-[55%] w-[min(70vw,420px)] -translate-x-1/2 opacity-70" />
-        <div className="absolute inset-x-0 bottom-0 h-40 bg-gradient-to-t from-black/50 to-transparent" />
+        <div className="absolute inset-x-0 bottom-0 h-40 bg-gradient-to-t from-black/55 to-transparent" />
       </div>
 
       <div className="relative z-10 flex w-full max-w-4xl flex-col items-center">
-        <div className="ballas-rise ballas-logo-float relative flex w-full justify-center">
-          <BallasLogo size="hero" glow markClassName="!h-[clamp(10rem,42vw,18rem)] !max-w-[min(94vw,32rem)]" />
+        <div className="ballas-rise ballas-logo-float relative flex w-full justify-center overflow-visible">
+          <BallasLogo size="hero" glow={false} markClassName="!h-[clamp(10rem,42vw,18rem)] !max-w-[min(94vw,32rem)] ballas-logo-hero-clean" />
         </div>
 
         <p
-          className="ballas-rise mt-5 text-[10px] tracking-[0.38em] text-violet-soft uppercase sm:mt-6 sm:text-[11px]"
+          className="ballas-rise mt-5 max-w-xl text-sm tracking-[0.08em] text-violet-soft sm:mt-6 sm:text-base"
           style={{ animationDelay: "80ms" }}
         >
-          {t.home.tag}
+          {t.home.welcome}
         </p>
 
         <p
-          className="ballas-rise ballas-home-power mt-4 max-w-xl font-display text-[clamp(1.35rem,5.5vw,2.35rem)] leading-snug tracking-[0.04em] text-white sm:mt-5"
+          className="ballas-rise ballas-home-power mt-3 max-w-xl font-display text-[clamp(1.35rem,5.5vw,2.35rem)] leading-snug tracking-[0.04em] text-white sm:mt-4"
           style={{ animationDelay: "140ms" }}
         >
           {t.powerWord}

@@ -1638,6 +1638,11 @@ html[dir="rtl"] .ballas-page-sting-slash {
     drop-shadow(0 8px 18px rgba(0, 0, 0, 0.45));
 }
 
+.ballas-logo-hero-clean {
+  filter: drop-shadow(0 0 14px oklch(0.65 0.28 305 / 0.45))
+    drop-shadow(0 10px 22px rgba(0, 0, 0, 0.5));
+}
+
 .ballas-logo-glow-wrap {
   isolation: isolate;
 }
