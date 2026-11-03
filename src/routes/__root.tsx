@@ -12,6 +12,33 @@ import { type ReactNode } from "react";
 
 import appCss from "../styles.css?url";
 import { LanguageProvider, useLanguage } from "@/i18n/LanguageProvider";
+import { SITE, absoluteUrl } from "@/lib/site";
+
+const ogImage = absoluteUrl(SITE.image);
+
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebSite",
+      "@id": `${SITE.url}/#website`,
+      url: SITE.url,
+      name: SITE.name,
+      description: SITE.description,
+      inLanguage: ["ar", "en"],
+      publisher: { "@id": `${SITE.url}/#organization` },
+    },
+    {
+      "@type": "Organization",
+      "@id": `${SITE.url}/#organization`,
+      name: SITE.name,
+      url: SITE.url,
+      logo: absoluteUrl("/ballas-logo.png"),
+      sameAs: ["https://discord.gg/WMRrN4sKPn"],
+      description: SITE.descriptionEn,
+    },
+  ],
+};
 
 function NotFoundComponent() {
   const { t } = useLanguage();
@@ -71,32 +98,42 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Ballas Purple Dynasty · GTA FiveM Gang" },
-      {
-        name: "description",
-        content: "Ballas Purple Dynasty — عصابة شوارع في GTA V / FiveM داخل لوس سانتوس",
-      },
+      { title: SITE.title },
+      { name: "description", content: SITE.description },
+      { name: "keywords", content: SITE.keywords },
       { name: "author", content: "Ballas" },
-      { property: "og:title", content: "Ballas Purple Dynasty · GTA FiveM" },
-      {
-        property: "og:description",
-        content: "Street gang site for Ballas on GTA V / FiveM — Los Santos purple dynasty",
-      },
+      { name: "robots", content: "index, follow, max-image-preview:large" },
+      { name: "googlebot", content: "index, follow" },
+      { name: "theme-color", content: SITE.themeColor },
+      { name: "application-name", content: SITE.shortName },
+      { name: "apple-mobile-web-app-title", content: SITE.shortName },
+      { property: "og:site_name", content: SITE.name },
+      { property: "og:title", content: SITE.title },
+      { property: "og:description", content: SITE.description },
       { property: "og:type", content: "website" },
+      { property: "og:url", content: SITE.url },
+      { property: "og:locale", content: SITE.locale },
+      { property: "og:locale:alternate", content: SITE.localeAlt },
+      { property: "og:image", content: ogImage },
+      { property: "og:image:alt", content: SITE.name },
       { name: "twitter:card", content: "summary_large_image" },
+      { name: "twitter:title", content: SITE.title },
+      { name: "twitter:description", content: SITE.descriptionEn },
+      { name: "twitter:image", content: ogImage },
     ],
     links: [
+      { rel: "canonical", href: SITE.url },
       { rel: "preconnect", href: "https://fonts.googleapis.com" },
       { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous" as const },
       {
         rel: "stylesheet",
         href: "https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Black+Ops+One&family=Cairo:wght@400;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap",
       },
-      {
-        rel: "stylesheet",
-        href: appCss,
-      },
+      { rel: "stylesheet", href: appCss },
       { rel: "icon", href: "/favicon.svg", type: "image/svg+xml" },
+      { rel: "apple-touch-icon", href: "/ballas-logo.png" },
+      { rel: "manifest", href: "/site.webmanifest" },
+      { rel: "sitemap", type: "application/xml", href: "/sitemap.xml" },
     ],
   }),
   shellComponent: RootShell,
@@ -110,6 +147,11 @@ function RootShell({ children }: { children: ReactNode }) {
     <html lang="ar" dir="rtl" className="dark">
       <head>
         <HeadContent />
+        <script
+          type="application/ld+json"
+          // eslint-disable-next-line react/no-danger
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        />
       </head>
       <body className="overflow-hidden antialiased">
         {children}

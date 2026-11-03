@@ -1,0 +1,25 @@
+{
+  "name": "Ballas Purple Dynasty",
+  "short_name": "Ballas",
+  "description": "موقع عصابة Ballas الرسمي — GTA V / FiveM",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0a0610",
+  "theme_color": "#6b21a8",
+  "lang": "ar",
+  "dir": "rtl",
+  "icons": [
+    {
+      "src": "/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    },
+    {
+      "src": "/ballas-logo.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    }
+  ]
+}
