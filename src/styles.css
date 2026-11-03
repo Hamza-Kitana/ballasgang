@@ -898,6 +898,214 @@ html[dir="rtl"] .ballas-arrow-nudge {
   box-shadow: 0 0 24px oklch(0.72 0.28 310 / 0.65);
 }
 
+@keyframes ballas-sting-veil {
+  0% {
+    opacity: 0;
+  }
+  12% {
+    opacity: 1;
+  }
+  68% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+@keyframes ballas-sting-slash {
+  0% {
+    transform: translate3d(-120%, 0, 0) skewX(-18deg);
+    opacity: 0;
+  }
+  18% {
+    opacity: 0.85;
+  }
+  55% {
+    transform: translate3d(140%, 0, 0) skewX(-18deg);
+    opacity: 0;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+@keyframes ballas-sting-card {
+  0% {
+    opacity: 0;
+    transform: translate3d(0, 28px, 0) scale(1.12);
+    filter: blur(10px);
+  }
+  18% {
+    opacity: 1;
+    transform: translate3d(0, 0, 0) scale(1);
+    filter: blur(0);
+  }
+  70% {
+    opacity: 1;
+    transform: translate3d(0, 0, 0) scale(1);
+    filter: blur(0);
+  }
+  100% {
+    opacity: 0;
+    transform: translate3d(0, -18px, 0) scale(0.96);
+    filter: blur(6px);
+  }
+}
+
+@keyframes ballas-sting-title {
+  0% {
+    letter-spacing: 0.28em;
+    opacity: 0;
+    transform: scale(1.15);
+  }
+  25% {
+    opacity: 1;
+    letter-spacing: 0.06em;
+    transform: scale(1);
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes ballas-sting-bar {
+  0% {
+    transform: scaleX(0);
+  }
+  30% {
+    transform: scaleX(1);
+  }
+  100% {
+    transform: scaleX(1);
+  }
+}
+
+@keyframes ballas-sting-line {
+  0% {
+    transform: scaleX(0);
+    opacity: 0;
+  }
+  25% {
+    transform: scaleX(1);
+    opacity: 0.9;
+  }
+  100% {
+    transform: scaleX(1);
+    opacity: 0;
+  }
+}
+
+.ballas-page-sting {
+  animation: ballas-sting-veil 1.18s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.ballas-page-sting-veil {
+  background:
+    radial-gradient(ellipse at 50% 45%, oklch(0.42 0.22 305 / 0.72), oklch(0.08 0.05 305 / 0.92) 62%),
+    linear-gradient(180deg, oklch(0.12 0.06 305 / 0.75), oklch(0.06 0.04 305 / 0.92));
+  backdrop-filter: blur(10px) saturate(1.2);
+  -webkit-backdrop-filter: blur(10px) saturate(1.2);
+}
+
+.ballas-page-sting-slash {
+  background: linear-gradient(
+    90deg,
+    transparent,
+    oklch(0.78 0.24 310 / 0.55),
+    oklch(0.95 0.08 310 / 0.85),
+    oklch(0.78 0.24 310 / 0.55),
+    transparent
+  );
+  filter: blur(0.5px);
+  animation: ballas-sting-slash 0.85s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.ballas-page-sting-slash-delay {
+  animation-delay: 90ms;
+  opacity: 0.65;
+}
+
+.ballas-page-sting-line {
+  background: linear-gradient(
+    90deg,
+    transparent,
+    oklch(0.85 0.16 310),
+    oklch(0.7 0.28 305),
+    oklch(0.85 0.16 310),
+    transparent
+  );
+  transform-origin: center;
+  box-shadow: 0 0 20px oklch(0.72 0.28 310 / 0.55);
+  animation: ballas-sting-line 1s ease-out both;
+}
+
+.ballas-page-sting-card {
+  border: 1px solid color-mix(in oklch, var(--color-primary) 55%, white 8%);
+  border-radius: 1.5rem;
+  background:
+    linear-gradient(160deg, oklch(0.26 0.12 305 / 0.92), oklch(0.12 0.07 305 / 0.95)),
+    oklch(0.1 0.05 305 / 0.9);
+  box-shadow:
+    0 0 0 1px rgba(255, 255, 255, 0.08),
+    0 24px 60px rgba(0, 0, 0, 0.55),
+    0 0 48px oklch(0.64 0.28 305 / 0.35);
+  animation: ballas-sting-card 1.18s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.ballas-page-sting-mark {
+  filter: drop-shadow(0 0 16px oklch(0.6 0.28 305 / 0.7));
+}
+
+.ballas-page-sting-eyebrow {
+  animation: ballas-sting-title 0.9s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.ballas-page-sting-title {
+  text-shadow:
+    0 0 28px oklch(0.64 0.28 305 / 0.55),
+    0 2px 0 oklch(0.2 0.1 305);
+  animation: ballas-sting-title 0.95s cubic-bezier(0.16, 1, 0.3, 1) both;
+  animation-delay: 40ms;
+}
+
+.ballas-page-sting-brand {
+  animation: ballas-sting-title 1s cubic-bezier(0.16, 1, 0.3, 1) both;
+  animation-delay: 70ms;
+}
+
+.ballas-page-sting-bar > span {
+  transform-origin: left;
+  animation: ballas-sting-bar 1s cubic-bezier(0.22, 1, 0.36, 1) both;
+  animation-delay: 120ms;
+  box-shadow: 0 0 16px oklch(0.64 0.28 305 / 0.65);
+}
+
+html[dir="rtl"] .ballas-page-sting-bar > span {
+  transform-origin: right;
+}
+
+html[dir="rtl"] .ballas-page-sting-slash {
+  animation-name: ballas-sting-slash-rtl;
+}
+
+@keyframes ballas-sting-slash-rtl {
+  0% {
+    transform: translate3d(120%, 0, 0) skewX(18deg);
+    opacity: 0;
+  }
+  18% {
+    opacity: 0.85;
+  }
+  55% {
+    transform: translate3d(-140%, 0, 0) skewX(18deg);
+    opacity: 0;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
 .ballas-nav-dock {
   border: 1px solid color-mix(in oklch, var(--color-primary) 42%, transparent);
   border-radius: 999px;

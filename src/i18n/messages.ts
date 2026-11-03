@@ -32,6 +32,11 @@ export const messages = {
       achievements: "المهمات",
       join: "التقديم",
     },
+    transition: {
+      entering: "انتقال إلى",
+      brand: "BALLAS",
+      open: "افتح الشاشة",
+    },
     footerLeft: "Ballas · Grove ain't welcome",
     footerRight: "← → غيّر الشاشة",
     home: {
@@ -180,6 +185,11 @@ export const messages = {
       rules: "Laws",
       achievements: "Missions",
       join: "Apply",
+    },
+    transition: {
+      entering: "ENTERING",
+      brand: "BALLAS",
+      open: "OPENING SCREEN",
     },
     footerLeft: "Ballas · Grove ain't welcome",
     footerRight: "← → Switch screens",
