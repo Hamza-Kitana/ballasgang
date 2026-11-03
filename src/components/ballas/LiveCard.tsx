@@ -159,9 +159,28 @@ export function LiveCard({ member, index = 0 }: LiveCardProps) {
           <p className="text-[9px] font-semibold tracking-[0.16em] text-red-200/90 uppercase">
             {t.ranks[member.rank]}
           </p>
-          <h3 className="font-display mt-1 truncate text-xl leading-none tracking-[0.04em] text-white">
-            {member.name}
-          </h3>
+          <div className="mt-1 flex min-w-0 items-center gap-1.5">
+            <h3 className="font-display truncate text-xl leading-none tracking-[0.04em] text-white">
+              {member.name}
+            </h3>
+            <span
+              className="ballas-verified-badge inline-flex shrink-0 items-center justify-center"
+              title={t.live.verified}
+              aria-label={t.live.verified}
+            >
+              <svg viewBox="0 0 24 24" className="h-4 w-4" aria-hidden>
+                <circle cx="12" cy="12" r="11" fill="currentColor" className="text-primary" />
+                <path
+                  d="M7.2 12.2 10.1 15l6.7-6.7"
+                  fill="none"
+                  stroke="#fff"
+                  strokeWidth="2.2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
+              </svg>
+            </span>
+          </div>
           <p className="mt-0.5 truncate text-[11px] text-white/65">
             “{member.alias}” · {loc(member.role, locale)}
           </p>

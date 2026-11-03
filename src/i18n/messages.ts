@@ -79,6 +79,7 @@ export const messages = {
       previewBody: "حط رابط القناة كامل عشان يشتغل المشغّل داخل الموقع.",
       pin: "ثبّت",
       unpin: "إلغاء التثبيت",
+      verified: "ستيرمر موثّق",
       platforms: {
         youtube: "YouTube",
         kick: "Kick",
@@ -279,6 +280,7 @@ export const messages = {
       previewBody: "Use a full channel URL so the in-site player can load.",
       pin: "Pin",
       unpin: "Unpin",
+      verified: "Verified streamer",
       platforms: {
         youtube: "YouTube",
         kick: "Kick",
