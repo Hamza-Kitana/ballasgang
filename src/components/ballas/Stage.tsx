@@ -104,7 +104,9 @@ export function Stage() {
           )}
         >
           <span className="relative z-10 truncate">{item.label}</span>
-          {(active || pending) && !compact ? <span className="ballas-nav-link-glow" aria-hidden /> : null}
+          {(active || pending) && !compact ? (
+            <span className="ballas-nav-link-glow" aria-hidden />
+          ) : null}
         </button>
       );
     });
@@ -167,7 +169,8 @@ export function Stage() {
 
       <main
         className={cn(
-          "relative mt-3 min-h-0 flex-1 overflow-hidden pb-2 md:mt-4",
+          "relative min-h-0 flex-1 overflow-hidden pb-2",
+          tab === "shop" ? "mt-1.5 md:mt-2" : "mt-3 md:mt-4",
           "mb-[5rem] md:mb-0",
           tab === "members" && "-mx-1 px-1 sm:-mx-2 sm:px-2",
         )}
@@ -208,7 +211,10 @@ export function Stage() {
           <div className="ballas-page-sting-slash absolute inset-y-0 -start-1/4 w-1/2" />
           <div className="ballas-page-sting-slash ballas-page-sting-slash-delay absolute inset-y-0 start-1/3 w-1/3" />
           <div className="ballas-page-sting-line absolute inset-x-[8%] top-[38%] h-px" />
-          <div className="ballas-page-sting-line absolute inset-x-[14%] top-[62%] h-px" style={{ animationDelay: "80ms" }} />
+          <div
+            className="ballas-page-sting-line absolute inset-x-[14%] top-[62%] h-px"
+            style={{ animationDelay: "80ms" }}
+          />
 
           {/* No card — floating cinematic title only */}
           <div className="ballas-page-sting-core relative z-10 flex flex-col items-center px-6 text-center">

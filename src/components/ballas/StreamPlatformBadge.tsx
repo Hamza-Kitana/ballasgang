@@ -41,9 +41,7 @@ function PlatformIcon({ platform }: { platform: StreamPlatform }) {
     );
   }
 
-  return (
-    <span className="inline-block h-1.5 w-1.5 rounded-full bg-current" aria-hidden />
-  );
+  return <span className="inline-block h-1.5 w-1.5 rounded-full bg-current" aria-hidden />;
 }
 
 export function StreamPlatformBadge({
@@ -58,7 +56,8 @@ export function StreamPlatformBadge({
         "ballas-platform-badge inline-flex items-center gap-1.5 rounded-full border font-bold tracking-[0.14em] uppercase",
         size === "sm" && "px-2 py-0.5 text-[9px]",
         size === "md" && "px-2.5 py-1 text-[10px]",
-        size === "lg" && "gap-2 px-3.5 py-2 text-[12px] tracking-[0.16em] shadow-[0_8px_22px_rgba(0,0,0,0.4)]",
+        size === "lg" &&
+          "gap-2 px-3.5 py-2 text-[12px] tracking-[0.16em] shadow-[0_8px_22px_rgba(0,0,0,0.4)]",
         platform === "youtube" && "ballas-platform-youtube",
         platform === "kick" && "ballas-platform-kick",
         platform === "tiktok" && "ballas-platform-tiktok",

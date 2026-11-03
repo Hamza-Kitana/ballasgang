@@ -25,7 +25,10 @@ export function detectStreamPlatform(streamUrl: string | undefined): StreamPlatf
 }
 
 /** Build an in-page embed URL for known stream hosts. */
-export function getStreamEmbedUrl(streamUrl: string | undefined, parentHost: string): string | null {
+export function getStreamEmbedUrl(
+  streamUrl: string | undefined,
+  parentHost: string,
+): string | null {
   if (!streamUrl) return null;
   try {
     const url = new URL(streamUrl);

@@ -36,9 +36,13 @@ export function LivePanel() {
               <h3 className="font-display mt-2 text-[clamp(1.5rem,4vw,2.2rem)] leading-none tracking-[0.05em] text-white">
                 {t.live.bannerTitle}
               </h3>
-              <p className="mt-1.5 max-w-2xl text-xs text-white/75 sm:text-sm">{t.live.bannerBody}</p>
+              <p className="mt-1.5 max-w-2xl text-xs text-white/75 sm:text-sm">
+                {t.live.bannerBody}
+              </p>
             </div>
-            <p className="text-[10px] tracking-[0.16em] text-red-200/80 uppercase">{t.live.hoverHint}</p>
+            <p className="text-[10px] tracking-[0.16em] text-red-200/80 uppercase">
+              {t.live.hoverHint}
+            </p>
           </div>
         </section>
 
@@ -58,11 +62,15 @@ export function LivePanel() {
           <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_80%_0%,oklch(0.55_0.28_305/0.35),transparent_55%)]" />
           <div className="relative flex flex-col gap-4 text-center sm:flex-row sm:items-center sm:justify-between sm:text-start">
             <div className="min-w-0">
-              <p className="text-[10px] tracking-[0.22em] text-violet-soft uppercase">{t.live.eyebrow}</p>
+              <p className="text-[10px] tracking-[0.22em] text-violet-soft uppercase">
+                {t.live.eyebrow}
+              </p>
               <h3 className="font-display mt-1 text-[clamp(1.6rem,4vw,2.4rem)] leading-none tracking-[0.04em] text-white">
                 {t.live.applyTitle}
               </h3>
-              <p className="mt-2 max-w-xl text-sm leading-relaxed text-white/75">{t.live.applyBody}</p>
+              <p className="mt-2 max-w-xl text-sm leading-relaxed text-white/75">
+                {t.live.applyBody}
+              </p>
             </div>
             <a
               href={discordUrl}

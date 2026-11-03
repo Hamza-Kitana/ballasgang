@@ -325,7 +325,8 @@ export const messages = {
     rules: {
       eyebrow: "Street code",
       title: "Gang Laws",
-      subtitle: "These laws are mandatory and will be asked in your interview. Read them all and confirm.",
+      subtitle:
+        "These laws are mandatory and will be asked in your interview. Read them all and confirm.",
       bannerTitle: "Gang law is non-negotiable",
       bannerBody: "This code protects the Purple Dynasty. Learn it, live it, don't play with it.",
       bannerBadge: "Mandatory for all",
@@ -369,7 +370,8 @@ export const messages = {
       lawsSubtitle: "Before you apply: these laws are mandatory for every member.",
       stepLabel: "Step {step}",
       ctaLead: "Ready to wear the purple?",
-      ctaBody: "Hit the button below, join Ballas Discord, and open an apply ticket. Leadership reviews calmly.",
+      ctaBody:
+        "Hit the button below, join Ballas Discord, and open an apply ticket. Leadership reviews calmly.",
       applyNote: "Applications are Discord-only — no random in-city acceptances.",
       rules: ["Serious RP", "Loyalty", "Purple", "Respect the laws"],
     },

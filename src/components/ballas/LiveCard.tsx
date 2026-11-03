@@ -61,7 +61,8 @@ export function LiveCard({ member, index = 0 }: LiveCardProps) {
       className={cn(
         "ballas-live-card group relative overflow-hidden rounded-[1.2rem]",
         "transition duration-300 hover:-translate-y-1 hover:border-red-400/55",
-        preview && "z-20 border-red-400/60 shadow-[0_18px_44px_rgba(0,0,0,0.5),0_0_28px_oklch(0.55_0.22_25/0.3)]",
+        preview &&
+          "z-20 border-red-400/60 shadow-[0_18px_44px_rgba(0,0,0,0.5),0_0_28px_oklch(0.55_0.22_25/0.3)]",
       )}
       onMouseEnter={openPreview}
       onMouseLeave={scheduleClose}
@@ -114,11 +115,19 @@ export function LiveCard({ member, index = 0 }: LiveCardProps) {
               />
             ) : (
               <div className="relative flex h-full flex-col items-center justify-center gap-2 bg-[oklch(0.12_0.05_305)] p-3 text-center">
-                <img src={thumb} alt="" className="absolute inset-0 h-full w-full object-cover opacity-35" />
+                <img
+                  src={thumb}
+                  alt=""
+                  className="absolute inset-0 h-full w-full object-cover opacity-35"
+                />
                 <div className="relative z-10">
-                  <p className="text-[10px] tracking-[0.2em] text-red-200 uppercase">{t.live.previewTitle}</p>
+                  <p className="text-[10px] tracking-[0.2em] text-red-200 uppercase">
+                    {t.live.previewTitle}
+                  </p>
                   <p className="mt-1 text-sm font-bold text-white">{member.name}</p>
-                  <p className="mt-1 max-w-[14rem] text-[11px] text-white/65">{t.live.previewBody}</p>
+                  <p className="mt-1 max-w-[14rem] text-[11px] text-white/65">
+                    {t.live.previewBody}
+                  </p>
                 </div>
               </div>
             )}
@@ -140,7 +149,8 @@ export function LiveCard({ member, index = 0 }: LiveCardProps) {
                     "inline-flex items-center gap-1 rounded-full px-2.5 py-1 text-[9px] font-bold tracking-[0.12em]",
                     platform === "youtube" && "bg-[#ff0033] text-white",
                     platform === "kick" && "bg-[#53fc18] text-[#052e16]",
-                    platform === "tiktok" && "bg-gradient-to-r from-[#25f4ee]/90 to-[#fe2c55] text-white",
+                    platform === "tiktok" &&
+                      "bg-gradient-to-r from-[#25f4ee]/90 to-[#fe2c55] text-white",
                     platform === "twitch" && "bg-[#9146ff] text-white",
                     platform === "unknown" && "bg-red-500 text-white",
                   )}
@@ -185,7 +195,12 @@ export function LiveCard({ member, index = 0 }: LiveCardProps) {
             “{member.alias}” · {loc(member.role, locale)}
           </p>
         </div>
-        <StreamPlatformBadge platform={platform} label={platformLabel} size="lg" className="shrink-0" />
+        <StreamPlatformBadge
+          platform={platform}
+          label={platformLabel}
+          size="lg"
+          className="shrink-0"
+        />
       </div>
     </article>
   );
