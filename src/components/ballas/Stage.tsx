@@ -74,7 +74,7 @@ export function Stage() {
         <div className="pointer-events-none absolute inset-x-0 top-0 flex justify-center">
           <nav
             className={cn(
-              "ballas-nav-dock pointer-events-auto flex max-w-[min(100%,42rem)] items-center gap-0.5 overflow-x-auto px-1.5 py-1.5 sm:gap-1 sm:px-2",
+              "ballas-nav-dock pointer-events-auto flex max-w-[min(100%,56rem)] items-center gap-1 overflow-x-auto px-2 py-2 sm:gap-1.5 sm:px-3 sm:py-2.5",
               isHome && "ballas-nav-dock-home",
               "[scrollbar-width:none] [&::-webkit-scrollbar]:hidden",
             )}
@@ -88,16 +88,16 @@ export function Stage() {
                   type="button"
                   onClick={() => goTo(item.id)}
                   className={cn(
-                    "ballas-nav-item relative whitespace-nowrap px-3 py-2.5 text-[10px] tracking-[0.12em] transition duration-300 sm:px-4 sm:text-[11px]",
+                    "ballas-nav-item relative whitespace-nowrap px-3.5 py-3 text-[13px] font-semibold tracking-[0.1em] transition duration-300 sm:px-5 sm:py-3.5 sm:text-[15px]",
                     active
                       ? "ballas-nav-item-active text-white"
-                      : "text-white/55 hover:bg-white/5 hover:text-violet-soft",
+                      : "text-white/60 hover:bg-white/5 hover:text-violet-soft",
                   )}
                 >
-                  <span className="relative z-10 inline-flex items-center gap-1.5">
+                  <span className="relative z-10 inline-flex items-center gap-2">
                     {item.label}
                     {item.id === "live" && liveCount > 0 ? (
-                      <span className="inline-flex h-4 min-w-4 items-center justify-center rounded-full bg-red-500 px-1 text-[9px] font-bold text-white">
+                      <span className="inline-flex h-5 min-w-5 items-center justify-center rounded-full bg-red-500 px-1.5 text-[11px] font-bold text-white">
                         {liveCount}
                       </span>
                     ) : null}
