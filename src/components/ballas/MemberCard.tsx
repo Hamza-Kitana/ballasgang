@@ -1,5 +1,4 @@
 import type { CSSProperties } from "react";
-import { Link } from "@tanstack/react-router";
 import { loc, type GangMember } from "@/data/gang";
 import { useLanguage } from "@/i18n/LanguageProvider";
 import { cn } from "@/lib/utils";
@@ -20,13 +19,10 @@ export function MemberCard({
   const { t, locale } = useLanguage();
 
   return (
-    <Link
-      to="/members/$id"
-      params={{ id: member.id }}
-      viewTransition
+    <article
       className={cn(
-        "ballas-member-card group relative block overflow-hidden outline-none",
-        "ballas-rise transition duration-300 hover:-translate-y-1.5 focus-visible:ring-2 focus-visible:ring-primary",
+        "ballas-member-card group relative block overflow-hidden",
+        "ballas-rise transition duration-300 hover:-translate-y-1.5",
         featured ? "rounded-[1.5rem] ballas-member-card-featured" : "rounded-[1.15rem]",
         compact && "ballas-member-card-compact",
       )}
@@ -148,7 +144,7 @@ export function MemberCard({
 
             <div
               className={cn(
-                "flex items-center justify-between border-t border-white/15",
+                "border-t border-white/15",
                 featured ? "mt-4 pt-4" : compact ? "mt-2 pt-2" : "mt-3 pt-3",
               )}
             >
@@ -161,19 +157,10 @@ export function MemberCard({
                 {member.stats.reps} {locale === "ar" ? "سمعة" : "reps"} · {member.stats.wars}{" "}
                 {locale === "ar" ? "حروب" : "wars"}
               </span>
-              <span
-                className={cn(
-                  "inline-flex items-center rounded-full bg-primary/25 font-semibold tracking-[0.1em] text-violet-soft transition group-hover:bg-primary group-hover:text-white",
-                  featured ? "gap-1.5 px-3.5 py-1.5 text-[11px]" : compact ? "gap-1 px-2 py-0.5 text-[8px]" : "gap-1.5 px-3 py-1 text-[10px]",
-                )}
-              >
-                {locale === "ar" ? "الملف" : "Profile"}
-                <span className="rtl:rotate-180">→</span>
-              </span>
             </div>
           </div>
         </div>
       </div>
-    </Link>
+    </article>
   );
 }

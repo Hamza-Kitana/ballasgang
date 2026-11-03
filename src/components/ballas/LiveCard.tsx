@@ -1,5 +1,4 @@
 import { useEffect, useMemo, useRef, useState } from "react";
-import { Link } from "@tanstack/react-router";
 import { loc, type GangMember } from "@/data/gang";
 import { MemberPortrait } from "@/components/ballas/MemberPortrait";
 import { getStreamEmbedUrl } from "@/lib/streamEmbed";
@@ -156,14 +155,6 @@ export function LiveCard({ member, index = 0 }: LiveCardProps) {
             “{member.alias}” · {loc(member.role, locale)}
           </p>
         </div>
-        <Link
-          to="/members/$id"
-          params={{ id: member.id }}
-          viewTransition
-          className="shrink-0 rounded-full border border-white/20 bg-white/5 px-2.5 py-1.5 text-[9px] tracking-[0.12em] text-white/80 transition hover:border-primary hover:text-violet-soft"
-        >
-          {t.live.profile}
-        </Link>
       </div>
     </article>
   );

@@ -12,12 +12,4 @@ describe("App routing", () => {
 
     expect(matches.at(-1)?.routeId).not.toBe(rootRouteId);
   });
-
-  it("matches member profile routes", () => {
-    const router = createRouter({ routeTree, context: { queryClient: new QueryClient() } });
-
-    const matches = router.matchRoutes("/members/king-vio");
-
-    expect(matches.at(-1)?.routeId).toBe("/members/$id");
-  });
 });

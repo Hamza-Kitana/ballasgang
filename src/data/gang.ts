@@ -33,15 +33,6 @@ export type GangMember = {
   badges: Localized[];
 };
 
-export type Achievement = {
-  id: string;
-  title: Localized;
-  detail: Localized;
-  year: string;
-  zone: Localized;
-  outcome: Localized;
-};
-
 export type JoinStep = {
   step: number;
   title: Localized;
@@ -254,75 +245,6 @@ export const members: GangMember[] = [
       { ar: "سمّ", en: "Venom" },
       { ar: "بث", en: "Live" },
     ],
-  },
-];
-
-export const achievements: Achievement[] = [
-  {
-    id: "a1",
-    title: { ar: "سقوط تشيمبرلين", en: "Chamberlain Takeover" },
-    detail: {
-      ar: "سيطرة كاملة على بلوكات South LS خلال ليلة حرب عصابات واحدة — بدون تراجع.",
-      en: "Full takeover of South LS blocks in one gang-war night — no retreat.",
-    },
-    year: "2021",
-    zone: { ar: "Chamberlain Hills", en: "Chamberlain Hills" },
-    outcome: { ar: "سيطرة تامة", en: "Total control" },
-  },
-  {
-    id: "a2",
-    title: { ar: "حرب ضد الـ Families", en: "War on the Families" },
-    detail: {
-      ar: "دفاع ٧٢ ساعة عن الأراضي البنفسجية ضد الأخضر. الشارع بقي ملكنا.",
-      en: "72-hour defense of purple turf against the green. Streets stayed ours.",
-    },
-    year: "2022",
-    zone: { ar: "Davis · Grove border", en: "Davis · Grove border" },
-    outcome: { ar: "انتصار ميداني", en: "Field victory" },
-  },
-  {
-    id: "a3",
-    title: { ar: "بنك المدينة", en: "City Bank Run" },
-    detail: {
-      ar: "عملية منسّقة: دخول، سحب، وهروب نظيف عبر الطرق السريعة قبل وصول LSPD.",
-      en: "Coordinated hit: entry, take, clean freeway getaway before LSPD locked down.",
-    },
-    year: "2023",
-    zone: { ar: "Downtown LS", en: "Downtown LS" },
-    outcome: { ar: "هروب نظيف", en: "Clean escape" },
-  },
-  {
-    id: "a4",
-    title: { ar: "إمبراطورية الليل", en: "Night Empire" },
-    detail: {
-      ar: "٤٠ ليلة متتالية سيطرة على الراديو والشوارع — الاسم صار يخيف قبل ما يوصل الصوت.",
-      en: "40 nights owning radio and streets — the name hit before the voice did.",
-    },
-    year: "2024",
-    zone: { ar: "East / South LS", en: "East / South LS" },
-    outcome: { ar: "سيطرة ليلية", en: "Night dominance" },
-  },
-  {
-    id: "a5",
-    title: { ar: "موجة تجنيد RP", en: "RP Recruit Wave" },
-    detail: {
-      ar: "ملينا الرتب بلاعبين فاهمين رولبلاي جاد — مش سبام ولا راندم كيل.",
-      en: "Filled the ranks with serious roleplayers — no spam, no random deathmatch.",
-    },
-    year: "2025",
-    zone: { ar: "Discord · City RP", en: "Discord · City RP" },
-    outcome: { ar: "تعزيز الصفوف", en: "Roster fortified" },
-  },
-  {
-    id: "a6",
-    title: { ar: "اسم مرعب على السيرفر", en: "Server-Wide Fear" },
-    detail: {
-      ar: "Ballas صارت أخوف اسم على راديو السيرفر — لما ينذكر البنفسجي، الشارع يسكت.",
-      en: "Ballas became the most feared name on server radio — purple mentioned, streets go quiet.",
-    },
-    year: "2026",
-    zone: { ar: "Server-wide", en: "Server-wide" },
-    outcome: { ar: "سمعة أسطورية", en: "Legendary rep" },
   },
 ];
 
@@ -542,10 +464,6 @@ export const joinSteps: JoinStep[] = [
 
 export function loc(value: Localized, locale: Locale) {
   return value[locale];
-}
-
-export function getMember(id: string) {
-  return members.find((m) => m.id === id);
 }
 
 export function getLiveMembers() {

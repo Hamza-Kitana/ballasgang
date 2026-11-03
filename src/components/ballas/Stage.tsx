@@ -4,14 +4,14 @@ import { HomePanel } from "@/components/ballas/panels/HomePanel";
 import { MembersPanel } from "@/components/ballas/panels/MembersPanel";
 import { LivePanel } from "@/components/ballas/panels/LivePanel";
 import { RulesPanel } from "@/components/ballas/panels/RulesPanel";
-import { AchievementsPanel } from "@/components/ballas/panels/AchievementsPanel";
+import { ShopPanel } from "@/components/ballas/panels/ShopPanel";
 import { JoinPanel } from "@/components/ballas/panels/JoinPanel";
 import { getLiveMembers } from "@/data/gang";
 import { BallasLogo } from "@/components/ballas/BallasLogo";
 import { LanguageToggle } from "@/components/ballas/LanguageToggle";
 import { useLanguage } from "@/i18n/LanguageProvider";
 
-const tabIds = ["home", "members", "live", "rules", "achievements", "join"] as const;
+const tabIds = ["home", "members", "live", "rules", "shop", "join"] as const;
 type TabId = (typeof tabIds)[number];
 
 type TransitionState = {
@@ -35,7 +35,7 @@ export function Stage() {
     { id: "members" as const, label: t.nav.members },
     { id: "live" as const, label: t.nav.live },
     { id: "rules" as const, label: t.nav.rules },
-    { id: "achievements" as const, label: t.nav.achievements },
+    { id: "shop" as const, label: t.nav.shop },
     { id: "join" as const, label: t.nav.join },
   ];
 
@@ -253,8 +253,8 @@ function renderPanel(tab: TabId, goTo: (next: TabId) => void) {
       return <LivePanel />;
     case "rules":
       return <RulesPanel />;
-    case "achievements":
-      return <AchievementsPanel />;
+    case "shop":
+      return <ShopPanel />;
     case "join":
       return <JoinPanel />;
   }
