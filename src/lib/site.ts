@@ -7,7 +7,7 @@ export const SITE = {
   shortName: "Ballas",
   url:
     (import.meta.env.VITE_SITE_URL as string | undefined)?.replace(/\/$/, "") ||
-    "https://ballasgang.com",
+    "https://ballasgang.site",
   locale: "ar_SA",
   localeAlt: "en_US",
   title: "Ballas Purple Dynasty · عصابة FiveM",

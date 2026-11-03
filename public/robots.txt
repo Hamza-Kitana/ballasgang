@@ -13,5 +13,4 @@ Allow: /
 User-agent: *
 Allow: /
 
-# غيّر الدومين هنا إذا تغيّر موقعك
-Sitemap: https://ballasgang.com/sitemap.xml
+Sitemap: https://ballasgang.site/sitemap.xml
