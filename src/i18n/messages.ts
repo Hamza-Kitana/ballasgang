@@ -60,7 +60,9 @@ export const messages = {
       title: "أعضاء Ballas",
       roster: "مطلوبون",
       leadership: "القيادة",
+      leadershipHint: "البوس والكو بوس",
       crew: "الأعضاء",
+      crewHint: "طاقم الشارع",
     },
     live: {
       eyebrow: "بث مباشر من الشارع",
@@ -237,7 +239,9 @@ export const messages = {
       title: "Ballas members",
       roster: "WANTED",
       leadership: "Leadership",
+      leadershipHint: "Boss & Co-Boss",
       crew: "Members",
+      crewHint: "Street crew",
     },
     live: {
       eyebrow: "Live from the streets",
