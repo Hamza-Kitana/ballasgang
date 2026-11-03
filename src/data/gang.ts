@@ -38,6 +38,8 @@ export type Achievement = {
   title: Localized;
   detail: Localized;
   year: string;
+  zone: Localized;
+  outcome: Localized;
 };
 
 export type JoinStep = {
@@ -243,55 +245,67 @@ export const achievements: Achievement[] = [
     id: "a1",
     title: { ar: "سقوط تشيمبرلين", en: "Chamberlain Takeover" },
     detail: {
-      ar: "سيطرنا على بلوكات South LS بليلة حرب عصابات كاملة.",
-      en: "Took South LS blocks in one full gang-war night.",
+      ar: "سيطرة كاملة على بلوكات South LS خلال ليلة حرب عصابات واحدة — بدون تراجع.",
+      en: "Full takeover of South LS blocks in one gang-war night — no retreat.",
     },
     year: "2021",
+    zone: { ar: "Chamberlain Hills", en: "Chamberlain Hills" },
+    outcome: { ar: "سيطرة تامة", en: "Total control" },
   },
   {
     id: "a2",
     title: { ar: "حرب ضد الـ Families", en: "War on the Families" },
     detail: {
-      ar: "دافعنا عن أراضينا البنفسجية ضد الأخضر ٧٢ ساعة.",
-      en: "Held purple turf against the green for 72 hours straight.",
+      ar: "دفاع ٧٢ ساعة عن الأراضي البنفسجية ضد الأخضر. الشارع بقي ملكنا.",
+      en: "72-hour defense of purple turf against the green. Streets stayed ours.",
     },
     year: "2022",
+    zone: { ar: "Davis · Grove border", en: "Davis · Grove border" },
+    outcome: { ar: "انتصار ميداني", en: "Field victory" },
   },
   {
     id: "a3",
     title: { ar: "بنك المدينة", en: "City Bank Run" },
     detail: {
-      ar: "سرقة منسّقة + هروب نظيف عبر الطرق السريعة.",
-      en: "Coordinated heist with a clean freeway getaway.",
+      ar: "عملية منسّقة: دخول، سحب، وهروب نظيف عبر الطرق السريعة قبل وصول LSPD.",
+      en: "Coordinated hit: entry, take, clean freeway getaway before LSPD locked down.",
     },
     year: "2023",
+    zone: { ar: "Downtown LS", en: "Downtown LS" },
+    outcome: { ar: "هروب نظيف", en: "Clean escape" },
   },
   {
     id: "a4",
     title: { ar: "إمبراطورية الليل", en: "Night Empire" },
     detail: {
-      ar: "٤٠ ليلة متتالية سيطرة على الراديو والشوارع.",
-      en: "40 nights straight owning the radio and the streets.",
+      ar: "٤٠ ليلة متتالية سيطرة على الراديو والشوارع — الاسم صار يخيف قبل ما يوصل الصوت.",
+      en: "40 nights owning radio and streets — the name hit before the voice did.",
     },
     year: "2024",
+    zone: { ar: "East / South LS", en: "East / South LS" },
+    outcome: { ar: "سيطرة ليلية", en: "Night dominance" },
   },
   {
     id: "a5",
     title: { ar: "موجة تجنيد RP", en: "RP Recruit Wave" },
     detail: {
-      ar: "عبّينا الرتب بلاعبين فاهمين رولبلاي… مش راندم كيل.",
-      en: "Filled the ranks with real roleplayers — not random killers.",
+      ar: "ملينا الرتب بلاعبين فاهمين رولبلاي جاد — مش سبام ولا راندم كيل.",
+      en: "Filled the ranks with serious roleplayers — no spam, no random deathmatch.",
     },
     year: "2025",
+    zone: { ar: "Discord · City RP", en: "Discord · City RP" },
+    outcome: { ar: "تعزيز الصفوف", en: "Roster fortified" },
   },
   {
     id: "a6",
     title: { ar: "اسم مرعب على السيرفر", en: "Server-Wide Fear" },
     detail: {
-      ar: "Ballas صارت أخوف اسم على الراديو في السيرفر.",
-      en: "Ballas became the most feared name on the server radio.",
+      ar: "Ballas صارت أخوف اسم على راديو السيرفر — لما ينذكر البنفسجي، الشارع يسكت.",
+      en: "Ballas became the most feared name on server radio — purple mentioned, streets go quiet.",
     },
     year: "2026",
+    zone: { ar: "Server-wide", en: "Server-wide" },
+    outcome: { ar: "سمعة أسطورية", en: "Legendary rep" },
   },
 ];
 
