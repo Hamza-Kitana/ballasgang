@@ -39,3 +39,8 @@ data/site-data.json
 *.njsproj
 *.sln
 *.sw?
+
+.vercel
+.env
+.env.*
+!.env.example
