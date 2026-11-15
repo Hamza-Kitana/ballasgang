@@ -1,13 +1,15 @@
-import { GANG, getLiveMembers, getOnlineMembers } from "@/data/gang";
 import { LiveCard } from "@/components/ballas/LiveCard";
 import { PanelChrome } from "@/components/ballas/PanelChrome";
+import { useSiteData } from "@/data/SiteDataProvider";
+import { getLiveMembers, getOnlineMembers } from "@/data/site-types";
 import { fill, useLanguage } from "@/i18n/LanguageProvider";
 
 export function LivePanel() {
   const { t } = useLanguage();
-  const live = getLiveMembers();
-  const online = getOnlineMembers();
-  const discordUrl = GANG.discordUrl;
+  const { data } = useSiteData();
+  const live = getLiveMembers(data.members);
+  const online = getOnlineMembers(data.members);
+  const discordUrl = data.gang.discordUrl;
 
   return (
     <div className="flex h-full w-full flex-col">

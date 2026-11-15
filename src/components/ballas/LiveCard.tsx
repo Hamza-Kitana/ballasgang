@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useRef, useState } from "react";
-import { loc, type GangMember } from "@/data/gang";
+import { loc, type GangMember } from "@/data/site-types";
 import { MemberPortrait } from "@/components/ballas/MemberPortrait";
 import { StreamPlatformBadge } from "@/components/ballas/StreamPlatformBadge";
 import { detectStreamPlatform, getStreamEmbedUrl } from "@/lib/streamEmbed";

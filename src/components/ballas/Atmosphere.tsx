@@ -1,27 +1,31 @@
+import { useSiteData } from "@/data/SiteDataProvider";
+
 /** Cinematic Ballas reel as full-site backdrop */
-const BG_VIDEO_ID = "-v1nh3KeKAM";
-
-const videoSrc = [
-  `https://www.youtube-nocookie.com/embed/${BG_VIDEO_ID}`,
-  `?autoplay=1`,
-  `&mute=1`,
-  `&controls=0`,
-  `&playsinline=1`,
-  `&rel=0`,
-  `&modestbranding=1`,
-  `&iv_load_policy=3`,
-  `&disablekb=1`,
-  `&fs=0`,
-  `&loop=1`,
-  `&playlist=${BG_VIDEO_ID}`,
-  `&enablejsapi=0`,
-].join("");
-
 export function Atmosphere() {
+  const { data } = useSiteData();
+  const videoId = data.settings.bgVideoId || "-v1nh3KeKAM";
+
+  const videoSrc = [
+    `https://www.youtube-nocookie.com/embed/${videoId}`,
+    `?autoplay=1`,
+    `&mute=1`,
+    `&controls=0`,
+    `&playsinline=1`,
+    `&rel=0`,
+    `&modestbranding=1`,
+    `&iv_load_policy=3`,
+    `&disablekb=1`,
+    `&fs=0`,
+    `&loop=1`,
+    `&playlist=${videoId}`,
+    `&enablejsapi=0`,
+  ].join("");
+
   return (
     <div className="pointer-events-none absolute inset-0 overflow-hidden bg-[oklch(0.08_0.04_305)]">
       <div className="ballas-bg-video absolute inset-0" aria-hidden>
         <iframe
+          key={videoId}
           src={videoSrc}
           title=""
           allow="autoplay; encrypted-media; picture-in-picture"

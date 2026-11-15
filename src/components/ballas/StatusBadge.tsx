@@ -1,4 +1,4 @@
-import type { GangMember } from "@/data/gang";
+import type { GangMember } from "@/data/site-types";
 import { useLanguage } from "@/i18n/LanguageProvider";
 import { cn } from "@/lib/utils";
 

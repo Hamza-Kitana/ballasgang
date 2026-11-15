@@ -1,11 +1,11 @@
 import { useEffect, useMemo, useState } from "react";
+import { useSiteData } from "@/data/SiteDataProvider";
 import {
-  gangRules,
   loc,
   ruleCategories,
   type GangRule,
   type RuleCategory,
-} from "@/data/gang";
+} from "@/data/site-types";
 import { fill, useLanguage } from "@/i18n/LanguageProvider";
 import { cn } from "@/lib/utils";
 
@@ -32,6 +32,8 @@ function saveRead(ids: Set<string>) {
 
 export function RulesPanel() {
   const { t, locale } = useLanguage();
+  const { data } = useSiteData();
+  const gangRules = data.rules;
   const [query, setQuery] = useState("");
   const [category, setCategory] = useState<RuleCategory>("leadership");
   const [readIds, setReadIds] = useState<Set<string>>(() => new Set());
@@ -56,7 +58,7 @@ export function RulesPanel() {
       const read = list.filter((r) => readIds.has(r.id)).length;
       return { id, total: list.length, read };
     });
-  }, [readIds]);
+  }, [gangRules, readIds]);
 
   const totalRead = readIds.size;
   const totalRules = gangRules.length;
@@ -79,7 +81,7 @@ export function RulesPanel() {
       }
       return true;
     });
-  }, [query, category, locale, t.rules.categories]);
+  }, [gangRules, query, category, locale, t.rules.categories]);
 
   const activeLabel = t.rules.categories[category];
   const searching = query.trim().length > 0;

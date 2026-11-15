@@ -1,12 +1,12 @@
 import { useEffect, useMemo, useRef, useState } from "react";
-import { GANG, loc } from "@/data/gang";
+import { useSiteData } from "@/data/SiteDataProvider";
 import {
+  loc,
   shopCategories,
-  shopProducts,
   type ShopBadge,
   type ShopCategory,
   type ShopProduct,
-} from "@/data/shop";
+} from "@/data/site-types";
 import { fill, useLanguage } from "@/i18n/LanguageProvider";
 import { messages, type Locale } from "@/i18n/messages";
 import { cn } from "@/lib/utils";
@@ -99,11 +99,13 @@ function ProductCard({
 
 export function ShopPanel() {
   const { t, locale } = useLanguage();
+  const { data } = useSiteData();
+  const shopProducts = data.shopProducts;
   const [category, setCategory] = useState<ShopCategory | "all">("all");
   const [query, setQuery] = useState("");
   const [compact, setCompact] = useState(false);
   const scrollRef = useRef<HTMLDivElement>(null);
-  const discordUrl = GANG.discordUrl;
+  const discordUrl = data.gang.discordUrl;
 
   useEffect(() => {
     const el = scrollRef.current;
@@ -135,9 +137,12 @@ export function ShopPanel() {
         .toLowerCase();
       return haystack.includes(q);
     });
-  }, [category, query, locale, t.shop.badges, t.shop.categories]);
+  }, [shopProducts, category, query, locale, t.shop.badges, t.shop.categories]);
 
-  const featured = shopProducts.find((item) => item.id === "sultan-dynasty") ?? shopProducts[0]!;
+  const featured =
+    shopProducts.find((item) => item.featured) ??
+    shopProducts.find((item) => item.id === "sultan-dynasty") ??
+    shopProducts[0];
   const searching = query.trim().length > 0;
 
   return (
@@ -257,51 +262,53 @@ export function ShopPanel() {
       </div>
 
       <div ref={scrollRef} className="panel-scroll min-h-0 flex-1 pb-2 pt-3">
-        <section
-          className={cn(
-            "ballas-shop-hero relative overflow-hidden rounded-[1.25rem] transition-all duration-300",
-            compact
-              ? "pointer-events-none mb-0 max-h-0 scale-[0.98] opacity-0"
-              : "mb-4 max-h-[20rem] opacity-100",
-          )}
-          aria-hidden={compact}
-        >
-          <img
-            src={featured.image}
-            alt=""
-            className="absolute inset-0 h-full w-full object-cover"
-            aria-hidden
-          />
-          <div className="absolute inset-0 bg-[linear-gradient(115deg,oklch(0.12_0.07_305/0.92)_0%,oklch(0.14_0.08_305/0.72)_48%,oklch(0.18_0.1_305/0.35)_100%)]" />
-          <div className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-violet-soft/60 to-transparent" />
+        {featured ? (
+          <section
+            className={cn(
+              "ballas-shop-hero relative overflow-hidden rounded-[1.25rem] transition-all duration-300",
+              compact
+                ? "pointer-events-none mb-0 max-h-0 scale-[0.98] opacity-0"
+                : "mb-4 max-h-[20rem] opacity-100",
+            )}
+            aria-hidden={compact}
+          >
+            <img
+              src={featured.image}
+              alt=""
+              className="absolute inset-0 h-full w-full object-cover"
+              aria-hidden
+            />
+            <div className="absolute inset-0 bg-[linear-gradient(115deg,oklch(0.12_0.07_305/0.92)_0%,oklch(0.14_0.08_305/0.72)_48%,oklch(0.18_0.1_305/0.35)_100%)]" />
+            <div className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-violet-soft/60 to-transparent" />
 
-          <div className="relative flex min-h-[9.5rem] flex-col justify-end gap-3 p-4 sm:min-h-[11rem] sm:flex-row sm:items-end sm:justify-between sm:p-5">
-            <div className="max-w-xl text-start">
-              <div className="flex flex-wrap items-center gap-2">
-                <span className="rounded-full border border-primary/45 bg-black/45 px-2.5 py-0.5 text-[9px] tracking-[0.16em] text-violet-soft">
-                  {t.shop.eyebrow}
-                </span>
-                <span className="rounded-full border border-rose-400/40 bg-rose-500/25 px-2.5 py-0.5 text-[9px] tracking-[0.14em] text-rose-100">
-                  {t.shop.bannerBadge}
-                </span>
+            <div className="relative flex min-h-[9.5rem] flex-col justify-end gap-3 p-4 sm:min-h-[11rem] sm:flex-row sm:items-end sm:justify-between sm:p-5">
+              <div className="max-w-xl text-start">
+                <div className="flex flex-wrap items-center gap-2">
+                  <span className="rounded-full border border-primary/45 bg-black/45 px-2.5 py-0.5 text-[9px] tracking-[0.16em] text-violet-soft">
+                    {t.shop.eyebrow}
+                  </span>
+                  <span className="rounded-full border border-rose-400/40 bg-rose-500/25 px-2.5 py-0.5 text-[9px] tracking-[0.14em] text-rose-100">
+                    {t.shop.bannerBadge}
+                  </span>
+                </div>
+                <h3 className="font-display mt-2 text-[clamp(1.45rem,4vw,2.2rem)] leading-none tracking-[0.05em] text-glow">
+                  {t.shop.bannerTitle}
+                </h3>
+                <p className="mt-2 max-w-lg text-xs leading-relaxed text-white/80 sm:text-sm">
+                  {t.shop.bannerBody}
+                </p>
               </div>
-              <h3 className="font-display mt-2 text-[clamp(1.45rem,4vw,2.2rem)] leading-none tracking-[0.05em] text-glow">
-                {t.shop.bannerTitle}
-              </h3>
-              <p className="mt-2 max-w-lg text-xs leading-relaxed text-white/80 sm:text-sm">
-                {t.shop.bannerBody}
-              </p>
-            </div>
 
-            <div className="shrink-0 rounded-xl border border-white/20 bg-black/45 px-3 py-2 text-start backdrop-blur-md">
-              <p className="text-[8px] tracking-[0.18em] text-white/50 uppercase">
-                {t.shop.featured}
-              </p>
-              <p className="mt-0.5 text-sm font-bold text-white">{loc(featured.name, locale)}</p>
-              <p className="font-display mt-0.5 text-xl text-primary">{featured.price}</p>
+              <div className="shrink-0 rounded-xl border border-white/20 bg-black/45 px-3 py-2 text-start backdrop-blur-md">
+                <p className="text-[8px] tracking-[0.18em] text-white/50 uppercase">
+                  {t.shop.featured}
+                </p>
+                <p className="mt-0.5 text-sm font-bold text-white">{loc(featured.name, locale)}</p>
+                <p className="font-display mt-0.5 text-xl text-primary">{featured.price}</p>
+              </div>
             </div>
-          </div>
-        </section>
+          </section>
+        ) : null}
 
         {filtered.length === 0 ? (
           <div className="mx-auto max-w-md rounded-[1.2rem] border border-white/15 bg-black/35 px-5 py-8 text-center">

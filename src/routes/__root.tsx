@@ -12,6 +12,7 @@ import { type ReactNode } from "react";
 
 import appCss from "../styles.css?url";
 import { LanguageProvider, useLanguage } from "@/i18n/LanguageProvider";
+import { SiteDataProvider } from "@/data/SiteDataProvider";
 import { SITE, absoluteUrl } from "@/lib/site";
 
 const ogImage = absoluteUrl(SITE.image);
@@ -166,7 +167,9 @@ function RootComponent() {
   return (
     <QueryClientProvider client={queryClient}>
       <LanguageProvider>
-        <Outlet />
+        <SiteDataProvider>
+          <Outlet />
+        </SiteDataProvider>
       </LanguageProvider>
     </QueryClientProvider>
   );

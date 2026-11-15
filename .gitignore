@@ -16,6 +16,12 @@ dist-ssr
 .nitro
 *.local
 
+# Secrets & local CMS cache
+.env
+.env.*
+!.env.example
+data/site-data.json
+
 # Keep background video in repo (under ~5MB)
 # public/ballas-bg.mp4
 

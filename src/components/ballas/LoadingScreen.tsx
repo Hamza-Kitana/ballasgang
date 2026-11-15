@@ -1,4 +1,6 @@
 import { BallasLogo } from "@/components/ballas/BallasLogo";
+import { useSiteData } from "@/data/SiteDataProvider";
+import { loc } from "@/data/site-types";
 import { useLanguage } from "@/i18n/LanguageProvider";
 
 type LoadingScreenProps = {
@@ -6,7 +8,8 @@ type LoadingScreenProps = {
 };
 
 export function LoadingScreen({ progress }: LoadingScreenProps) {
-  const { t } = useLanguage();
+  const { t, locale } = useLanguage();
+  const { data } = useSiteData();
   const clamped = Math.min(100, Math.max(0, Math.round(progress)));
 
   return (
@@ -21,7 +24,7 @@ export function LoadingScreen({ progress }: LoadingScreenProps) {
         <BallasLogo size="lg" glow className="ballas-rise" />
 
         <p className="ballas-rise mt-5 text-xs tracking-[0.28em] text-violet-soft/85" style={{ animationDelay: "80ms" }}>
-          {t.loadingSub}
+          {loc(data.content.loadingSub, locale)}
         </p>
         <p className="ballas-rise mt-2 text-lg tracking-[0.18em] text-violet-soft" style={{ animationDelay: "120ms" }}>
           {t.brandTag}
@@ -35,7 +38,7 @@ export function LoadingScreen({ progress }: LoadingScreenProps) {
         </div>
 
         <div className="mt-4 flex w-full items-center justify-between text-[11px] tracking-[0.16em] text-muted-foreground uppercase">
-          <span>{t.loadingLabel}</span>
+          <span>{loc(data.content.loadingLabel, locale)}</span>
           <span className="tabular-nums text-violet-soft">{clamped}%</span>
         </div>
       </div>

@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { memberInitials, type GangMember } from "@/data/gang";
+import { memberInitials, type GangMember } from "@/data/site-types";
 import { cn } from "@/lib/utils";
 
 type MemberPortraitProps = {

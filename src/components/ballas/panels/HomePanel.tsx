@@ -1,5 +1,6 @@
-import { GANG } from "@/data/gang";
 import { BallasLogo } from "@/components/ballas/BallasLogo";
+import { useSiteData } from "@/data/SiteDataProvider";
+import { loc } from "@/data/site-types";
 import { useLanguage } from "@/i18n/LanguageProvider";
 
 type HomePanelProps = {
@@ -7,7 +8,9 @@ type HomePanelProps = {
 };
 
 export function HomePanel({ onNavigate }: HomePanelProps) {
-  const { t } = useLanguage();
+  const { locale } = useLanguage();
+  const { data } = useSiteData();
+  const { gang, content } = data;
 
   return (
     <div className="relative flex h-full min-h-0 flex-col items-center justify-center overflow-hidden px-3 text-center">
@@ -24,21 +27,21 @@ export function HomePanel({ onNavigate }: HomePanelProps) {
           className="ballas-rise mt-5 max-w-xl text-sm tracking-[0.08em] text-violet-soft sm:mt-6 sm:text-base"
           style={{ animationDelay: "80ms" }}
         >
-          {t.home.welcome}
+          {loc(content.homeWelcome, locale)}
         </p>
 
         <p
           className="ballas-rise ballas-home-power mt-3 max-w-xl font-display text-[clamp(1.35rem,5.5vw,2.35rem)] leading-snug tracking-[0.04em] text-white sm:mt-4"
           style={{ animationDelay: "140ms" }}
         >
-          {t.powerWord}
+          {loc(content.powerWord, locale)}
         </p>
 
         <p
           className="ballas-rise mt-3 max-w-lg text-sm leading-relaxed text-white/75 sm:mt-4 sm:text-base"
           style={{ animationDelay: "200ms" }}
         >
-          {t.home.pitch}
+          {loc(content.homePitch, locale)}
         </p>
 
         <div
@@ -50,7 +53,7 @@ export function HomePanel({ onNavigate }: HomePanelProps) {
             onClick={() => onNavigate?.("join")}
             className="ballas-home-cta inline-flex w-full items-center justify-center gap-2 rounded-full bg-primary px-10 py-4 text-sm font-bold tracking-[0.18em] text-white transition active:scale-[0.98] hover:scale-[1.04] hover:bg-violet-glow sm:w-auto"
           >
-            {t.home.ctaJoin}
+            {loc(content.homeCtaJoin, locale)}
             <span className="rtl:rotate-180">→</span>
           </button>
           <button
@@ -58,7 +61,7 @@ export function HomePanel({ onNavigate }: HomePanelProps) {
             onClick={() => onNavigate?.("members")}
             className="ballas-home-ghost inline-flex w-full items-center justify-center gap-2 rounded-full border border-white/35 bg-white/5 px-10 py-4 text-sm tracking-[0.16em] text-white backdrop-blur-md transition active:scale-[0.98] hover:scale-[1.04] hover:border-primary/60 hover:bg-primary/20 sm:w-auto"
           >
-            {t.home.ctaCrew}
+            {loc(content.homeCtaCrew, locale)}
           </button>
         </div>
 
@@ -66,7 +69,7 @@ export function HomePanel({ onNavigate }: HomePanelProps) {
           className="ballas-rise mt-7 text-[10px] tracking-[0.28em] text-white/40 uppercase"
           style={{ animationDelay: "340ms" }}
         >
-          {GANG.turf} · {t.home.cityStamp}
+          {gang.turf} · {gang.city.toUpperCase()}
         </p>
       </div>
     </div>

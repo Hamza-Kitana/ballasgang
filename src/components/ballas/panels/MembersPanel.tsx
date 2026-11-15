@@ -1,6 +1,7 @@
-import { members, type GangMember } from "@/data/gang";
 import { MemberCard } from "@/components/ballas/MemberCard";
 import { PanelChrome } from "@/components/ballas/PanelChrome";
+import { useSiteData } from "@/data/SiteDataProvider";
+import type { GangMember } from "@/data/site-types";
 import { useLanguage } from "@/i18n/LanguageProvider";
 import { cn } from "@/lib/utils";
 
@@ -66,6 +67,8 @@ function SectionHead({
 
 export function MembersPanel() {
   const { t } = useLanguage();
+  const { data } = useSiteData();
+  const members = data.members;
   const { leaders, crew } = splitRoster(members);
 
   return (

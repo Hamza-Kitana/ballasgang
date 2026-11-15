@@ -1,8 +1,9 @@
 import { useEffect, useRef, useState } from "react";
+import { useSiteData } from "@/data/SiteDataProvider";
 import { useLanguage } from "@/i18n/LanguageProvider";
 import { cn } from "@/lib/utils";
 
-/** Ballas street anthem — YouTube: https://www.youtube.com/watch?v=7j06hETnyzc */
+/** Fallback Ballas street anthem */
 export const BALLAS_TRACK_ID = "7j06hETnyzc";
 
 type YtPlayer = {
@@ -69,6 +70,8 @@ function loadYouTubeApi() {
 
 export function BallasMusic({ active }: BallasMusicProps) {
   const { t } = useLanguage();
+  const { data } = useSiteData();
+  const trackId = data.settings.musicTrackId || BALLAS_TRACK_ID;
   const hostRef = useRef<HTMLDivElement>(null);
   const playerRef = useRef<YtPlayer | null>(null);
   const [muted, setMuted] = useState(false);
@@ -82,10 +85,13 @@ export function BallasMusic({ active }: BallasMusicProps) {
 
     void loadYouTubeApi().then(() => {
       if (cancelled || !hostRef.current || !window.YT?.Player) return;
-      if (playerRef.current) return;
+
+      playerRef.current?.destroy();
+      playerRef.current = null;
+      setReady(false);
 
       playerRef.current = new window.YT.Player(hostRef.current, {
-        videoId: BALLAS_TRACK_ID,
+        videoId: trackId,
         width: 1,
         height: 1,
         playerVars: {
@@ -98,7 +104,7 @@ export function BallasMusic({ active }: BallasMusicProps) {
           playsinline: 1,
           rel: 0,
           loop: 1,
-          playlist: BALLAS_TRACK_ID,
+          playlist: trackId,
           origin: window.location.origin,
         },
         events: {
@@ -119,15 +125,10 @@ export function BallasMusic({ active }: BallasMusicProps) {
 
     return () => {
       cancelled = true;
-    };
-  }, [active]);
-
-  useEffect(() => {
-    return () => {
       playerRef.current?.destroy();
       playerRef.current = null;
     };
-  }, []);
+  }, [active, trackId]);
 
   useEffect(() => {
     const player = playerRef.current;

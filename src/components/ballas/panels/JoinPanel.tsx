@@ -1,10 +1,14 @@
-import { GANG, joinSteps, loc } from "@/data/gang";
 import { BallasLogo } from "@/components/ballas/BallasLogo";
+import { useSiteData } from "@/data/SiteDataProvider";
+import { loc } from "@/data/site-types";
 import { fill, useLanguage } from "@/i18n/LanguageProvider";
 
 export function JoinPanel() {
   const { t, locale } = useLanguage();
-  const discordUrl = GANG.discordUrl;
+  const { data } = useSiteData();
+  const joinSteps = data.joinSteps;
+  const discordUrl = data.gang.discordUrl;
+  const gangDiscord = data.gang.discord;
 
   return (
     <div className="flex h-full min-h-0 flex-col">
@@ -104,7 +108,7 @@ export function JoinPanel() {
           >
             <span className="inline-flex items-center gap-2 text-[11px] tracking-[0.2em] text-violet-soft">
               <DiscordGlyph className="h-4 w-4" />
-              {GANG.discord}
+              {gangDiscord}
             </span>
             <span className="font-display text-[clamp(1.8rem,5vw,2.6rem)] tracking-[0.06em] text-white">
               {t.join.ctaLead}

@@ -1,11 +1,13 @@
 import { WantedStars } from "@/components/ballas/WantedStars";
-import { getLiveMembers } from "@/data/gang";
+import { useSiteData } from "@/data/SiteDataProvider";
+import { getLiveMembers } from "@/data/site-types";
 import { useLanguage } from "@/i18n/LanguageProvider";
 
 /** Compact GTA/FiveM identity strip — sits under the main header. */
 export function GtaChrome() {
   const { t } = useLanguage();
-  const liveCount = getLiveMembers().length;
+  const { data } = useSiteData();
+  const liveCount = getLiveMembers(data.members).length;
 
   return (
     <div className="mt-3 flex flex-wrap items-center gap-2">
@@ -17,7 +19,7 @@ export function GtaChrome() {
         {t.streetPlate}
       </span>
       <span className="border border-primary/35 bg-primary/10 px-2.5 py-1 text-[10px] tracking-[0.14em] text-violet-soft uppercase">
-        {t.turfLabel}: {t.turfValue}
+        {t.turfLabel}: {data.gang.turf}
       </span>
       <span className="ms-auto inline-flex items-center gap-2 border border-amber-300/25 bg-black/40 px-2.5 py-1">
         <span className="text-[9px] tracking-[0.16em] text-amber-200/80 uppercase">{t.wantedLabel}</span>

@@ -1,5 +1,5 @@
 import type { CSSProperties } from "react";
-import { loc, type GangMember } from "@/data/gang";
+import { loc, type GangMember } from "@/data/site-types";
 import { useLanguage } from "@/i18n/LanguageProvider";
 import { cn } from "@/lib/utils";
 
