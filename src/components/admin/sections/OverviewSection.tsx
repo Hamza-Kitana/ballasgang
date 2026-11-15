@@ -6,14 +6,27 @@ import { Users, ScrollText, ShoppingBag, ListOrdered } from "lucide-react";
 
 type SaveStatus = "idle" | "saving" | "saved" | "error";
 
+type StoreStatus = {
+  jsonbinConfigured?: boolean;
+  binIdConfigured?: boolean;
+  binId?: string | null;
+};
+
 type OverviewSectionProps = {
   site: SiteData;
   saveStatus: SaveStatus;
   dirty: boolean;
   loading?: boolean;
+  store?: StoreStatus | null;
 };
 
-export function OverviewSection({ site, saveStatus, dirty, loading }: OverviewSectionProps) {
+export function OverviewSection({
+  site,
+  saveStatus,
+  dirty,
+  loading,
+  store,
+}: OverviewSectionProps) {
   const stats = [
     { label: "أعضاء · Members", value: site.members.length, icon: Users },
     { label: "قوانين · Rules", value: site.rules.length, icon: ScrollText },
@@ -64,6 +77,16 @@ export function OverviewSection({ site, saveStatus, dirty, loading }: OverviewSe
             <dt className="text-muted-foreground">العصابة · Gang</dt>
             <dd className="font-medium">
               {site.gang.name} — {site.gang.tagline} · {site.gang.city}
+            </dd>
+          </div>
+          <div className="rounded-lg border border-violet-500/15 bg-violet-deep/30 px-3 py-2 sm:col-span-2">
+            <dt className="text-muted-foreground">قاعدة البيانات · JSONBin</dt>
+            <dd className="font-medium">
+              {store?.jsonbinConfigured && store?.binIdConfigured
+                ? `متصل · ${store.binId}`
+                : store?.jsonbinConfigured
+                  ? "المفتاح موجود — ينقص BIN_ID"
+                  : "غير متصل — راجع .env"}
             </dd>
           </div>
         </dl>

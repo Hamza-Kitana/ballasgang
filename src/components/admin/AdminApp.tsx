@@ -56,16 +56,29 @@ export function AdminApp() {
   const [section, setSection] = useState<AdminSectionId>("overview");
   const [site, setSite] = useState<SiteData | null>(null);
   const [baseline, setBaseline] = useState("");
+  const [store, setStore] = useState<{
+    jsonbinConfigured?: boolean;
+    binIdConfigured?: boolean;
+    binId?: string | null;
+  } | null>(null);
 
   const dirty = useMemo(() => !!site && snapshot(site) !== baseline, [site, baseline]);
 
   const loadSite = useCallback(async () => {
     setLoading(true);
     try {
-      const raw = await getAdminSiteData();
+      const raw = (await getAdminSiteData()) as {
+        site?: SiteData;
+        store?: {
+          jsonbinConfigured?: boolean;
+          binIdConfigured?: boolean;
+          binId?: string | null;
+        };
+      };
       const next = unwrapSite(raw);
       if (!next) throw new Error("Invalid site payload");
       setSite(next);
+      setStore(raw.store ?? null);
       setBaseline(snapshot(next));
       setSaveStatus("idle");
     } catch (e) {
@@ -236,7 +249,13 @@ export function AdminApp() {
     switch (section) {
       case "overview":
         return (
-          <OverviewSection site={site} saveStatus={saveStatus} dirty={dirty} loading={loading} />
+          <OverviewSection
+            site={site}
+            saveStatus={saveStatus}
+            dirty={dirty}
+            loading={loading}
+            store={store}
+          />
         );
       case "gang":
         return <GangSection site={site} onPatch={onPatch} />;

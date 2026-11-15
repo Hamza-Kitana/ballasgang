@@ -2,55 +2,44 @@
 
 موقع سينمائي لعصابة Ballas في FiveM — مع لوحة إدارة كاملة وقاعدة بيانات على [JSONBin.io](https://jsonbin.io).
 
+**الموقع:** https://www.ballasgang.site  
+**الإدارة:** https://www.ballasgang.site/admin
+
 ## المميزات
 
-- شاشة تحميل ثم تجربة fullscreen بدون سكرول للصفحة
+- شاشة تحميل ثم تجربة fullscreen
 - أقسام: الرئيسية · العصابة · الستيرمر · القوانين · المتجر · التقديم
 - عربي / إنجليزي
-- **لوحة إدارة** على `/admin` للتحكم بكل المحتوى (أعضاء، قوانين، متجر، نصوص، إعدادات…)
-- البيانات تُحفظ على **JSONBin** (+ كاش محلي احتياطي)
+- لوحة إدارة `/admin` للتحكم بكل المحتوى
+- البيانات على JSONBin (+ كاش محلي احتياطي)
 
-## التشغيل
+## التشغيل المحلي
 
 ```sh
 bun install
+cp .env.example .env   # ثم عبّئ القيم
+bun run seed:jsonbin   # أول مرة فقط
 bun run dev
 ```
 
-افتح:
+- الموقع: http://localhost:3000
+- الإدارة: http://localhost:3000/admin
 
-- الموقع: [http://localhost:3000](http://localhost:3000)
-- الإدارة: [http://localhost:3000/admin](http://localhost:3000/admin)
+## متغيرات البيئة (مهمة للإنتاج)
 
-## إعداد البيئة
+| المتغير | الوصف |
+|---------|--------|
+| `VITE_SITE_URL` | `https://www.ballasgang.site` |
+| `ADMIN_PASSWORD` | كلمة مرور لوحة الإدارة |
+| `ADMIN_SESSION_SECRET` | سر الجلسة (32 حرف على الأقل) |
+| `JSONBIN_MASTER_KEY` | Master Key من JSONBin |
+| `JSONBIN_BIN_ID` | معرّف الـ bin بعد `seed:jsonbin` |
 
-انسخ `.env.example` إلى `.env`:
-
-```env
-VITE_SITE_URL=https://ballasgang.site
-ADMIN_PASSWORD=your-strong-password
-ADMIN_SESSION_SECRET=at-least-32-characters-secret-here
-JSONBIN_MASTER_KEY=your-jsonbin-master-key
-JSONBIN_BIN_ID=your-bin-id
-```
-
-### JSONBin
-
-1. أنشئ حساب على [jsonbin.io](https://jsonbin.io) وانسخ **Master Key** من API Keys.
-2. ضعه في `JSONBIN_MASTER_KEY`.
-3. أنشئ الـ bin:
-
-```sh
-bun run seed:jsonbin
-```
-
-4. انسخ الـ `JSONBIN_BIN_ID` الناتج إلى `.env` وأعد تشغيل السيرفر.
-
-> إذا فشل المفتاح، الموقع يشتغل بالبيانات الافتراضية والكاش المحلي `data/site-data.json` لحد ما يتصلح الربط.
+ضع نفس القيم على منصة الاستضافة (Vercel / Railway / VPS…) ثم أعد النشر.
 
 ## لوحة الإدارة
 
-بعد تسجيل الدخول بكلمة `ADMIN_PASSWORD` تقدر:
+بعد الدخول تقدر:
 
 - تعديل معلومات العصابة وديسكورد
 - إضافة / تعديل / حذف الأعضاء والبثوث
@@ -60,12 +49,11 @@ bun run seed:jsonbin
 - تعديل النصوص الرئيسية عربي/إنجليزي
 - Seed لإرجاع البيانات الافتراضية
 
-## فيديو الخلفية (اختياري محلي)
+## أوامر مفيدة
 
-يمكن أيضًا وضع ملف:
-
+```sh
+bun run dev
+bun run build
+bun run seed:jsonbin
+bun run test
 ```
-public/ballas-bg.mp4
-```
-
-الافتراضي الحالي فيديو YouTube من إعدادات الداشبورد (`settings.bgVideoId`).
