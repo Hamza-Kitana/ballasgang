@@ -6,7 +6,7 @@ import type { Localized } from "@/data/site-types";
 import { cn } from "@/lib/utils";
 
 export const adminFieldClass =
-  "border-violet-500/25 bg-violet-deep/40 focus-visible:ring-violet-glow/50";
+  "border-white/12 bg-black/35 text-white placeholder:text-white/30 focus-visible:border-primary/55 focus-visible:ring-primary/25";
 
 export function slugFromName(name: string): string {
   const slug = name
@@ -26,10 +26,12 @@ type FieldProps = {
 
 export function Field({ label, hint, children, className }: FieldProps) {
   return (
-    <div className={cn("space-y-1.5", className)}>
-      <Label className="text-violet-soft/90">{label}</Label>
+    <div className={cn("space-y-2", className)}>
+      <Label className="text-[11px] font-semibold tracking-[0.14em] text-violet-soft/90 uppercase">
+        {label}
+      </Label>
       {children}
-      {hint ? <p className="text-xs text-muted-foreground">{hint}</p> : null}
+      {hint ? <p className="text-[11px] leading-relaxed text-white/40">{hint}</p> : null}
     </div>
   );
 }
@@ -53,8 +55,8 @@ export function LocalizedFields({
   return (
     <Field label={label}>
       <div className="grid gap-3 sm:grid-cols-2">
-        <div className="space-y-1">
-          <span className="text-[10px] uppercase tracking-wider text-muted-foreground">AR · عربي</span>
+        <div className="space-y-1.5 rounded-xl border border-white/8 bg-black/20 p-3">
+          <span className="text-[10px] tracking-[0.18em] text-white/45 uppercase">AR · عربي</span>
           <InputCmp
             className={adminFieldClass}
             dir="rtl"
@@ -63,8 +65,8 @@ export function LocalizedFields({
             onChange={(e) => onChange({ ...value, ar: e.target.value })}
           />
         </div>
-        <div className="space-y-1">
-          <span className="text-[10px] uppercase tracking-wider text-muted-foreground">EN</span>
+        <div className="space-y-1.5 rounded-xl border border-white/8 bg-black/20 p-3">
+          <span className="text-[10px] tracking-[0.18em] text-white/45 uppercase">EN</span>
           <InputCmp
             className={adminFieldClass}
             dir="ltr"
@@ -88,28 +90,26 @@ type SectionCardProps = {
 
 export function SectionCard({ title, subtitle, actions, children, className }: SectionCardProps) {
   return (
-    <section
-      className={cn(
-        "rounded-xl border border-violet-500/20 bg-card/80 p-4 shadow-[0_0_40px_-12px] shadow-violet-glow/20 backdrop-blur-sm sm:p-6",
-        className,
-      )}
-    >
-      <p className="font-display text-xl tracking-wide text-violet-soft">{title}</p>
-      {subtitle ? <p className="mt-1 text-sm text-muted-foreground">{subtitle}</p> : null}
-      {actions ? <div className="mt-3 flex flex-wrap gap-2">{actions}</div> : null}
-      <div className="mt-4 space-y-4">{children}</div>
+    <section className={cn("cms-panel", className)}>
+      <div className="cms-panel-head">
+        <div className="min-w-0">
+          <p className="font-display text-[clamp(1.6rem,3vw,2.2rem)] leading-none tracking-[0.06em] text-white">
+            {title}
+          </p>
+          {subtitle ? <p className="mt-2 max-w-2xl text-sm text-white/55">{subtitle}</p> : null}
+        </div>
+        {actions ? <div className="flex flex-wrap gap-2">{actions}</div> : null}
+      </div>
+      <div className="space-y-5">{children}</div>
     </section>
   );
 }
 
-export function AdminSelect({
-  className,
-  ...props
-}: React.ComponentProps<"select">) {
+export function AdminSelect({ className, ...props }: React.ComponentProps<"select">) {
   return (
     <select
       className={cn(
-        "flex h-9 w-full rounded-md border px-3 py-1 text-sm shadow-sm focus-visible:outline-none focus-visible:ring-1",
+        "flex h-10 w-full rounded-xl border px-3 py-2 text-sm shadow-sm outline-none",
         adminFieldClass,
         className,
       )}

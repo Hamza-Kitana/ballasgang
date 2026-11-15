@@ -2091,3 +2091,143 @@ html[lang="ar"] .ballas-power-word {
     display: none;
   }
 }
+
+/* Ballas CMS */
+.cms-shell {
+  background:
+    radial-gradient(ellipse 80% 50% at 10% -10%, oklch(0.45 0.22 305 / 0.35), transparent 55%),
+    radial-gradient(ellipse 60% 40% at 100% 0%, oklch(0.35 0.18 320 / 0.25), transparent 50%),
+    linear-gradient(180deg, oklch(0.1 0.05 305), oklch(0.08 0.04 305));
+}
+
+.cms-topbar {
+  border-bottom: 1px solid oklch(1 0 0 / 0.08);
+  background: oklch(0.1 0.05 305 / 0.82);
+  backdrop-filter: blur(16px);
+}
+
+.cms-sidebar {
+  border-inline-end: 1px solid oklch(1 0 0 / 0.08);
+  background: oklch(0.12 0.06 305 / 0.92);
+  backdrop-filter: blur(18px);
+}
+
+.cms-nav-item {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  border-radius: 0.9rem;
+  border: 1px solid transparent;
+  padding: 0.7rem 0.8rem;
+  color: oklch(0.85 0.03 305 / 0.75);
+  transition: 0.2s ease;
+}
+
+.cms-nav-item:hover {
+  background: oklch(1 0 0 / 0.04);
+  color: white;
+}
+
+.cms-nav-item-active {
+  border-color: oklch(0.64 0.28 305 / 0.35);
+  background: linear-gradient(135deg, oklch(0.45 0.22 305 / 0.35), oklch(0.25 0.1 305 / 0.45));
+  color: white;
+  box-shadow: 0 10px 30px -18px oklch(0.64 0.28 305);
+}
+
+.cms-nav-icon {
+  display: grid;
+  place-items: center;
+  width: 2rem;
+  height: 2rem;
+  border-radius: 0.7rem;
+  background: oklch(1 0 0 / 0.05);
+  color: oklch(0.8 0.11 310 / 0.8);
+}
+
+.cms-nav-icon-active {
+  background: oklch(0.64 0.28 305 / 0.35);
+  color: white;
+}
+
+.cms-panel {
+  border-radius: 1.4rem;
+  border: 1px solid oklch(1 0 0 / 0.1);
+  background:
+    linear-gradient(160deg, oklch(0.18 0.07 305 / 0.9), oklch(0.13 0.05 305 / 0.92));
+  padding: 1.15rem;
+  box-shadow: 0 24px 60px -30px rgba(0, 0, 0, 0.65);
+}
+
+@media (min-width: 640px) {
+  .cms-panel {
+    padding: 1.4rem 1.5rem;
+  }
+}
+
+.cms-panel-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 0.85rem;
+  margin-bottom: 1.25rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid oklch(1 0 0 / 0.08);
+}
+
+.cms-btn-primary {
+  background: linear-gradient(135deg, oklch(0.64 0.28 305), oklch(0.52 0.24 318)) !important;
+  color: white !important;
+  border: 0 !important;
+  box-shadow: 0 12px 28px -14px oklch(0.64 0.28 305);
+}
+
+.cms-btn-primary:hover {
+  filter: brightness(1.08);
+}
+
+.cms-btn-primary:disabled {
+  opacity: 0.45;
+  filter: none;
+}
+
+.cms-pick-card {
+  border-radius: 1.15rem;
+  border: 1px solid oklch(1 0 0 / 0.1);
+  background: oklch(0.14 0.05 305 / 0.85);
+  transition: 0.22s ease;
+}
+
+.cms-pick-card:hover {
+  border-color: oklch(0.64 0.28 305 / 0.35);
+  transform: translateY(-2px);
+}
+
+.cms-pick-card-active {
+  border-color: oklch(0.64 0.28 305 / 0.65);
+  box-shadow: 0 0 0 1px oklch(0.64 0.28 305 / 0.35), 0 18px 40px -24px oklch(0.64 0.28 305);
+}
+
+.cms-stat {
+  border-radius: 1.1rem;
+  border: 1px solid oklch(1 0 0 / 0.08);
+  background: linear-gradient(160deg, oklch(0.22 0.09 305 / 0.45), oklch(0.12 0.05 305 / 0.7));
+  padding: 1rem 1.05rem;
+}
+
+.cms-login {
+  background:
+    radial-gradient(ellipse at 50% 0%, oklch(0.42 0.22 305 / 0.45), transparent 55%),
+    oklch(0.08 0.04 305);
+}
+
+.cms-login-card {
+  border: 1px solid oklch(1 0 0 / 0.12);
+  background: linear-gradient(165deg, oklch(0.2 0.08 305 / 0.95), oklch(0.12 0.05 305 / 0.96));
+  box-shadow: 0 30px 80px -35px oklch(0.45 0.22 305);
+}
+
+.cms-image-drop {
+  box-shadow: inset 0 0 0 1px oklch(1 0 0 / 0.04);
+}

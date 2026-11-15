@@ -7,6 +7,7 @@ import {
   logoutAdmin,
   requireAdmin,
 } from "@/server/admin-session";
+import { dataUrlToBuffer, uploadImageBuffer } from "@/server/image-upload";
 import { getSiteData, getStoreStatus, saveSiteData, seedSiteData } from "@/server/site-store";
 
 export const getPublicSiteData = createServerFn({ method: "GET" }).handler(async () => {
@@ -72,3 +73,22 @@ export const seedAdminSiteData = createServerFn({ method: "POST" }).handler(asyn
     };
   }
 });
+
+export const uploadAdminImage = createServerFn({ method: "POST" })
+  .validator(
+    z.object({
+      dataUrl: z.string().min(32).max(6_000_000),
+      filename: z.string().min(1).max(120).optional(),
+    }),
+  )
+  .handler(async ({ data }) => {
+    await requireAdmin();
+    const { buffer, ext } = dataUrlToBuffer(data.dataUrl);
+    if (buffer.byteLength > 4_500_000) {
+      throw new Error("الصورة كبيرة جدًا · Image too large");
+    }
+    const name = (data.filename || `ballas-${Date.now()}`).replace(/[^\w.-]+/g, "_");
+    const filename = name.includes(".") ? name : `${name}.${ext}`;
+    const url = await uploadImageBuffer(buffer, filename);
+    return { url };
+  });
