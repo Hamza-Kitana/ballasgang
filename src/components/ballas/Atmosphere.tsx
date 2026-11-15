@@ -1,9 +1,11 @@
 import { useSiteData } from "@/data/SiteDataProvider";
+import { extractYoutubeId } from "@/lib/youtube";
 
 /** Cinematic Ballas reel as full-site backdrop */
 export function Atmosphere() {
   const { data } = useSiteData();
-  const videoId = data.settings.bgVideoId || "-v1nh3KeKAM";
+  const videoId =
+    extractYoutubeId(data.settings.bgVideoId) || "-v1nh3KeKAM";
 
   const videoSrc = [
     `https://www.youtube-nocookie.com/embed/${videoId}`,

@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { useSiteData } from "@/data/SiteDataProvider";
 import { useLanguage } from "@/i18n/LanguageProvider";
+import { extractYoutubeId } from "@/lib/youtube";
 import { cn } from "@/lib/utils";
 
 /** Fallback Ballas street anthem */
@@ -71,7 +72,8 @@ function loadYouTubeApi() {
 export function BallasMusic({ active }: BallasMusicProps) {
   const { t } = useLanguage();
   const { data } = useSiteData();
-  const trackId = data.settings.musicTrackId || BALLAS_TRACK_ID;
+  const trackId =
+    extractYoutubeId(data.settings.musicTrackId) || BALLAS_TRACK_ID;
   const hostRef = useRef<HTMLDivElement>(null);
   const playerRef = useRef<YtPlayer | null>(null);
   const [muted, setMuted] = useState(false);

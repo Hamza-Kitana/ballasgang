@@ -251,20 +251,28 @@ export function MembersSection({ site, onPatch }: MembersSectionProps) {
               />
             </div>
           </Field>
-          <Field label="رابط البث">
+          <Field
+            label="رابط البث"
+            hint="رابط يوتيوب / Kick / Twitch / TikTok كامل عادي"
+          >
             <Input
               className={adminFieldClass}
               dir="ltr"
               value={current.streamUrl ?? ""}
               onChange={(e) => patchMember({ streamUrl: e.target.value || undefined })}
-              placeholder="https://kick.com/… أو youtube…"
+              placeholder="https://www.youtube.com/@channel أو https://kick.com/…"
             />
           </Field>
-          <Field label="فيديو خلفية الملف">
+          <Field
+            label="فيديو خلفية الملف"
+            hint="مسار محلي مثل /videos/gta-1.mp4 أو اتركه كما هو"
+          >
             <Input
               className={adminFieldClass}
+              dir="ltr"
               value={current.bgVideo}
               onChange={(e) => patchMember({ bgVideo: e.target.value })}
+              placeholder="/videos/gta-1.mp4"
             />
           </Field>
         </div>
