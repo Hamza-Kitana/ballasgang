@@ -11,23 +11,44 @@ import {
   updateSiteBin,
 } from "@/server/jsonbin";
 
-const LOCAL_FILE = path.join(process.cwd(), "data", "site-data.json");
+function isServerlessRuntime() {
+  return Boolean(
+    process.env.VERCEL ||
+      process.env.AWS_LAMBDA_FUNCTION_NAME ||
+      process.env.NETLIFY ||
+      process.env.CF_PAGES,
+  );
+}
+
+function localFilePath() {
+  // Vercel/Lambda filesystem is read-only except /tmp
+  if (isServerlessRuntime()) {
+    return path.join("/tmp", "ballas-site-data.json");
+  }
+  return path.join(process.cwd(), "data", "site-data.json");
+}
 
 let memoryCache: { data: SiteData; at: number } | null = null;
 const CACHE_TTL_MS = 8_000;
 
 async function readLocalFile(): Promise<SiteData | null> {
   try {
-    const raw = await readFile(LOCAL_FILE, "utf8");
+    const raw = await readFile(localFilePath(), "utf8");
     return parseSiteData(JSON.parse(raw));
   } catch {
     return null;
   }
 }
 
+/** Best-effort local cache — never throws (serverless-safe). */
 async function writeLocalFile(data: SiteData) {
-  await mkdir(path.dirname(LOCAL_FILE), { recursive: true });
-  await writeFile(LOCAL_FILE, JSON.stringify(data, null, 2), "utf8");
+  try {
+    const file = localFilePath();
+    await mkdir(path.dirname(file), { recursive: true });
+    await writeFile(file, JSON.stringify(data, null, 2), "utf8");
+  } catch (error) {
+    console.warn("[site-store] local cache write skipped:", error);
+  }
 }
 
 function setCache(data: SiteData) {
@@ -44,14 +65,14 @@ export async function getSiteData(options?: { force?: boolean }): Promise<SiteDa
     try {
       const remote = await readSiteBin();
       setCache(remote);
-      void writeLocalFile(remote).catch(() => undefined);
+      void writeLocalFile(remote);
       return remote;
     } catch (error) {
       console.error("[site-store] JSONBin read failed:", error);
     }
   }
 
-  // 2) Local file fallback
+  // 2) Local file fallback (dev /tmp on serverless)
   const local = await readLocalFile();
   if (local) {
     setCache(local);
@@ -104,6 +125,11 @@ export async function saveSiteData(input: SiteData): Promise<SaveSiteResult> {
   await writeLocalFile(data);
   setCache(data);
 
+  // On production, require JSONBin success so admin knows save stuck
+  if (!remoteSynced && isServerlessRuntime()) {
+    throw new Error(remoteError || "Failed to save to JSONBin");
+  }
+
   return { site: data, remoteSynced, createdBinId, remoteError };
 }
 
@@ -139,5 +165,6 @@ export function getStoreStatus() {
     binIdConfigured: hasBinId(),
     binId: process.env.JSONBIN_BIN_ID?.trim() || null,
     hasMemoryCache: Boolean(memoryCache),
+    serverless: isServerlessRuntime(),
   };
 }
